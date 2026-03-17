@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+:root {
+  --ink-black: #1a1a1a;
+  --washi-base: #f4f1ea;
+  --cinnabar: #9b2c2c;
+  --sage: #828e70;
+
+  --background: #f4f1ea;
+  --foreground: #1a1a1a;
+}
+
+@theme inline {
+  --color-ink-black: var(--ink-black);
+  --color-washi-base: var(--washi-base);
+  --color-cinnabar: var(--cinnabar);
+  --color-sage: var(--sage);
+}
+
+body {
+  background-color: var(--washi-base);
+  color: var(--ink-black);
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+.wabi-card {
+  background-color: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--sage);
+  box-shadow: 4px 4px 0px var(--sage);
+  border-radius: 1rem;
+}

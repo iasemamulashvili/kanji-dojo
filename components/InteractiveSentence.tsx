@@ -6,7 +6,7 @@ import { Volume2 } from 'lucide-react';
 export interface Token {
   text: string;
   furigana?: string;
-  meaning?: string;
+  english?: string;
 }
 
 export interface Sentence {
@@ -73,10 +73,10 @@ export default function InteractiveSentence({ sentence }: { sentence: Sentence }
               <Volume2 className="h-5 w-5" />
             </button>
           </div>
-          {activeToken.meaning && (
-            <div className="text-ink-black border-t border-sage pt-3 capitalize">
-              {activeToken.meaning}
-            </div>
+          {activeToken.english && (
+            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+              {activeToken.english}
+            </p>
           )}
         </div>
       )}

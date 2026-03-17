@@ -35,7 +35,7 @@ For each Kanji, you MUST strictly follow this exact structural schema:
       "japanese": "string",
       "english": "string",
       "tokens": [
-        { "text": "string", "furigana": "string (optional)" }
+        { "text": "string", "furigana": "string (optional)", "english": "string (optional, direct English translation of the word. Use null for particles that don't translate cleanly)" }
       ]
     }
   ] // MUST be exactly 3 sentence objects.

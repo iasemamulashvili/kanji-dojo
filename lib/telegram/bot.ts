@@ -45,17 +45,29 @@ bot.command('ask', async (ctx) => {
     return ctx.reply("Sensei needs a question! Try: /ask How do I remember the Kanji for Water?");
   }
 
+  // Immediately send a placeholder to satisfy the webhook timeout
+  const pendingMsg = await ctx.reply("Sensei is consulting the scrolls... 📜");
+
   try {
-    // Send a typing indicator to UX
-    await ctx.sendChatAction('typing');
-    
     // Process query using Gemini
     const response = await askTutor(query);
-    
-    return ctx.reply(response);
+
+    // Edit the placeholder with the real answer
+    await ctx.telegram.editMessageText(
+      ctx.chat.id,
+      pendingMsg.message_id,
+      undefined,
+      response
+    );
   } catch (error) {
     console.error('Error handling /ask command:', error);
-    return ctx.reply("Sensei is currently meditating. Please try asking again later.");
+    // Edit the placeholder with a friendly error
+    await ctx.telegram.editMessageText(
+      ctx.chat.id,
+      pendingMsg.message_id,
+      undefined,
+      "Sorry, my mind is cloudy right now. Please try asking again."
+    );
   }
 });
 

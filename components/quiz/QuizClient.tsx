@@ -61,6 +61,73 @@ function ProgressPips({
   );
 }
 
+// ── Shared layout wrapper ─────────────────────────────────────────────────
+function PageLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <div
+      className="relative min-h-screen overflow-x-hidden p-4 md:p-8 flex flex-col items-center"
+      style={{ background: "#F4F1EB", color: "#2C2F24" }}
+    >
+      {/* Leaf — left */}
+      <div
+        className="pointer-events-none select-none"
+        style={{
+          position: "fixed",
+          left: "-60px",
+          top: "60px",
+          width: "240px",
+          opacity: 0.28,
+          mixBlendMode: "multiply",
+          zIndex: 0,
+          transform: "rotate(-12deg)",
+        }}
+        aria-hidden="true"
+      >
+        <Image src="/left-leaf.svg" alt="" width={240} height={480} priority />
+      </div>
+
+      {/* Leaf — right */}
+      <div
+        className="pointer-events-none select-none"
+        style={{
+          position: "fixed",
+          right: "-60px",
+          bottom: "80px",
+          width: "220px",
+          opacity: 0.24,
+          mixBlendMode: "multiply",
+          zIndex: 0,
+          transform: "rotate(8deg)",
+        }}
+        aria-hidden="true"
+      >
+        <Image src="/right-leaf.svg" alt="" width={220} height={440} priority />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 flex flex-col items-center w-full">
+        {/* Header */}
+        <header className="flex justify-between items-center w-full max-w-md mx-auto mb-8">
+          <div
+            className="text-lg font-bold tracking-[0.25em] uppercase"
+            style={{ color: "#2C2F24" }}
+          >
+            Kanji Dojo
+          </div>
+          <div
+            className="text-xs font-semibold tracking-wider uppercase px-3 py-1 rounded-full"
+            style={{ background: "rgba(138,154,65,0.12)", color: "#8A9A41" }}
+          >
+            Quiz
+          </div>
+        </header>
+
+        {children}
+      </div>
+    </div>
+  );
+}
+
 // ─── Main QuizClient ────────────────────────────────────────────────────────
 
 interface Props {
@@ -105,71 +172,7 @@ export default function QuizClient({ sessionId }: Props) {
   }
 
   // ── Shared layout wrapper ─────────────────────────────────────────────────
-  function PageLayout({ children }: { children: React.ReactNode }) {
-    return (
-      <div
-        className="relative min-h-screen overflow-x-hidden p-4 md:p-8 flex flex-col items-center"
-        style={{ background: "#F4F1EB", color: "#2C2F24" }}
-      >
-        {/* Leaf — left */}
-        <div
-          className="pointer-events-none select-none"
-          style={{
-            position: "fixed",
-            left: "-60px",
-            top: "60px",
-            width: "240px",
-            opacity: 0.28,
-            mixBlendMode: "multiply",
-            zIndex: 0,
-            transform: "rotate(-12deg)",
-          }}
-          aria-hidden="true"
-        >
-          <Image src="/left-leaf.svg" alt="" width={240} height={480} priority />
-        </div>
-
-        {/* Leaf — right */}
-        <div
-          className="pointer-events-none select-none"
-          style={{
-            position: "fixed",
-            right: "-60px",
-            bottom: "80px",
-            width: "220px",
-            opacity: 0.24,
-            mixBlendMode: "multiply",
-            zIndex: 0,
-            transform: "rotate(8deg)",
-          }}
-          aria-hidden="true"
-        >
-          <Image src="/right-leaf.svg" alt="" width={220} height={440} priority />
-        </div>
-
-        {/* Content */}
-        <div className="relative z-10 flex flex-col items-center w-full">
-          {/* Header */}
-          <header className="flex justify-between items-center w-full max-w-md mx-auto mb-8">
-            <div
-              className="text-lg font-bold tracking-[0.25em] uppercase"
-              style={{ color: "#2C2F24" }}
-            >
-              Kanji Dojo
-            </div>
-            <div
-              className="text-xs font-semibold tracking-wider uppercase px-3 py-1 rounded-full"
-              style={{ background: "rgba(138,154,65,0.12)", color: "#8A9A41" }}
-            >
-              Quiz
-            </div>
-          </header>
-
-          {children}
-        </div>
-      </div>
-    );
-  }
+  // Extracted to top-level to prevent unnecessary remounts
 
   // ── Loading ───────────────────────────────────────────────────────────────
   if (status === "loading") {

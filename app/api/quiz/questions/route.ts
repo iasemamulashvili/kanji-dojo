@@ -60,6 +60,7 @@ interface KanjiRow {
   meanings: string[] | null;
   onyomi: string[] | null;
   kunyomi: string[] | null;
+  jlpt_order: number;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -198,7 +199,7 @@ export async function GET(req: NextRequest) {
   // 4. Fetch the target kanji
   const { data: targetKanji, error: targetError } = await supabase
     .from('kanjis')
-    .select('id, character, meanings, onyomi, kunyomi')
+    .select('id, character, meanings, onyomi, kunyomi, jlpt_order')
     .eq('id', session.kanji_id)
     .single<KanjiRow>();
 
@@ -206,18 +207,43 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Target kanji not found' }, { status: 404 });
   }
 
-  // 5. Fetch 9 random distractor kanjis (excluding the target) so we have
-  //    enough variety across all 4 question types.
-  //    We use a random offset trick since Supabase doesn't support ORDER BY RANDOM()
-  //    directly on large tables via the JS client, so we fetch a wider slice.
-  const { data: allKanjis, error: distractorError } = await supabase
+  // 5. Fetch distractor kanjis (excluding the target) from the pool of already learnt kanji
+  //    (jlpt_order <= targetKanji.jlpt_order)
+  let { data: allKanjis, error: distractorError } = await supabase
     .from('kanjis')
-    .select('id, character, meanings, onyomi, kunyomi')
+    .select('id, character, meanings, onyomi, kunyomi, jlpt_order')
+    .lte('jlpt_order', targetKanji.jlpt_order)
     .neq('id', targetKanji.id)
-    .limit(50)
     .returns<KanjiRow[]>();
 
-  if (distractorError || !allKanjis || allKanjis.length < 3) {
+  if (distractorError) {
+    return NextResponse.json(
+      { error: 'Error fetching distractors' },
+      { status: 500 }
+    );
+  }
+
+  // If there are not enough learnt kanjis (e.g. very first few kanji), 
+  // fallback to fetching the lowest jlpt_order kanjis available.
+  if (!allKanjis || allKanjis.length < 9) {
+    const { data: fallback } = await supabase
+      .from('kanjis')
+      .select('id, character, meanings, onyomi, kunyomi, jlpt_order')
+      .neq('id', targetKanji.id)
+      .order('jlpt_order', { ascending: true })
+      .limit(20)
+      .returns<KanjiRow[]>();
+      
+    const combined = [...(allKanjis || []), ...(fallback || [])];
+    const uniqueIds = new Set();
+    allKanjis = combined.filter(k => {
+      if (uniqueIds.has(k.id)) return false;
+      uniqueIds.add(k.id);
+      return true;
+    });
+  }
+
+  if (allKanjis.length < 3) {
     return NextResponse.json(
       { error: 'Not enough kanji in DB to generate distractors' },
       { status: 500 }

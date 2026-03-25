@@ -17,7 +17,6 @@ interface KanjiData {
 
 interface PracticeClientProps {
   kanjiData: KanjiData;
-  isQuizMode: boolean;
 }
 
 /** Wavy SVG divider — replaces rigid border-bottom lines */
@@ -37,11 +36,11 @@ function WabiDivider() {
   );
 }
 
-export default function PracticeClient({ kanjiData, isQuizMode }: PracticeClientProps) {
+export default function PracticeClient({ kanjiData }: PracticeClientProps) {
   const router = useRouter();
 
-  const handleRandomQuiz = () => {
-    window.location.href = '/practice?mode=quiz';
+  const handleStartGroupQuiz = () => {
+    window.location.href = '/api/quiz/start';
   };
 
   const meaningsText = Array.isArray(kanjiData.meanings)
@@ -118,14 +117,6 @@ export default function PracticeClient({ kanjiData, isQuizMode }: PracticeClient
             Kanji Dojo
           </div>
           <div className="flex items-center gap-3">
-            {isQuizMode && (
-              <div
-                className="text-xs font-semibold tracking-wider uppercase px-3 py-1 rounded-full"
-                style={{ background: 'rgba(155, 44, 44, 0.10)', color: '#9b2c2c' }}
-              >
-                Quiz Mode
-              </div>
-            )}
             <div className="text-sm font-medium" style={{ color: '#8A9A41' }}>
               Session Active
             </div>
@@ -134,39 +125,17 @@ export default function PracticeClient({ kanjiData, isQuizMode }: PracticeClient
 
         {/* ──────────────────────────────────────────
             MAIN KANJI STONE — glassmorphism centrepiece
-            Hidden in quiz mode; replaced by challenge card.
         ─────────────────────────────────────────── */}
-        {!isQuizMode && (
-          <div
-            className="kanji-stone w-full max-w-md flex items-center justify-center mb-10 py-14 px-8"
+        <div
+          className="kanji-stone w-full max-w-md flex items-center justify-center mb-10 py-14 px-8"
+        >
+          <span
+            className="font-bold leading-none select-none"
+            style={{ fontSize: 'clamp(5rem, 22vw, 8rem)', color: '#2C2F24' }}
           >
-            <span
-              className="font-bold leading-none select-none"
-              style={{ fontSize: 'clamp(5rem, 22vw, 8rem)', color: '#2C2F24' }}
-            >
-              {kanjiData.character}
-            </span>
-          </div>
-        )}
-
-        {/* ── Quiz Challenge Prompt ── */}
-        {isQuizMode && (
-          <div
-            className="wabi-card w-full max-w-md p-8 flex flex-col items-center justify-center mb-10"
-            style={{ borderColor: 'rgba(155, 44, 44, 0.28)' }}
-          >
-            <div className="text-4xl mb-3">🧠</div>
-            <div
-              className="text-xs font-semibold tracking-wider uppercase mb-2"
-              style={{ color: '#8A9A41' }}
-            >
-              Draw this Kanji
-            </div>
-            <div className="text-3xl capitalize font-bold text-center" style={{ color: '#2C2F24' }}>
-              {meaningsText}
-            </div>
-          </div>
-        )}
+            {kanjiData.character}
+          </span>
+        </div>
 
         <WabiDivider />
 
@@ -175,62 +144,48 @@ export default function PracticeClient({ kanjiData, isQuizMode }: PracticeClient
           <KanjiReadings onyomi={kanjiData.onyomi} kunyomi={kanjiData.kunyomi} />
         </div>
 
-        {/* Meanings (practice mode only) */}
-        {!isQuizMode && (
-          <>
-            <div className="w-full max-w-md mb-8">
-              <div className="wabi-card p-5 w-full flex flex-col items-center">
-                <div
-                  className="text-xs font-semibold tracking-wider uppercase mb-2"
-                  style={{ color: '#8A9A41' }}
-                >
-                  Meanings
-                </div>
-                <div
-                  className="text-2xl capitalize font-medium text-center"
-                  style={{ color: '#2C2F24' }}
-                >
-                  {meaningsText}
-                </div>
-              </div>
+        {/* Meanings */}
+        <div className="w-full max-w-md mb-8">
+          <div className="wabi-card p-5 w-full flex flex-col items-center">
+            <div
+              className="text-xs font-semibold tracking-wider uppercase mb-2"
+              style={{ color: '#8A9A41' }}
+            >
+              Meanings
             </div>
-            <WabiDivider />
-          </>
-        )}
+            <div
+              className="text-2xl capitalize font-medium text-center"
+              style={{ color: '#2C2F24' }}
+            >
+              {meaningsText}
+            </div>
+          </div>
+        </div>
+        <WabiDivider />
 
         {/* Kanji Canvas + controls */}
         <div className="w-full max-w-md">
-          <KanjiCanvas character={kanjiData.character} initialMode={isQuizMode ? 'test' : 'practice'} />
+          <KanjiCanvas character={kanjiData.character} initialMode="practice" />
         </div>
 
         {/* Action buttons */}
         <div className="flex flex-col items-center gap-3 w-full max-w-md mt-8 pb-8">
           <button
-            onClick={handleRandomQuiz}
+            onClick={handleStartGroupQuiz}
             className="flex items-center justify-center gap-2 font-semibold py-3 px-8 rounded-2xl transition-all active:scale-95"
             style={{
-              background: isQuizMode ? 'rgba(155, 44, 44, 0.08)' : 'rgba(138, 154, 65, 0.12)',
-              color:      isQuizMode ? '#9b2c2c' : '#8A9A41',
-              border:     `1px solid ${isQuizMode ? 'rgba(155,44,44,0.20)' : 'rgba(138,154,65,0.30)'}`,
+              background: 'rgba(138, 154, 65, 0.12)',
+              color:      '#8A9A41',
+              border:     '1px solid rgba(138,154,65,0.30)',
             }}
           >
             <Shuffle className="w-4 h-4" />
-            {isQuizMode ? 'Next Random Quiz' : 'Random Quiz'}
+            Start Multiplayer Quiz
           </button>
-
-          {isQuizMode && (
-            <button
-              onClick={() => (window.location.href = '/practice')}
-              className="text-sm transition-colors underline underline-offset-4"
-              style={{ color: '#8A9A41' }}
-            >
-              ← Back to Practice
-            </button>
-          )}
         </div>
 
         {/* Example sentences */}
-        {kanjiData.example_sentences && kanjiData.example_sentences.length > 0 && !isQuizMode && (
+        {kanjiData.example_sentences && kanjiData.example_sentences.length > 0 && (
           <div className="w-full max-w-md mt-2 pb-12">
             <h3
               className="font-semibold uppercase tracking-wider text-sm mb-4 text-center"

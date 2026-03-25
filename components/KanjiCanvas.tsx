@@ -77,14 +77,14 @@ export default function KanjiCanvas({ character, initialMode = 'practice' }: Kan
     <div className="flex flex-col items-center gap-6">
       <div 
         ref={containerRef} 
-        className="bg-white/40 backdrop-blur-sm rounded-[2rem] p-4 shadow-sm border border-sage/20 flex justify-center items-center" 
+        className="wabi-card p-4 flex justify-center items-center" 
       />
       
       <div className="flex gap-4 w-full justify-center px-4">
         <button 
           onClick={() => writerRef.current?.animateCharacter()}
           className="flex flex-1 items-center justify-center gap-2 bg-transparent font-semibold py-2 px-1 transition-all active:scale-95"
-          style={{ color: '#9b2c2c', borderBottom: '2px solid #828e70' }}
+          style={{ color: '#9b2c2c', borderBottom: '1.5px solid rgba(138,154,65,0.50)' }}
         >
           <Play className="w-5 h-5" /> Animate
         </button>
@@ -92,8 +92,8 @@ export default function KanjiCanvas({ character, initialMode = 'practice' }: Kan
           onClick={handlePractice}
           className="flex flex-1 items-center justify-center gap-2 bg-transparent font-semibold py-2 px-1 transition-all active:scale-95"
           style={{ 
-            color: mode === 'practice' ? '#828e70' : '#1a1a1a', 
-            borderBottom: `2px solid ${mode === 'practice' ? '#828e70' : 'rgba(130, 142, 112, 0.5)'}`
+            color: mode === 'practice' ? '#8A9A41' : '#2C2F24', 
+            borderBottom: `1.5px solid ${mode === 'practice' ? '#8A9A41' : 'rgba(138,154,65,0.25)'}`
           }}
         >
           <PenTool className="w-5 h-5" /> Practice
@@ -102,8 +102,8 @@ export default function KanjiCanvas({ character, initialMode = 'practice' }: Kan
           onClick={handleTest}
           className="flex flex-1 items-center justify-center gap-2 bg-transparent font-semibold py-2 px-1 transition-all active:scale-95"
           style={{ 
-            color: mode === 'test' ? '#828e70' : '#1a1a1a', 
-            borderBottom: `2px solid ${mode === 'test' ? '#828e70' : 'rgba(130, 142, 112, 0.5)'}`
+            color: mode === 'test' ? '#8A9A41' : '#2C2F24', 
+            borderBottom: `1.5px solid ${mode === 'test' ? '#8A9A41' : 'rgba(138,154,65,0.25)'}`
           }}
         >
           <GraduationCap className="w-5 h-5" /> Test

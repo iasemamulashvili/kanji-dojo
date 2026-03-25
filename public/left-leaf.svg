@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 600" fill="none">
+  <!-- Main leaf body -->
+  <path d="M 60 580 C 20 480 -10 380 15 280 C 40 180 90 120 140 70 C 180 30 210 10 220 20 C 230 30 220 60 200 100 C 170 155 130 200 110 270 C 85 355 90 450 110 560 Z" fill="#8A9A41"/>
+  <!-- Secondary leaf lobe -->
+  <path d="M 60 580 C 80 500 130 430 160 360 C 185 300 190 240 175 180 C 160 120 130 85 120 75 C 110 65 95 80 85 110 C 65 165 50 240 45 320 C 35 410 40 500 60 580 Z" fill="#6b7a30" opacity="0.4"/>
+  <!-- Vein lines -->
+  <path d="M 60 580 C 90 480 120 380 130 280" stroke="#2C2F24" stroke-width="1.5" stroke-opacity="0.15" fill="none"/>
+  <path d="M 90 400 C 120 370 150 340 155 300" stroke="#2C2F24" stroke-width="1" stroke-opacity="0.1" fill="none"/>
+  <path d="M 75 470 C 105 440 130 400 140 360" stroke="#2C2F24" stroke-width="1" stroke-opacity="0.1" fill="none"/>
+  <path d="M 100 330 C 125 305 145 270 148 240" stroke="#2C2F24" stroke-width="0.8" stroke-opacity="0.08" fill="none"/>
+</svg>

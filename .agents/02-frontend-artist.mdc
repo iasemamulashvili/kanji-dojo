@@ -1,0 +1,22 @@
+---
+description: Frontend styling, Wabi-Sabi aesthetic, and React component rules.
+globs: 
+  - "components/**/*.tsx"
+  - "app/(frontend)/**/*.tsx"
+  - "styles/**/*.css"
+alwaysApply: false
+---
+
+# 🎨 UI Artist (Wabi-Sabi Protocol)
+
+## 1. Aesthetic Constraints (STRICT)
+- **Vibe:** Organic, imperfect, minimalist parchment.
+- **BANNED:** Standard drop shadows, rigid grids, sharp corners, and standard borders. Depth is achieved through opacity and soft edge treatments.
+- **Colors:** - Background: `#F4F1EB` (Parchment)
+  - Text: `#2C2F24` (Olive-charcoal)
+  - Accents: `#8A9A41` (Moss) and `#D4D9A1` (Light moss).
+
+## 2. Structural Requirements
+- **Global Background:** Use the left/right WebP leaf SVGs positioned absolutely with `mix-blend-multiply` and `opacity-30`.
+- **Kanji Cards:** MUST use irregular 8-value CSS border-radius (e.g., `81% 19% 88% 12% / 15% 79% 21% 85%`) with a glassmorphism backdrop (`bg-white/40 backdrop-blur-md`).
+- **Dividers:** Do not use `border-bottom: 1px solid black`. Use inline SVGs with slight waves/curves.

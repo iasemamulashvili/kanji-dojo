@@ -1,33 +1,83 @@
 @import "tailwindcss";
 
 :root {
-  --ink-black: #1a1a1a;
-  --washi-base: #f4f1ea;
-  --cinnabar: #9b2c2c;
-  --sage: #828e70;
+  /* Wabi-Sabi Core Palette */
+  --parchment:    #F4F1EB;
+  --ink-black:    #2C2F24;   /* olive-charcoal */
+  --cinnabar:     #9b2c2c;
+  --moss:         #8A9A41;   /* primary accent */
+  --moss-light:   #D4D9A1;
+  --sage:         #828e70;
+  --washi-base:   #F4F1EB;
 
-  --background: #f4f1ea;
-  --foreground: #1a1a1a;
+  --background:   var(--parchment);
+  --foreground:   var(--ink-black);
 }
 
 @theme inline {
-  --color-ink-black: var(--ink-black);
+  --color-ink-black:  var(--ink-black);
   --color-washi-base: var(--washi-base);
-  --color-cinnabar: var(--cinnabar);
-  --color-sage: var(--sage);
+  --color-parchment:  var(--parchment);
+  --color-cinnabar:   var(--cinnabar);
+  --color-sage:       var(--sage);
+  --color-moss:       var(--moss);
+  --color-moss-light: var(--moss-light);
+}
+
+/* ─────────────────────────────────────────
+   Base Reset
+───────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 body {
-  background-color: var(--washi-base);
+  background-color: var(--parchment);
   color: var(--ink-black);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', 'Hiragino Sans', 'Noto Sans JP', Arial, Helvetica, sans-serif;
   min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
 }
 
+/* ─────────────────────────────────────────
+   Wabi-Sabi Card — glassmorphism, no rigid borders
+───────────────────────────────────────── */
 .wabi-card {
-  background-color: rgba(255, 255, 255, 0.5);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--sage);
-  box-shadow: 4px 4px 0px var(--sage);
-  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.40);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(138, 154, 65, 0.25);   /* soft moss edge */
+  border-radius: 1.25rem;
+  /* No box-shadow — anti-rigidity */
+}
+
+/* ─────────────────────────────────────────
+   Organic Kanji Stone — the centrepiece card
+───────────────────────────────────────── */
+.kanji-stone {
+  background: rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(212, 217, 161, 0.45);  /* moss-light edge */
+  /* Irregular 8-value border-radius for organic feel */
+  border-radius: 81% 19% 88% 12% / 15% 79% 21% 85%;
+  transition: border-radius 0.6s ease;
+}
+.kanji-stone:hover {
+  border-radius: 72% 28% 80% 20% / 22% 70% 30% 78%;
+}
+
+/* ─────────────────────────────────────────
+   Wavy SVG Divider (utility class)
+───────────────────────────────────────── */
+.wabi-divider {
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  opacity: 0.35;
+}
+.wabi-divider svg {
+  display: block;
+  width: 100%;
+  height: 20px;
 }

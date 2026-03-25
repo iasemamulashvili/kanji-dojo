@@ -2,7 +2,7 @@ import { Telegraf, Markup } from 'telegraf';
 import { createClient } from '@supabase/supabase-js';
 import { askTutor } from '../ai/tutor';
 import { signTelegramToken } from '../auth/jwt';
-
+import { broadcastNextKanji } from '../game-logic/broadcast';
 // Initialize Supabase Client for bot interactions
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -127,10 +127,83 @@ bot.command('quiz', async (ctx) => {
 });
 
 bot.command('next', async (ctx) => {
-  await ctx.reply(
-    "Move to the next Kanji? (Need 1 more confirmation)",
-    Markup.inlineKeyboard([Markup.button.callback('✅ Confirm Next', 'confirm_next')])
-  );
+  try {
+    const telegramId = ctx.from?.id;
+    const groupId = ctx.chat?.id;
+
+    if (!telegramId) return;
+
+    // 1. Fetch current active Kanji to get its jlpt_order
+    let currentJlptOrder = 0;
+    
+    if (groupId) {
+      const { data: settings } = await supabase
+        .from('group_settings')
+        .select('current_kanji_id')
+        .eq('group_id', groupId)
+        .single();
+        
+      if (settings?.current_kanji_id) {
+        const { data: currentKanji } = await supabase
+          .from('kanjis')
+          .select('jlpt_order')
+          .eq('id', settings.current_kanji_id)
+          .single();
+          
+        if (currentKanji) {
+          currentJlptOrder = currentKanji.jlpt_order;
+        }
+      }
+    }
+
+    if (!currentJlptOrder) {
+      await ctx.reply("Sensei cannot determine the current Kanji order to skip.");
+      return;
+    }
+
+    // 2. Insert vote
+    const { error: insertError } = await supabase
+      .from('kanji_votes')
+      .insert({
+        current_jlpt_order: currentJlptOrder,
+        voter_telegram_id: telegramId
+      });
+
+    if (insertError) {
+      if (insertError.code === '23505') { // Unique violation
+        await ctx.reply("You have already voted to skip this Kanji.");
+      } else {
+        console.error("Vote Insert Error:", insertError);
+        await ctx.reply("Sensei's brush slipped. Could not record your vote.");
+      }
+      return;
+    }
+
+    // 3. Count total votes
+    const { count, error: countError } = await supabase
+      .from('kanji_votes')
+      .select('*', { count: 'exact', head: true })
+      .eq('current_jlpt_order', currentJlptOrder);
+
+    if (countError) {
+      console.error("Vote Count Error:", countError);
+      return;
+    }
+
+    const totalVotes = count || 0;
+    const QUORUM = 3;
+
+    if (totalVotes < QUORUM) {
+      await ctx.reply(`Vote registered! [${totalVotes}/${QUORUM}] votes to skip to the next Kanji.`);
+    } else {
+      await ctx.reply("Vote passed! Skipping to the next Kanji...");
+      // Trigger the broadcast
+      await broadcastNextKanji('vote');
+    }
+  } catch (err) {
+    console.error("Error in /next command:", err);
+    await ctx.reply("A mystical wind disturbed the Dojo. Try again later.");
+  }
 });
 
 bot.command('prev', async (ctx) => {

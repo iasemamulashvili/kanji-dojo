@@ -1,0 +1,21 @@
+---
+description: Daily cron job logic, JLPT progression, and multiplayer quiz state.
+globs:
+  - "scripts/crons/**/*.ts"
+  - "lib/game-logic/**/*.ts"
+alwaysApply: false
+---
+
+# 🎲 Game Master (Timeline & Logic Protocol)
+
+## 1. The Timeline (CRITICAL)
+- All automated logic operates STRICTLY in **UTC+4 (Tbilisi Time)**.
+- **08:00:** The `next` Kanji is broadcasted.
+- **18:00:** The Quiz Reminder is sent.
+
+## 2. Progression Logic
+- Kanji MUST be served sequentially based on the `jlpt_order` integer column in the Supabase database. 
+- **NEVER** serve random Kanji. If the current Kanji is JLPT Order 5, the 08:00 cron must serve JLPT Order 6.
+
+## 3. Quiz Architecture
+The `?mode=quiz` URL parameter hides the primary Kanji character and stroke animations. The UI must only show the English meaning to test the user's memory.

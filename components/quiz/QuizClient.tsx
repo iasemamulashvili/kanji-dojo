@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import type { QuizQuestion as QuizQuestionType, QuizQuestionsResponse } from "@/app/api/quiz/questions/route";
 import QuizQuestion from "./QuizQuestion";
+import { createClient } from "@supabase/supabase-js";
 
 // ─── Wavy SVG divider (matches PracticeClient aesthetic) ───────────────────
 function WabiDivider() {
@@ -142,29 +143,96 @@ export default function QuizClient({ sessionId }: Props) {
   const [status, setStatus] = useState<Status>("loading");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [targetKanji, setTargetKanji] = useState<string>("");
+  const [participants, setParticipants] = useState<any[]>([]);
+  const [myParticipant, setMyParticipant] = useState<any>(null);
 
   useEffect(() => {
-    async function fetchQuestions() {
+    let channel: any;
+
+    async function initQuiz() {
       try {
-        const res = await fetch(`/api/quiz/questions?session_id=${sessionId}`);
-        if (!res.ok) {
-          const body = await res.json().catch(() => ({}));
-          throw new Error(body.error ?? `HTTP ${res.status}`);
+        const [qRes, jRes] = await Promise.all([
+          fetch(`/api/quiz/questions?session_id=${sessionId}`),
+          fetch(`/api/quiz/join`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ sessionId }),
+          }),
+        ]);
+
+        if (!qRes.ok) {
+          const body = await qRes.json().catch(() => ({}));
+          throw new Error(body.error ?? `Questions HTTP ${qRes.status}`);
         }
-        const data: QuizQuestionsResponse = await res.json();
-        setQuestions(data.questions);
-        setTargetKanji(data.kanji);
+        if (!jRes.ok) {
+           const body = await jRes.json().catch(() => ({}));
+           throw new Error(body.error ?? `Join HTTP ${jRes.status}`);
+        }
+
+        const qData: QuizQuestionsResponse = await qRes.json();
+        const jData = await jRes.json();
+
+        setQuestions(qData.questions);
+        setTargetKanji(qData.kanji);
+        setMyParticipant(jData.myParticipant);
+        setParticipants(jData.participants);
         setStatus("ready");
+
+        const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+        const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        channel = supabase
+          .channel(`quiz:${sessionId}`)
+          .on(
+            "postgres_changes",
+            {
+              event: "*",
+              schema: "public",
+              table: "quiz_participants",
+              filter: `session_id=eq.${sessionId}`,
+            },
+            (payload: any) => {
+              setParticipants((prev) => {
+                const exists = prev.find((p) => p.id === payload.new.id);
+                if (exists) {
+                  return prev.map((p) =>
+                    p.id === payload.new.id ? payload.new : p
+                  );
+                }
+                return [...prev, payload.new];
+              });
+            }
+          )
+          .subscribe();
       } catch (err: unknown) {
         setErrorMsg(err instanceof Error ? err.message : "Unknown error");
         setStatus("error");
       }
     }
-    fetchQuestions();
+    initQuiz();
+
+    return () => {
+      if (channel) channel.unsubscribe();
+    };
   }, [sessionId]);
 
-  function handleNext() {
-    if (currentIndex + 1 >= questions.length) {
+  function handleNext(correct: boolean) {
+    const isFinished = currentIndex + 1 >= questions.length;
+    let newScore = myParticipant?.score || 0;
+
+    if (correct) {
+      newScore += 1;
+      setMyParticipant((prev: any) => prev ? { ...prev, score: newScore } : prev);
+    }
+
+    fetch("/api/quiz/score", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ sessionId, score: newScore, finished: isFinished }),
+    });
+
+    if (isFinished) {
       setStatus("complete");
     } else {
       setCurrentIndex((i) => i + 1);
@@ -231,6 +299,13 @@ export default function QuizClient({ sessionId }: Props) {
 
   // ── Complete ──────────────────────────────────────────────────────────────
   if (status === "complete") {
+    const sorted = [...participants].sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      const timeA = new Date(a.finished_at || 0).getTime();
+      const timeB = new Date(b.finished_at || 0).getTime();
+      return timeA - timeB;
+    });
+
     return (
       <PageLayout>
         <div
@@ -247,32 +322,43 @@ export default function QuizClient({ sessionId }: Props) {
 
         <WabiDivider />
 
-        <div
-          className="wabi-card w-full max-w-md p-8 flex flex-col items-center text-center"
-          style={{ borderColor: "rgba(138,154,65,0.35)" }}
-        >
-          <div style={{ fontSize: "2.5rem", marginBottom: "0.75rem" }}>🎋</div>
-          <h2
-            style={{
-              fontSize: "1.3rem",
-              fontWeight: 700,
-              color: "#2C2F24",
-              marginBottom: "0.4rem",
-            }}
+        <div className="w-full max-w-md p-2">
+          <h3
+            className="text-center font-bold tracking-widest uppercase mb-4"
+            style={{ color: "#8A9A41", fontSize: "0.85rem" }}
           >
-            Quiz Complete
-          </h2>
-          <p
-            style={{
-              fontSize: "0.82rem",
-              fontWeight: 600,
-              letterSpacing: "0.10em",
-              textTransform: "uppercase",
-              color: "#8A9A41",
-            }}
-          >
-            All {questions.length} questions answered
-          </p>
+            Final Leaderboard
+          </h3>
+          <div className="flex flex-col gap-2">
+            {sorted.map((p, idx) => {
+              const isMe = p.telegram_id.toString() === myParticipant?.telegram_id?.toString();
+              return (
+                <div
+                  key={p.id}
+                  className="flex justify-between items-center p-4 rounded-xl"
+                  style={{
+                    background: isMe
+                      ? "rgba(138,154,65,0.15)"
+                      : "rgba(138,154,65,0.05)",
+                    border: "1px solid rgba(138,154,65,0.2)",
+                  }}
+                >
+                  <span
+                    className="font-semibold"
+                    style={{ color: isMe ? "#5a6b1e" : "#8A9A41" }}
+                  >
+                    {idx + 1}. {isMe ? "You" : `Player ${p.telegram_id.toString().slice(-4)}`}
+                  </span>
+                  <span
+                    className="font-bold text-xl"
+                    style={{ color: "#2C2F24" }}
+                  >
+                    {p.score} {p.finished && "🏁"}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
         </div>
       </PageLayout>
     );
@@ -289,17 +375,49 @@ export default function QuizClient({ sessionId }: Props) {
 
   return (
     <PageLayout>
-      {/* Kanji stone centrepiece */}
-      <div
-        className="kanji-stone w-full max-w-md flex items-center justify-center mb-8 py-10 px-8"
-        aria-label={`Quiz kanji: ${targetKanji}`}
-      >
-        <span
-          className="font-bold leading-none select-none"
-          style={{ fontSize: "clamp(4rem,18vw,7rem)", color: "#2C2F24" }}
+      {/* Arena Title & Scoreboard */}
+      <div className="w-full max-w-md flex flex-col mb-6">
+        <h2
+          className="text-center font-bold tracking-widest uppercase mb-3"
+          style={{ color: "#8A9A41", fontSize: "0.85rem" }}
         >
-          {targetKanji}
-        </span>
+          Live Arena
+        </h2>
+        <div
+          className="flex gap-2 flex-wrap justify-center p-3 rounded-xl"
+          style={{
+            background: "rgba(138,154,65,0.06)",
+            border: "1px solid rgba(138,154,65,0.15)",
+            minHeight: "48px"
+          }}
+        >
+          {participants.length === 0 && (
+            <span className="text-sm opacity-50 flex items-center">
+              Waiting for players...
+            </span>
+          )}
+          {[...participants]
+            .sort((a, b) => b.score - a.score)
+            .map((p) => {
+              const isMe = p.telegram_id.toString() === myParticipant?.telegram_id?.toString();
+              return (
+                <div
+                  key={p.id}
+                  className="text-xs px-2.5 py-1 rounded-md font-semibold flex items-center gap-2"
+                  style={{
+                    background: isMe ? "rgba(138,154,65,0.2)" : "transparent",
+                    color: isMe ? "#5a6b1e" : "#8A9A41",
+                  }}
+                >
+                  {isMe ? "You" : `P${p.telegram_id.toString().slice(-4)}`}
+                  <span className="bg-[#8A9A41] text-[#F4F1EB] px-1.5 py-0.5 rounded-sm">
+                    {p.score}
+                  </span>
+                  {p.finished && <span title="Finished">🏁</span>}
+                </div>
+              );
+            })}
+        </div>
       </div>
 
       <WabiDivider />

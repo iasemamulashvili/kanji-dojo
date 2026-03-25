@@ -11,7 +11,7 @@ type MCQuestion = MeaningQuestion | ReadingQuestion | ReverseQuestion;
 
 interface Props {
   question: MCQuestion;
-  onComplete: () => void;
+  onComplete: (correct: boolean) => void;
 }
 
 type OptionState = "idle" | "correct" | "incorrect" | "dimmed";
@@ -38,7 +38,7 @@ export default function MultipleChoiceQuestion({ question, onComplete }: Props) 
       )
     );
 
-    setTimeout(onComplete, 850);
+    setTimeout(() => onComplete(isCorrect), 850);
   }
 
   return (

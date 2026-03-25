@@ -19,7 +19,7 @@ const MatchingQuestionDynamic = dynamic(
 
 interface Props {
   question: QuizQuestionType;
-  onComplete: () => void;
+  onComplete: (correct: boolean) => void;
 }
 
 // ─── Switcher ───────────────────────────────────────────────────────────────

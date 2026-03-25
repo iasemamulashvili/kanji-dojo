@@ -111,7 +111,7 @@ function DroppableMeaning({
 
 interface Props {
   question: MatchingQuestionType;
-  onComplete: () => void;
+  onComplete: (correct: boolean) => void;
 }
 
 export default function MatchingQuestion({ question, onComplete }: Props) {
@@ -158,7 +158,7 @@ export default function MatchingQuestion({ question, onComplete }: Props) {
       next.add(targetMeaning);
       if (next.size === pairs.length && !completed) {
         setCompleted(true);
-        setTimeout(onComplete, 900);
+        setTimeout(() => onComplete(true), 900);
       }
       return next;
     });

@@ -81,3 +81,104 @@ body {
   width: 100%;
   height: 20px;
 }
+
+/* ─────────────────────────────────────────
+   Quiz — Answer Option Cards
+───────────────────────────────────────── */
+.quiz-option {
+  background: rgba(255, 255, 255, 0.38);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(138, 154, 65, 0.20);
+  /* Organic 8-value radius per Wabi-Sabi spec */
+  border-radius: 68% 32% 74% 26% / 28% 62% 38% 72%;
+  color: #2C2F24;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+  width: 100%;
+  padding: 0.85rem 1.25rem;
+  text-align: center;
+}
+.quiz-option:hover {
+  background: rgba(255, 255, 255, 0.55);
+  border-color: rgba(138, 154, 65, 0.40);
+  border-radius: 60% 40% 68% 32% / 34% 58% 42% 66%;
+}
+.quiz-option:active {
+  transform: scale(0.97);
+}
+.quiz-option--correct {
+  background: rgba(138, 154, 65, 0.22) !important;
+  border-color: rgba(138, 154, 65, 0.55) !important;
+  color: #5a6b1e;
+  opacity: 0.92;
+  cursor: default;
+  pointer-events: none;
+}
+.quiz-option--incorrect {
+  background: rgba(155, 44, 44, 0.14) !important;
+  border-color: rgba(155, 44, 44, 0.40) !important;
+  color: #9b2c2c;
+  opacity: 0.80;
+  cursor: default;
+  pointer-events: none;
+}
+.quiz-option--dimmed {
+  opacity: 0.40;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────
+   Quiz — Drag & Drop (Matching)
+───────────────────────────────────────── */
+.drag-item {
+  background: rgba(255, 255, 255, 0.42);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(212, 217, 161, 0.50);
+  border-radius: 81% 19% 88% 12% / 15% 79% 21% 85%;
+  cursor: grab;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.2s ease, border-color 0.2s ease;
+  user-select: none;
+  touch-action: none;
+}
+.drag-item:hover {
+  border-color: rgba(138, 154, 65, 0.55);
+}
+.drag-item--dragging {
+  opacity: 0.50;
+  cursor: grabbing;
+}
+.drag-item--placed {
+  opacity: 0.35;
+  cursor: default;
+  pointer-events: none;
+}
+
+.drop-zone {
+  background: rgba(255, 255, 255, 0.22);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1.5px dashed rgba(138, 154, 65, 0.30);
+  border-radius: 1rem;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+}
+.drop-zone--active {
+  background: rgba(138, 154, 65, 0.12);
+  border-color: rgba(138, 154, 65, 0.60);
+}
+.drop-zone--correct {
+  background: rgba(138, 154, 65, 0.18);
+  border-color: rgba(138, 154, 65, 0.55);
+  border-style: solid;
+}
+

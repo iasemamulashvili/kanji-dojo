@@ -229,7 +229,13 @@ export default function QuizClient({ sessionId }: Props) {
     fetch("/api/quiz/score", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ sessionId, score: newScore, finished: isFinished }),
+      body: JSON.stringify({
+        sessionId,
+        score: newScore, // or some calculated score, assuming newScore matches totalCorrect for now
+        totalCorrect: newScore,
+        totalQuestions: questions.length,
+        finished: isFinished,
+      }),
     });
 
     if (isFinished) {
@@ -353,7 +359,7 @@ export default function QuizClient({ sessionId }: Props) {
                     className="font-bold text-xl"
                     style={{ color: "#2C2F24" }}
                   >
-                    {p.score} {p.finished && "🏁"}
+                    {p.score} / {questions.length} Correct {p.finished && "🏁"}
                   </span>
                 </div>
               );

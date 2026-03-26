@@ -101,16 +101,29 @@ bot.command('today', async (ctx) => {
       .eq('group_id', groupId)
       .single();
 
-    if (settingsError || !settings?.current_kanji_id) {
-      await ctx.reply('🔔 No Kanji has been selected yet. Wait for the morning broadcast or use /next to trigger one!');
-      return;
+    let kanjiId = settings?.current_kanji_id;
+    let isFallback = false;
+
+    if (settingsError || !kanjiId) {
+      const { data: firstKanji } = await supabase
+        .from('kanjis')
+        .select('id')
+        .eq('jlpt_order', 1)
+        .single();
+        
+      if (!firstKanji) {
+        await ctx.reply('⚠️ Sensei could not find any Kanji in the curriculum.');
+        return;
+      }
+      kanjiId = firstKanji.id;
+      isFallback = true;
     }
 
     // Fetch the full kanji record
     const { data: kanji, error: kanjiError } = await supabase
       .from('kanjis')
       .select('character, meanings, onyomi, kunyomi, jlpt_level, stroke_count, grammar_explanation')
-      .eq('id', settings.current_kanji_id)
+      .eq('id', kanjiId)
       .single();
 
     if (kanjiError || !kanji) {
@@ -133,8 +146,9 @@ bot.command('today', async (ctx) => {
     // Escape special MarkdownV2 chars in dynamic content
     const escMd = (s: string) => s.replace(/[_*[\]()~`>#+\-=|{}.!]/g, '\\$&');
 
+    const headerTitle = isFallback ? "🏯 *Beginning of Curriculum*" : "🏯 *Today's Kanji*";
     const message =
-`🏯 *Today's Kanji*
+`${headerTitle}
 ━━━━━━━━━━━━━━━━━━
 
 *${escMd(kanji.character)}*
@@ -227,8 +241,7 @@ bot.command('next', async (ctx) => {
     }
 
     if (!currentJlptOrder) {
-      await ctx.reply("Sensei cannot determine the current Kanji order to skip.");
-      return;
+      currentJlptOrder = 1;
     }
 
     // 2. Insert vote (uses the true jlpt_order integer)

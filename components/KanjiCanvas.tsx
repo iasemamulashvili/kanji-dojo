@@ -31,6 +31,7 @@ export default function KanjiCanvas({ character, initialMode = 'practice', onCom
       width: 300,
       height: 300,
       padding: 20,
+      showCharacter: false,
       strokeAnimationSpeed: 1,
       delayBetweenStrokes: 50,
       showOutline: mode === 'practice',
@@ -46,15 +47,8 @@ export default function KanjiCanvas({ character, initialMode = 'practice', onCom
         }, 50);
     } else if (mode === 'test') {
         setTimeout(() => {
-            mistakesRef.current = 0;
             writerRef.current?.quiz({
-                onMistake: () => {
-                    mistakesRef.current++;
-                    if (mistakesRef.current >= 2) {
-                        writerRef.current?.animateCharacter();
-                        mistakesRef.current = 0;
-                    }
-                },
+                showHintAfterMisses: 2,
                 onComplete: () => {
                     writerRef.current?.updateColor('strokeColor', '#828e70', { duration: 500 });
                     setTimeout(() => {

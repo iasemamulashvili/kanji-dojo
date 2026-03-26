@@ -71,7 +71,10 @@ export default function InteractiveSentence({ sentence }: { sentence: Sentence }
           >
             <ruby
               className="text-xl transition-colors"
-              style={{ color: activeToken === token ? '#9b2c2c' : '#2C2F24' }}
+              style={{ 
+                color: activeToken === token ? '#9b2c2c' : '#2C2F24',
+                borderBottom: `1.5px dashed ${activeToken === token ? '#9b2c2c' : 'rgba(44,47,36,0.3)'}`
+              }}
             >
               {token.text}
               <rt className="text-[10px]" style={{ color: '#8A9A41' }}>{token.furigana || ''}</rt>

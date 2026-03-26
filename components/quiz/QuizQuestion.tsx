@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import type { QuizQuestion as QuizQuestionType } from "@/app/api/quiz/questions/route";
 import MultipleChoiceQuestion from "./MultipleChoiceQuestion";
+import DrawingQuestion from "./DrawingQuestion";
 
 // ─── NoSSR boundary for the dnd-kit matching component ─────────────────────
 // @dnd-kit uses browser-only APIs; server-rendering it causes hydration errors.
@@ -27,6 +28,10 @@ interface Props {
 export default function QuizQuestion({ question, onComplete }: Props) {
   if (question.type === "matching") {
     return <MatchingQuestionDynamic question={question} onComplete={onComplete} />;
+  }
+  
+  if (question.type === "drawing") {
+    return <DrawingQuestion question={question} onComplete={onComplete} />;
   }
 
   // meaning | reading | reverse – all share the same MC renderer

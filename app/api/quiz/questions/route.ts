@@ -38,11 +38,18 @@ export interface MatchingQuestion {
   pairs: MatchingPair[];
 }
 
+export interface DrawingQuestion {
+  type: 'drawing';
+  question: string;
+  kanji: string;
+}
+
 export type QuizQuestion =
   | MeaningQuestion
   | ReadingQuestion
   | ReverseQuestion
-  | MatchingQuestion;
+  | MatchingQuestion
+  | DrawingQuestion;
 
 export interface QuizQuestionsResponse {
   session_id: string;
@@ -158,20 +165,35 @@ function buildMatchingQuestion(
   };
 }
 
+function buildDrawingQuestion(
+  target: KanjiRow
+): DrawingQuestion {
+  return {
+    type: 'drawing',
+    question: `Draw the Kanji for "${primaryMeaning(target)}"`,
+    kanji: target.character,
+  };
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Route handler
 // ─────────────────────────────────────────────────────────────────────────────
 
 export async function GET(req: NextRequest) {
-  // 1. Auth — verify the JWT cookie set by middleware / /api/auth/telegram
+  // 1. Auth — verify the JWT cookie or dojo_session
+  const dojoSession = req.cookies.get('dojo_session')?.value;
   const token = req.cookies.get('auth_token')?.value;
-  if (!token) {
+
+  if (!dojoSession && !token) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
-  try {
-    await verifyTelegramToken(token);
-  } catch {
-    return NextResponse.json({ error: 'Invalid or expired token' }, { status: 401 });
+
+  if (!dojoSession && token) {
+    try {
+      await verifyTelegramToken(token);
+    } catch {
+      return NextResponse.json({ error: 'Invalid or expired token' }, { status: 401 });
+    }
   }
 
   // 2. Validate query params
@@ -253,13 +275,14 @@ export async function GET(req: NextRequest) {
   // Randomly pick 9 from the pool for variety
   const distractors = shuffle([...allKanjis]).slice(0, 9);
 
-  // 6. Build all 4 question types
-  const questions: QuizQuestion[] = [
+  // 6. Build all 5 question types
+  const questions: QuizQuestion[] = shuffle([
     buildMeaningQuestion(targetKanji, distractors.slice(0, 3)),
     buildReadingQuestion(targetKanji, distractors.slice(3, 6)),
     buildReverseQuestion(targetKanji, distractors.slice(6, 9)),
     buildMatchingQuestion(targetKanji, distractors.slice(0, 3)),
-  ];
+    buildDrawingQuestion(targetKanji),
+  ]);
 
   const payload: QuizQuestionsResponse = {
     session_id: session.id,

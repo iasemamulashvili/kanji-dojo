@@ -3,8 +3,10 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 
 export async function GET(req: NextRequest) {
+  const dojoSession = req.cookies.get('dojo_session')?.value;
   const token = req.cookies.get('auth_token')?.value;
-  if (!token) {
+
+  if (!dojoSession && !token) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 

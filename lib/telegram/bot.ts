@@ -114,7 +114,7 @@ bot.command('quiz', async (ctx) => {
 
     const token = await signTelegramToken(ctx.from.id.toString());
     const baseUrl = process.env.APP_URL || 'http://localhost:3000';
-    const quizUrl = `${baseUrl}/api/auth/verify?token=${token}&redirect=/practice?mode=quiz`;
+    const quizUrl = `${baseUrl}/api/auth/verify?token=${token}&redirect=/api/quiz/start`;
 
     await ctx.reply(
       "Sensei is testing your memory.",

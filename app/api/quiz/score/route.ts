@@ -3,14 +3,21 @@ import { supabase } from '@/lib/supabase';
 import { verifyTelegramToken } from '@/lib/auth/jwt';
 
 export async function POST(req: NextRequest) {
+  const dojoSession = req.cookies.get('dojo_session')?.value;
   const token = req.cookies.get('auth_token')?.value;
-  if (!token) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-  let payload;
-  try {
-    payload = await verifyTelegramToken(token);
-  } catch {
-    return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
+  if (!dojoSession && !token) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+  let telegramId;
+  if (dojoSession) {
+    telegramId = dojoSession;
+  } else if (token) {
+    try {
+      const payload = await verifyTelegramToken(token);
+      telegramId = payload.telegramId;
+    } catch {
+      return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
+    }
   }
 
   const body = await req.json().catch(() => ({}));
@@ -27,7 +34,7 @@ export async function POST(req: NextRequest) {
     .from('quiz_participants')
     .update(updateData)
     .eq('session_id', sessionId)
-    .eq('telegram_id', payload.telegramId)
+    .eq('telegram_id', telegramId)
     .select('*')
     .single();
 

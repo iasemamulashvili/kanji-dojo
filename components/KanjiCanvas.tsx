@@ -8,9 +8,11 @@ import HanziWriter from 'hanzi-writer';
 interface KanjiCanvasProps {
   character: string;
   initialMode?: 'practice' | 'test';
+  onComplete?: (correct: boolean) => void;
+  hideControls?: boolean;
 }
 
-export default function KanjiCanvas({ character, initialMode = 'practice' }: KanjiCanvasProps) {
+export default function KanjiCanvas({ character, initialMode = 'practice', onComplete, hideControls = false }: KanjiCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const writerRef = useRef<any>(null);
   const mistakesRef = useRef(0);
@@ -38,39 +40,44 @@ export default function KanjiCanvas({ character, initialMode = 'practice' }: Kan
       outlineColor: '#828e70', // var(--sage)
     });
 
+    if (mode === 'practice') {
+        setTimeout(() => {
+            writerRef.current?.quiz();
+        }, 50);
+    } else if (mode === 'test') {
+        setTimeout(() => {
+            mistakesRef.current = 0;
+            writerRef.current?.quiz({
+                onMistake: () => {
+                    mistakesRef.current++;
+                    if (mistakesRef.current >= 2) {
+                        writerRef.current?.animateCharacter();
+                        mistakesRef.current = 0;
+                    }
+                },
+                onComplete: () => {
+                    writerRef.current?.updateColor('strokeColor', '#828e70', { duration: 500 });
+                    setTimeout(() => {
+                        writerRef.current?.updateColor('strokeColor', '#1a1a1a', { duration: 1000 });
+                        if (onComplete) onComplete(true);
+                    }, 2000);
+                }
+            });
+        }, 50);
+    }
+
     return () => {
       if (containerRef.current) containerRef.current.innerHTML = '';
       writerRef.current = null;
     };
-  }, [character, mode]);
+  }, [character, mode, onComplete]);
 
   const handlePractice = () => {
     setMode('practice');
-    setTimeout(() => {
-        writerRef.current?.quiz();
-    }, 50);
   };
 
   const handleTest = () => {
     setMode('test');
-    setTimeout(() => {
-        mistakesRef.current = 0;
-        writerRef.current?.quiz({
-            onMistake: () => {
-                mistakesRef.current++;
-                if (mistakesRef.current >= 2) {
-                    writerRef.current?.animateCharacter();
-                    mistakesRef.current = 0;
-                }
-            },
-            onComplete: () => {
-                writerRef.current?.updateColor('strokeColor', '#828e70', { duration: 500 }); // Turn --leaf-sage
-                setTimeout(() => {
-                    writerRef.current?.updateColor('strokeColor', '#1a1a1a', { duration: 1000 }); // Fade back to ink
-                }, 2000);
-            }
-        });
-    }, 50);
   };
 
   return (
@@ -80,35 +87,37 @@ export default function KanjiCanvas({ character, initialMode = 'practice' }: Kan
         className="wabi-card p-4 flex justify-center items-center" 
       />
       
-      <div className="flex gap-4 w-full justify-center px-4">
-        <button 
-          onClick={() => writerRef.current?.animateCharacter()}
-          className="flex flex-1 items-center justify-center gap-2 bg-transparent font-semibold py-2 px-1 transition-all active:scale-95"
-          style={{ color: '#9b2c2c', borderBottom: '1.5px solid rgba(138,154,65,0.50)' }}
-        >
-          <Play className="w-5 h-5" /> Animate
-        </button>
-        <button 
-          onClick={handlePractice}
-          className="flex flex-1 items-center justify-center gap-2 bg-transparent font-semibold py-2 px-1 transition-all active:scale-95"
-          style={{ 
-            color: mode === 'practice' ? '#8A9A41' : '#2C2F24', 
-            borderBottom: `1.5px solid ${mode === 'practice' ? '#8A9A41' : 'rgba(138,154,65,0.25)'}`
-          }}
-        >
-          <PenTool className="w-5 h-5" /> Practice
-        </button>
-        <button 
-          onClick={handleTest}
-          className="flex flex-1 items-center justify-center gap-2 bg-transparent font-semibold py-2 px-1 transition-all active:scale-95"
-          style={{ 
-            color: mode === 'test' ? '#8A9A41' : '#2C2F24', 
-            borderBottom: `1.5px solid ${mode === 'test' ? '#8A9A41' : 'rgba(138,154,65,0.25)'}`
-          }}
-        >
-          <GraduationCap className="w-5 h-5" /> Test
-        </button>
-      </div>
+      {!hideControls && (
+        <div className="flex gap-4 w-full justify-center px-4">
+          <button 
+            onClick={() => writerRef.current?.animateCharacter()}
+            className="flex flex-1 items-center justify-center gap-2 bg-transparent font-semibold py-2 px-1 transition-all active:scale-95"
+            style={{ color: '#9b2c2c', borderBottom: '1.5px solid rgba(138,154,65,0.50)' }}
+          >
+            <Play className="w-5 h-5" /> Animate
+          </button>
+          <button 
+            onClick={handlePractice}
+            className="flex flex-1 items-center justify-center gap-2 bg-transparent font-semibold py-2 px-1 transition-all active:scale-95"
+            style={{ 
+              color: mode === 'practice' ? '#8A9A41' : '#2C2F24', 
+              borderBottom: `1.5px solid ${mode === 'practice' ? '#8A9A41' : 'rgba(138,154,65,0.25)'}`
+            }}
+          >
+            <PenTool className="w-5 h-5" /> Practice
+          </button>
+          <button 
+            onClick={handleTest}
+            className="flex flex-1 items-center justify-center gap-2 bg-transparent font-semibold py-2 px-1 transition-all active:scale-95"
+            style={{ 
+              color: mode === 'test' ? '#8A9A41' : '#2C2F24', 
+              borderBottom: `1.5px solid ${mode === 'test' ? '#8A9A41' : 'rgba(138,154,65,0.25)'}`
+            }}
+          >
+            <GraduationCap className="w-5 h-5" /> Test
+          </button>
+        </div>
+      )}
     </div>
   );
 }

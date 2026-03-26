@@ -146,12 +146,13 @@ bot.command('next', async (ctx) => {
       if (settings?.current_kanji_id) {
         const { data: currentKanji } = await supabase
           .from('kanjis')
-          .select('jlpt_order')
+          .select('jlpt_level, stroke_count')
           .eq('id', settings.current_kanji_id)
           .single();
           
         if (currentKanji) {
-          currentJlptOrder = currentKanji.jlpt_order;
+          // Fallback algorithm creating a deterministic integer to satisfy the old current_jlpt_order legacy column
+          currentJlptOrder = currentKanji.jlpt_level * 1000 + currentKanji.stroke_count;
         }
       }
     }

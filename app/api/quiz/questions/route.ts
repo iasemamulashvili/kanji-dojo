@@ -67,7 +67,8 @@ interface KanjiRow {
   meanings: string[] | null;
   onyomi: string[] | null;
   kunyomi: string[] | null;
-  jlpt_order: number;
+  jlpt_level: number;
+  stroke_count: number;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -221,7 +222,7 @@ export async function GET(req: NextRequest) {
   // 4. Fetch the target kanji
   const { data: targetKanji, error: targetError } = await supabase
     .from('kanjis')
-    .select('id, character, meanings, onyomi, kunyomi, jlpt_order')
+    .select('id, character, meanings, onyomi, kunyomi, jlpt_level, stroke_count')
     .eq('id', session.kanji_id)
     .single<KanjiRow>();
 
@@ -230,11 +231,12 @@ export async function GET(req: NextRequest) {
   }
 
   // 5. Fetch distractor kanjis (excluding the target) from the pool of already learnt kanji
-  //    (jlpt_order <= targetKanji.jlpt_order)
+  //    (Same sequence or earlier stroke count in the N5 spectrum)
   let { data: allKanjis, error: distractorError } = await supabase
     .from('kanjis')
-    .select('id, character, meanings, onyomi, kunyomi, jlpt_order')
-    .lte('jlpt_order', targetKanji.jlpt_order)
+    .select('id, character, meanings, onyomi, kunyomi, jlpt_level, stroke_count')
+    .eq('jlpt_level', targetKanji.jlpt_level)
+    .lte('stroke_count', targetKanji.stroke_count)
     .neq('id', targetKanji.id)
     .returns<KanjiRow[]>();
 
@@ -246,13 +248,14 @@ export async function GET(req: NextRequest) {
   }
 
   // If there are not enough learnt kanjis (e.g. very first few kanji), 
-  // fallback to fetching the lowest jlpt_order kanjis available.
+  // fallback to fetching the lowest jlpt_level kanjis available.
   if (!allKanjis || allKanjis.length < 9) {
     const { data: fallback } = await supabase
       .from('kanjis')
-      .select('id, character, meanings, onyomi, kunyomi, jlpt_order')
+      .select('id, character, meanings, onyomi, kunyomi, jlpt_level, stroke_count')
       .neq('id', targetKanji.id)
-      .order('jlpt_order', { ascending: true })
+      .order('jlpt_level', { ascending: false })
+      .order('stroke_count', { ascending: true })
       .limit(20)
       .returns<KanjiRow[]>();
       

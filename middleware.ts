@@ -27,6 +27,14 @@ export async function middleware(request: NextRequest) {
   
   // 2. Check for token in cookies
   const cookieToken = request.cookies.get('auth_token')?.value;
+  const dojoSession = request.cookies.get('dojo_session')?.value;
+
+  // 3. If standard Telegram ID string exists, bypass JWT check for /quiz routing
+  if (dojoSession && !token && !cookieToken) {
+    const response = NextResponse.next();
+    response.headers.set('x-telegram-id', dojoSession);
+    return response;
+  }
 
   const activeToken = token || cookieToken;
 
@@ -36,14 +44,14 @@ export async function middleware(request: NextRequest) {
   }
 
   try {
-    // 3. Verify the token
+    // 4. Verify the token
     const payload = await verifyTelegramToken(activeToken);
     
     if (!payload || !payload.telegramId) {
       throw new Error('Invalid token payload');
     }
 
-    // 4. Create a response to allow the request
+    // 5. Create a response to allow the request
     const response = NextResponse.next();
     
     // 5. If using a URL token, set it as an HTTP-only cookie for future requests

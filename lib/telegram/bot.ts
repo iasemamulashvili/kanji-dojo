@@ -73,15 +73,85 @@ bot.command('ask', async (ctx) => {
 
 bot.command('help', async (ctx) => {
   const helpMessage = `📜 *Dojo Commands*
-  
-/practice - ⛩️ Enter the Dojo
-/quiz - 🧠 Random Kanji Quiz
-/ask - 🏮 Ask Sensei a question
-/next - ⏭️ Suggest moving to next Kanji
-/prev - ⏮️ Suggest moving to previous Kanji
-/help - 📜 Show this scroll`;
 
-  await ctx.reply(helpMessage, { parse_mode: 'Markdown' });
+/today \\- 📅 Show today's Kanji \\(works offline\\)
+/practice \\- ⛩️ Enter the Dojo
+/quiz \\- 🧠 Random Kanji Quiz
+/ask \\- 🏮 Ask Sensei a question
+/next \\- ⏭️ Vote to skip to next Kanji
+/prev \\- ⏮️ Go to previous Kanji
+/help \\- 📜 Show this scroll`;
+
+  await ctx.reply(helpMessage, { parse_mode: 'MarkdownV2' });
+});
+
+bot.command('today', async (ctx) => {
+  try {
+    // Use the env GROUP_ID as the authoritative group — works in group and private chats
+    const groupId = process.env.TELEGRAM_GROUP_ID;
+    if (!groupId) {
+      await ctx.reply('⚠️ Sensei cannot find the Dojo group configuration.');
+      return;
+    }
+
+    // Fetch the current kanji_id from group_settings
+    const { data: settings, error: settingsError } = await supabase
+      .from('group_settings')
+      .select('current_kanji_id')
+      .eq('group_id', groupId)
+      .single();
+
+    if (settingsError || !settings?.current_kanji_id) {
+      await ctx.reply('🔔 No Kanji has been selected yet. Wait for the morning broadcast or use /next to trigger one!');
+      return;
+    }
+
+    // Fetch the full kanji record
+    const { data: kanji, error: kanjiError } = await supabase
+      .from('kanjis')
+      .select('character, meanings, onyomi, kunyomi, jlpt_level, stroke_count, grammar_explanation')
+      .eq('id', settings.current_kanji_id)
+      .single();
+
+    if (kanjiError || !kanji) {
+      await ctx.reply('⚠️ Sensei could not retrieve today\'s Kanji. Please try again shortly.');
+      return;
+    }
+
+    const meanings = Array.isArray(kanji.meanings)
+      ? kanji.meanings.join(' • ')
+      : (kanji.meanings || 'Unknown');
+    const onyomi = Array.isArray(kanji.onyomi)
+      ? kanji.onyomi.join('、')
+      : (kanji.onyomi || '—');
+    const kunyomi = Array.isArray(kanji.kunyomi)
+      ? kanji.kunyomi.join('、')
+      : (kanji.kunyomi || '—');
+    const jlptBadge = kanji.jlpt_level ? `N${kanji.jlpt_level}` : '—';
+    const strokes = kanji.stroke_count ?? '?';
+
+    // Escape special MarkdownV2 chars in dynamic content
+    const escMd = (s: string) => s.replace(/[_*[\]()~`>#+\-=|{}.!]/g, '\\$&');
+
+    const message =
+`🏯 *Today's Kanji*
+━━━━━━━━━━━━━━━━━━
+
+*${escMd(kanji.character)}*
+
+📖 *Meaning:* ${escMd(meanings)}
+🔊 *On'yomi:* ${escMd(onyomi)}
+🌿 *Kun'yomi:* ${escMd(kunyomi)}
+🎌 *JLPT:* ${escMd(jlptBadge)} · ${escMd(String(strokes))} strokes${kanji.grammar_explanation ? `\n\n📝 *Notes:*\n${escMd(kanji.grammar_explanation)}` : ''}
+
+━━━━━━━━━━━━━━━━━━
+_Memorize this scroll — it works offline\\!_`;
+
+    await ctx.reply(message, { parse_mode: 'MarkdownV2' });
+  } catch (err) {
+    console.error('[Today Command Error]:', err);
+    await ctx.reply('A sudden wind scattered the scrolls. Please try again.');
+  }
 });
 
 bot.command('practice', async (ctx) => {
@@ -133,26 +203,25 @@ bot.command('next', async (ctx) => {
 
     if (!telegramId) return;
 
-    // 1. Fetch current active Kanji to get its jlpt_order
+    // 1. Fetch current active Kanji's jlpt_order directly
     let currentJlptOrder = 0;
-    
+
     if (groupId) {
       const { data: settings } = await supabase
         .from('group_settings')
         .select('current_kanji_id')
         .eq('group_id', groupId)
         .single();
-        
+
       if (settings?.current_kanji_id) {
         const { data: currentKanji } = await supabase
           .from('kanjis')
-          .select('jlpt_level, stroke_count')
+          .select('jlpt_order')
           .eq('id', settings.current_kanji_id)
           .single();
-          
-        if (currentKanji) {
-          // Fallback algorithm creating a deterministic integer to satisfy the old current_jlpt_order legacy column
-          currentJlptOrder = currentKanji.jlpt_level * 1000 + currentKanji.stroke_count;
+
+        if (currentKanji?.jlpt_order) {
+          currentJlptOrder = currentKanji.jlpt_order;
         }
       }
     }
@@ -162,7 +231,7 @@ bot.command('next', async (ctx) => {
       return;
     }
 
-    // 2. Insert vote
+    // 2. Insert vote (uses the true jlpt_order integer)
     const { error: insertError } = await supabase
       .from('kanji_votes')
       .insert({
@@ -198,7 +267,7 @@ bot.command('next', async (ctx) => {
       await ctx.reply(`Vote registered! [${totalVotes}/${QUORUM}] votes to skip to the next Kanji.`);
     } else {
       await ctx.reply("Vote passed! Skipping to the next Kanji...");
-      // Trigger the broadcast
+      // Trigger the broadcast — broadcastNextKanji uses jlpt_order internally
       await broadcastNextKanji('vote');
     }
   } catch (err) {
@@ -237,12 +306,11 @@ async function handleNavigation(ctx: any, direction: number) {
       .select('*')
       .single();
 
-    // 2. Fetch all sorted kanjis to determine index
+    // 2. Fetch all kanjis ordered strictly by jlpt_order (sequential curriculum)
     const { data: allKanjis } = await supabase
       .from('kanjis')
-      .select('id, character')
-      .order('jlpt_level', { ascending: false })
-      .order('stroke_count', { ascending: true });
+      .select('id, character, jlpt_order')
+      .order('jlpt_order', { ascending: true });
 
     if (!allKanjis || allKanjis.length === 0) {
       await ctx.answerCbQuery("The Dojo is empty. No Kanji to study.");

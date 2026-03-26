@@ -1,7 +1,6 @@
 ---
+name: Foundation
 description: Core architectural rules, tech stack, and global database schema for the Kanji Dojo ecosystem.
-globs: *
-alwaysApply: true
 ---
 
 # ⛩️ Kanji Dojo: Global Architecture

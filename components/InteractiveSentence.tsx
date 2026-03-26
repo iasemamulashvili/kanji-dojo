@@ -7,6 +7,7 @@ export interface Token {
   text: string;
   furigana?: string;
   english?: string;
+  grammar_explanation?: string;
 }
 
 export interface Sentence {
@@ -103,6 +104,24 @@ export default function InteractiveSentence({ sentence }: { sentence: Sentence }
             <p className="text-sm" style={{ color: 'rgba(44, 47, 36, 0.60)' }}>
               {activeToken.english}
             </p>
+          )}
+          {activeToken.grammar_explanation && (
+            <div className="mt-1 flex flex-col gap-2">
+              <div className="w-full overflow-hidden" style={{ opacity: 0.25, lineHeight: 0 }} aria-hidden="true">
+                <svg viewBox="0 0 400 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style={{ display: 'block', width: '100%', height: '8px' }}>
+                  <path
+                    d="M0,10 C40,2 80,18 120,10 C160,2 200,18 240,10 C280,2 320,18 360,10 C380,6 395,13 400,10"
+                    stroke="#8A9A41"
+                    strokeWidth="2"
+                    fill="none"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </div>
+              <p className="text-xs italic leading-relaxed" style={{ color: 'rgba(44, 47, 36, 0.70)' }}>
+                {activeToken.grammar_explanation}
+              </p>
+            </div>
           )}
         </div>
       )}

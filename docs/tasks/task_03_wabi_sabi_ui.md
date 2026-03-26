@@ -4,7 +4,7 @@
 This task encompasses two major frontend improvements for the main practice page: fixing an audio context bug and completing the Wabi-Sabi aesthetic overhaul.
 
 ## Referenced Protocols
-- `@02-frontend-artist.mdc`
+- `frontend_artist` skill
 
 ## Assigned Agent
 **02-frontend-artist**
@@ -16,7 +16,7 @@ This task encompasses two major frontend improvements for the main practice page
   - Modify the event handler or the audio source logic so that when a user clicks the main audio button for an isolated Kanji, the contextually accurate **Onyomi** (Chinese reading) is played default/first, rather than the Kunyomi.
 
 ## 2. The Aesthetic Overhaul (Wabi-Sabi Protocol)
-The UI Artist **MUST** apply the strict aesthetic rules from `@02-frontend-artist.mdc` to the main practice page.
+The UI Artist **MUST** apply the strict aesthetic rules from the `frontend_artist` skill to the main practice page.
 
 ### 2.1. Color Palette Implementation
 - Ensure the global CSS or Tailwind configuration explicitly applies these theme colors:

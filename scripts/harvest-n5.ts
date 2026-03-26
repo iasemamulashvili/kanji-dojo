@@ -30,6 +30,7 @@ For each Kanji, you MUST strictly follow this exact structural schema:
   "kunyomi": ["string array"],
   "jlpt_level": 5,
   "stroke_count": number,
+  "grammar_explanation": "string — a concise plain-English explanation of how this kanji (or its common words) functions grammatically in sentences. Mention the part of speech, usage patterns, and any relevant notes (e.g. 'Used as a counter suffix for days. Appears in expressions like 一日 (ichinichi, one day). Can function as a noun or part of compound verbs.').",
   "sentences": [
     {
       "japanese": "string",
@@ -90,6 +91,7 @@ async function harvest() {
         kunyomi: k.kunyomi,
         jlpt_level: k.jlpt_level || 5,
         stroke_count: k.stroke_count || 1,
+        grammar_explanation: k.grammar_explanation || null,
         example_sentences: k.sentences || []
       };
 

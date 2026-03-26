@@ -4,15 +4,15 @@
 Group members are encountering an "Access Denied" error when clicking the daily reminder links sent via Telegram. The objective is to implement secure, server-side JWT validation to authenticate users seamlessly using the `?token=xyz` URL parameter.
 
 ## Referenced Protocols
-- `@03-backend-warden.mdc`
-- `@01-foundation.mdc`
+- `backend_warden` skill
+- `foundation` skill
 
 ## Assigned Agent
 **03-backend-warden**
 
 ## 1. Architectural Constraints
-- **Stateless Authentication:** As mandated by `@01-foundation.mdc`, **NEVER** use traditional email/password flows. Authentication must be purely stateless and "Telegram-First", relying on the JWT passed in the URL (`?token=xyz`).
-- **Server-Side Validation:** As heavily emphasized in `@03-backend-warden.mdc`, **NEVER** rely solely on client-side properties like `window.Telegram.WebApp.initDataUnsafe` for security. Validation must happen securely on the server-side.
+- **Stateless Authentication:** As mandated by the `foundation` skill, **NEVER** use traditional email/password flows. Authentication must be purely stateless and "Telegram-First", relying on the JWT passed in the URL (`?token=xyz`).
+- **Server-Side Validation:** As heavily emphasized in the `backend_warden` skill, **NEVER** rely solely on client-side properties like `window.Telegram.WebApp.initDataUnsafe` for security. Validation must happen securely on the server-side.
 - **Supabase Admin:** When updating or querying the user's `profiles` or `user_kanji_progress` during this validation phase from the backend, use the Supabase Admin Client (`@supabase/supabase-js`) if bypassing RLS is required.
 
 ## 2. Step-by-Step Execution Plan

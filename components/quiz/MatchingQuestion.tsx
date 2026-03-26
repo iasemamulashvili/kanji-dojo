@@ -12,7 +12,7 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { MatchingQuestion as MatchingQuestionType } from "@/app/api/quiz/questions/route";
 
 // ─── Draggable Kanji chip ───────────────────────────────────────────────────
@@ -116,6 +116,12 @@ interface Props {
 
 export default function MatchingQuestion({ question, onComplete }: Props) {
   const { pairs } = question;
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && (window as any).Telegram?.WebApp?.disableVerticalSwipes) {
+      (window as any).Telegram.WebApp.disableVerticalSwipes();
+    }
+  }, []);
 
   const [placements, setPlacements] = useState<Record<string, string | null>>(
     () => Object.fromEntries(pairs.map((p) => [p.meaning, null]))

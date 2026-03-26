@@ -4,9 +4,9 @@
 Design and implement the `/quiz` Telegram command and its dedicated Next.js practice interface. This task covers the full stack: database schema, question-serving API, frontend drag-and-drop mechanics, and real-time multiplayer synchronization.
 
 ## Referenced Protocols
-- `@04-game-master.mdc`
-- `@03-backend-warden.mdc`
-- `@02-frontend-artist.mdc`
+- `game_master` skill
+- `backend_warden` skill
+- `frontend_artist` skill
 
 ## Assigned Agents
 - **04-game-master** — Cron integration, `/quiz` Telegram command entry point, session lifecycle.
@@ -115,7 +115,7 @@ Create a dedicated renderer component for each question `type`. A parent `QuizQu
   Use `next/dynamic` with `{ ssr: false }` to load the component only on the client.
 
 ### 3.3. Wabi-Sabi Compliance
-All quiz UI components must follow `@02-frontend-artist.mdc`. Specifically:
+All quiz UI components must follow the `frontend_artist` skill. Specifically:
 - Answer option cards use the 8-value organic `border-radius` and glassmorphism (`bg-white/40 backdrop-blur-md`).
 - Correct/Incorrect feedback uses opacity shifts and color changes, **not** drop shadows.
 

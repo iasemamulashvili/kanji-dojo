@@ -1,7 +1,7 @@
 # Antigravity State Blackboard
 
 ## Current Active Branch / Stage
-- Phase 3: Sprint Iteration (Bot Fallbacks, Quiz Canvas Fixes, Grammar Tooltips)
+- Phase 3: Sprint Iteration (Bot Overhaul, Quiz Canvas Fixes, Grammar Tooltips)
 
 ## Global Blockers
 - **None**
@@ -36,8 +36,14 @@
     - **Payload**: Full Kanji metadata (character, readings, meanings, stroke_count, grammar_explanation) to support 5 question types (Meaning, Kun/On, Reverse, Writing, Audio).
 - **Bot Alignment**: `lib/telegram/bot.ts` updated to use `maybeSingle()` and BIGINT casting for `group_id` queries.
 
-### Backend Warden — Routing & Auth Stability (2026-03-29)
-- **Hardcoded Routing**: `bot.ts` and `broadcast.ts` now exclusively use `Number(process.env.TELEGRAM_GROUP_ID)`. Incoming messages from other chats (DMs/Groups) can no longer dynamically change the target group.
-- **TWA Rollback**: `TelegramAuthProvider` removed; universal browser access restored via JWT magic links.
-- **Persistent Sessions**: 7-day `dojo_session` cookie enforced via middleware.
-- **UI Fallback**: `app/access-denied/page.tsx` created for unauthorized traffic.
+### Backend Warden — Telegram Bot Overhaul (2026-03-29)
+- **Migration `00011_kanji_navigation_votes.sql`**: Created to track dynamic quorum votes for curriculum navigation.
+- **Command Overhaul (`bot.ts`)**:
+    - `/today`: Refactored to a clean, text-only Markdown format (Character, Meaning, Onyomi, Kunyomi).
+    - `/quiz`: Implemented inline keyboard selection for quiz depth (8, 13, 17, 21 buttons).
+    - `/practice` & `/stats`: Now generate secure 7-day JWT Magic Links for automated login.
+    - `/help`: Updated UI with deep-linking button for `/ask` using `switchToCurrentChat`.
+    - **Voting System**: Implemented `/next` and `/prev` starting a dynamic quorum vote (`(Members - 1)`).
+- **Navigation Logic (`broadcast.ts`)**:
+    - **`broadcastPrevKanji`**: Implemented logic to shift curriculum backwards sequentially.
+    - **Edge Case Handles**: `/prev` now correctly halts with a warning if currently at the beginning of the path (`jlpt_order = 1`).

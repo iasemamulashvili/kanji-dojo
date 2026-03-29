@@ -2,7 +2,7 @@ import { Telegraf, Markup } from 'telegraf';
 import { createClient } from '@supabase/supabase-js';
 import { askTutor } from '../ai/tutor';
 import { signTelegramToken } from '../auth/jwt';
-import { broadcastNextKanji } from '../game-logic/broadcast';
+import { broadcastNextKanji, broadcastPrevKanji } from '../game-logic/broadcast';
 // Initialize Supabase Client for bot interactions
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -92,347 +92,200 @@ bot.command('ask', async (ctx) => {
 });
 
 bot.command('help', async (ctx) => {
-  const helpMessage = `📜 <b>Dojo Commands</b>
+  const helpMessage = `📜 *Dojo Commands*
 
-/today - 📅 Show today's Kanji (works offline)
-/practice - ⛩️ Enter the Dojo
-/quiz - 🧠 Random Kanji Quiz
-/ask - <a href="tg://msg?text=/ask%20">🏮 Start asking</a>
-/next - ⏭️ Vote to skip to next Kanji
-/prev - ⏮️ Go to previous Kanji
-/help - 📜 Show this scroll`;
+/today - 📅 Today's Kanji (text-only)
+/practice - ⛩️ Training Grounds
+/quiz - 🧠 Test your knowledge
+/stats - 📈 View your progress
+/next - ⏭️ Vote to skip to next
+/prev - ⏮️ Vote to go back
+/help - 📜 This scroll`;
 
-  await ctx.reply(helpMessage, { parse_mode: 'HTML' });
+  await ctx.reply(helpMessage, { 
+    parse_mode: 'Markdown',
+    ...Markup.inlineKeyboard([
+      Markup.button.switchToCurrentChat('🏮 Ask Sensei', '/ask ')
+    ])
+  });
 });
 
 bot.command('today', async (ctx) => {
   try {
-    // Use the env GROUP_ID as the authoritative group — works in group and private chats
     const groupId = process.env.TELEGRAM_GROUP_ID;
-    if (!groupId) {
-      await ctx.reply('⚠️ Sensei cannot find the Dojo group configuration.');
-      return;
-    }
+    if (!groupId) return ctx.reply('⚠️ Configuration error.');
 
-    // Fetch the current kanji_id from group_settings
-    const { data: settings, error: settingsError } = await supabase
+    const { data: settings } = await supabase
       .from('group_settings')
       .select('current_kanji_id')
       .eq('group_id', Number(groupId))
       .maybeSingle();
 
     let kanjiId = settings?.current_kanji_id;
-    let isFallback = false;
 
-    if (settingsError || !kanjiId) {
-      const { data: firstKanjis } = await supabase
-        .from('kanjis')
-        .select('id')
-        .order('jlpt_order', { ascending: true })
-        .limit(1);
-        
-      if (!firstKanjis || firstKanjis.length === 0) {
-        await ctx.reply('⚠️ Sensei could not find any Kanji in the curriculum.');
-        return;
-      }
-      kanjiId = firstKanjis[0].id;
-      isFallback = true;
+    if (!kanjiId) {
+      const { data: first } = await supabase.from('kanjis').select('id').order('jlpt_order', { ascending: true }).limit(1).single();
+      kanjiId = first?.id;
     }
 
-    // Fetch the full kanji record
-    const { data: kanji, error: kanjiError } = await supabase
+    if (!kanjiId) return ctx.reply('⚠️ No Kanji found.');
+
+    const { data: kanji } = await supabase
       .from('kanjis')
-      .select('character, meanings, onyomi, kunyomi, jlpt_level, stroke_count, grammar_explanation')
+      .select('character, meanings, onyomi, kunyomi')
       .eq('id', kanjiId)
       .single();
 
-    if (kanjiError || !kanji) {
-      await ctx.reply('⚠️ Sensei could not retrieve today\'s Kanji. Please try again shortly.');
-      return;
-    }
+    if (!kanji) return ctx.reply('⚠️ Kanji not found.');
 
-    const meanings = Array.isArray(kanji.meanings)
-      ? kanji.meanings.join(' • ')
-      : (kanji.meanings || 'Unknown');
-    const onyomi = Array.isArray(kanji.onyomi)
-      ? kanji.onyomi.join('、')
-      : (kanji.onyomi || '—');
-    const kunyomi = Array.isArray(kanji.kunyomi)
-      ? kanji.kunyomi.join('、')
-      : (kanji.kunyomi || '—');
-    const jlptBadge = kanji.jlpt_level ? `N${kanji.jlpt_level}` : '—';
-    const strokes = kanji.stroke_count ?? '?';
+    const meanings = Array.isArray(kanji.meanings) ? kanji.meanings.join(', ') : kanji.meanings;
+    const onyomi = Array.isArray(kanji.onyomi) ? kanji.onyomi.join(', ') : kanji.onyomi;
+    const kunyomi = Array.isArray(kanji.kunyomi) ? kanji.kunyomi.join(', ') : kanji.kunyomi;
 
-    // Escape special MarkdownV2 chars in dynamic content
-    const escMd = (s: string) => s.replace(/[_*[\]()~`>#+\-=|{}.!]/g, '\\$&');
-
-    const headerTitle = isFallback ? "🏯 *Beginning of Curriculum*" : "🏯 *Today's Kanji*";
-    const message =
-`${headerTitle}
+    const message = `🏯 *Today's Kanji*
 ━━━━━━━━━━━━━━━━━━
+*${kanji.character}*
 
-*${escMd(kanji.character)}*
+📖 *Meaning:* ${meanings}
+🔊 *Onyomi:* ${onyomi}
+🌿 *Kunyomi:* ${kunyomi}
+━━━━━━━━━━━━━━━━━━`;
 
-📖 *Meaning:* ${escMd(meanings)}
-🔊 *On'yomi:* ${escMd(onyomi)}
-🌿 *Kun'yomi:* ${escMd(kunyomi)}
-🎌 *JLPT:* ${escMd(jlptBadge)} · ${escMd(String(strokes))} strokes${kanji.grammar_explanation ? `\n\n📝 *Notes:*\n${escMd(kanji.grammar_explanation)}` : ''}
-
-━━━━━━━━━━━━━━━━━━
-_Memorize this scroll — it works offline\\!_`;
-
-    await ctx.reply(message, { parse_mode: 'MarkdownV2' });
+    await ctx.reply(message, { parse_mode: 'Markdown' });
   } catch (err) {
-    console.error('[Today Command Error]:', err);
-    await ctx.reply('A sudden wind scattered the scrolls. Please try again.');
+    console.error(err);
+    await ctx.reply('⚠️ Error fetching Kanji.');
   }
 });
 
 bot.command('practice', async (ctx) => {
   try {
-    console.log("[Bot] /practice command triggered by user:", ctx.from?.id);
-    if (!ctx.from?.id) {
-      return;
-    }
-
+    if (!ctx.from?.id) return;
     const token = await signTelegramToken(ctx.from.id.toString());
     const baseUrl = process.env.APP_URL || 'http://localhost:3000';
-    const practiceUrl = `${baseUrl}/api/auth/verify?token=${token}`;
+    const magicLink = `${baseUrl}/api/auth/verify?token=${token}&redirect=/practice`;
 
     await ctx.reply(
       "Your training space is ready, Sensei is waiting.",
-      Markup.inlineKeyboard([Markup.button.url('⛩️ Enter Dojo', practiceUrl)])
+      Markup.inlineKeyboard([Markup.button.url('⛩️ Open Magic Link', magicLink)])
     );
   } catch (error) {
-    console.error("[Practice Command Error]:", error);
-    await ctx.reply("Sensei tripped over a tatami mat. Please try again.");
+    console.error(error);
+    await ctx.reply("Failed to generate practice link.");
   }
 });
 
 bot.command('quiz', async (ctx) => {
-  try {
-    console.log("[Bot] /quiz command triggered by user:", ctx.from?.id);
-    if (!ctx.from?.id) {
-      return;
-    }
-
-    const token = await signTelegramToken(ctx.from.id.toString());
-    const baseUrl = process.env.APP_URL || 'http://localhost:3000';
-    const quizUrl = `${baseUrl}/api/auth/verify?token=${token}&redirect=/api/quiz/start`;
-
-    await ctx.reply(
-      "Sensei is testing your memory.",
-      Markup.inlineKeyboard([Markup.button.url('🧠 Start Quiz', quizUrl)])
-    );
-  } catch (error) {
-    console.error("[Quiz Command Error]:", error);
-    await ctx.reply("Sensei tripped over a tatami mat. Please try again.");
-  }
-});
-
-bot.command('next', async (ctx) => {
-  try {
-    const telegramId = ctx.from?.id;
-    const groupId = Number(process.env.TELEGRAM_GROUP_ID);
-
-    if (!telegramId || !groupId) return;
-
-    // 1. Fetch current active Kanji's jlpt_order directly
-    let currentJlptOrder = 0;
-
-    const { data: settings } = await supabase
-      .from('group_settings')
-      .select('current_kanji_id')
-      .eq('group_id', groupId)
-      .maybeSingle();
-
-    if (settings?.current_kanji_id) {
-      const { data: currentKanji } = await supabase
-        .from('kanjis')
-        .select('jlpt_order')
-        .eq('id', settings.current_kanji_id)
-        .single();
-
-      if (currentKanji?.jlpt_order) {
-        currentJlptOrder = currentKanji.jlpt_order;
-      }
-    }
-
-    if (!currentJlptOrder) {
-      currentJlptOrder = 1;
-    }
-
-    // 2. Insert vote (uses the true jlpt_order integer)
-    const { error: insertError } = await supabase
-      .from('kanji_votes')
-      .insert({
-        current_jlpt_order: currentJlptOrder,
-        voter_telegram_id: telegramId
-      });
-
-    if (insertError) {
-      if (insertError.code === '23505') { // Unique violation
-        await ctx.reply("You have already voted to skip this Kanji.");
-      } else {
-        console.error("Vote Insert Error:", insertError);
-        await ctx.reply("Sensei's brush slipped. Could not record your vote.");
-      }
-      return;
-    }
-
-    // 3. Count total votes
-    const { count, error: countError } = await supabase
-      .from('kanji_votes')
-      .select('*', { count: 'exact', head: true })
-      .eq('current_jlpt_order', currentJlptOrder);
-
-    if (countError) {
-      console.error("Vote Count Error:", countError);
-      return;
-    }
-
-    const totalVotes = count || 0;
-    const memberCount = await ctx.getChatMembersCount().catch(() => 2);
-    const QUORUM = Math.max(1, memberCount - 1);
-
-    if (totalVotes < QUORUM) {
-      await ctx.reply(`Vote registered! [${totalVotes}/${QUORUM}] votes to skip to the next Kanji.`);
-    } else {
-      await ctx.reply("Vote passed! Skipping to the next Kanji...");
-      // Trigger the broadcast — broadcastNextKanji uses jlpt_order internally
-      await broadcastNextKanji('vote');
-    }
-  } catch (err) {
-    console.error("Error in /next command:", err);
-    await ctx.reply("A mystical wind disturbed the Dojo. Try again later.");
-  }
-});
-
-bot.command('prev', async (ctx) => {
-  const groupId = Number(process.env.TELEGRAM_GROUP_ID);
-  if (groupId) {
-    const { data: settings } = await supabase
-      .from('group_settings')
-      .select('current_kanji_id')
-      .eq('group_id', groupId)
-      .maybeSingle();
-
-    let currentJlptOrder = 0;
-    if (settings?.current_kanji_id) {
-      const { data: currentKanji } = await supabase
-        .from('kanjis')
-        .select('jlpt_order')
-        .eq('id', settings.current_kanji_id)
-        .single();
-      if (currentKanji?.jlpt_order) {
-        currentJlptOrder = currentKanji.jlpt_order;
-      }
-    }
-
-    const { data: firstKanjis } = await supabase
-      .from('kanjis')
-      .select('jlpt_order')
-      .order('jlpt_order', { ascending: true })
-      .limit(1);
-
-    const firstOrder = firstKanjis?.[0]?.jlpt_order ?? 1;
-
-    if (currentJlptOrder === 0 || currentJlptOrder === firstOrder) {
-      await ctx.reply("Sensei says: You are already at the beginning of the path. No previous Kanji available.");
-      return;
-    }
-  }
-
-  const memberCount = await ctx.getChatMembersCount().catch(() => 2);
-  const QUORUM = Math.max(1, memberCount - 1);
-
-  await ctx.reply(
-    `Return to previous Kanji? (Requires ${QUORUM} confirmation${QUORUM !== 1 ? 's' : ''})`,
-    Markup.inlineKeyboard([Markup.button.callback('✅ Confirm Previous', 'confirm_prev')])
+  await ctx.reply("Sensei is testing your memory. Choose your depth:", 
+    Markup.inlineKeyboard([
+      [Markup.button.callback('8', 'quiz:8'), Markup.button.callback('13', 'quiz:13')],
+      [Markup.button.callback('17', 'quiz:17'), Markup.button.callback('21', 'quiz:21')]
+    ])
   );
 });
 
-console.log('[Bot] Registering confirm_next action listener');
-bot.action('confirm_next', async (ctx) => {
-  console.log('[Bot] Callback received:', ctx.match);
-  await handleNavigation(ctx, 1);
-});
-
-console.log('[Bot] Registering confirm_prev action listener');
-bot.action('confirm_prev', async (ctx) => {
-  console.log('[Bot] Callback received:', ctx.match);
-  await handleNavigation(ctx, -1);
-});
-
-async function handleNavigation(ctx: any, direction: number) {
+bot.command('stats', async (ctx) => {
   try {
-    const groupId = Number(process.env.TELEGRAM_GROUP_ID);
-    if (!groupId) return;
+    if (!ctx.from?.id) return;
+    const token = await signTelegramToken(ctx.from.id.toString());
+    const baseUrl = process.env.APP_URL || 'http://localhost:3000';
+    const magicLink = `${baseUrl}/api/auth/verify?token=${token}&redirect=/stats`;
 
-    // 1. Fetch current group settings for the specific hardcoded group
+    await ctx.reply(
+      "The scrolls show your progress, Sensei.",
+      Markup.inlineKeyboard([Markup.button.url('📈 Open Magic Link', magicLink)])
+    );
+  } catch (error) {
+    console.error(error);
+    await ctx.reply("Failed to generate stats link.");
+  }
+});
+
+// Unified Voting Logic
+async function handleVote(ctx: any, direction: 'next' | 'prev') {
+  try {
+    const telegramId = ctx.from?.id;
+    const groupId = Number(process.env.TELEGRAM_GROUP_ID);
+    if (!telegramId || !groupId) return;
+
+    // Fetch current state
     const { data: settings } = await supabase
       .from('group_settings')
-      .select('*')
+      .select('current_kanji_id')
       .eq('group_id', groupId)
       .maybeSingle();
 
-    // 2. Fetch all kanjis ordered strictly by jlpt_order (sequential curriculum)
-    const { data: allKanjis } = await supabase
+    if (!settings?.current_kanji_id) return ctx.reply("⚠️ No active Kanji.");
+
+    const { data: currentKanji } = await supabase
       .from('kanjis')
-      .select('id, character, jlpt_order')
-      .order('jlpt_order', { ascending: true });
+      .select('jlpt_order')
+      .eq('id', settings.current_kanji_id)
+      .single();
 
-    if (!allKanjis || allKanjis.length === 0) {
-      await ctx.answerCbQuery("The Dojo is empty. No Kanji to study.");
-      return;
+    const currentOrder = currentKanji?.jlpt_order || 1;
+
+    // Edge case for /prev
+    if (direction === 'prev' && currentOrder === 1) {
+      return ctx.reply("🏮 You are already at the beginning of the path.");
     }
 
-    let currentIndex = 0;
-    if (settings?.current_kanji_id) {
-      currentIndex = allKanjis.findIndex(k => k.id === settings.current_kanji_id);
-      if (currentIndex === -1) currentIndex = 0;
-    }
+    // Dynamic Quorum
+    const totalMembers = await ctx.getChatMembersCount().catch(() => 2);
+    const quorumCount = Math.max(1, totalMembers - 1);
 
-    // 3. Calculate new index
-    let newIndex = currentIndex + direction;
-    
-    if (newIndex < 0) {
-      await ctx.answerCbQuery("You've reached the beginning of the curriculum!");
-      await ctx.editMessageText("Sensei says: You are already at the beginning of the path. No previous Kanji available.");
-      return;
-    }
-    
-    if (newIndex >= allKanjis.length) {
-      await ctx.answerCbQuery("You've reached the end of the current curriculum!");
-      await ctx.editMessageText("Sensei says: You have reached the end of the current curriculum! Excellent work.");
-      return;
-    }
-
-    const newKanji = allKanjis[newIndex];
-
-    // 4. Update the hardcoded group state (Upsert pattern consistent with broadcast.ts)
-    const { error: upsertError } = await supabase
-      .from('group_settings')
-      .upsert({ 
+    // Record vote
+    const { error: insertError } = await supabase
+      .from('kanji_navigation_votes')
+      .insert({
         group_id: groupId,
-        current_kanji_id: newKanji.id,
-        updated_at: new Date().toISOString()
-      }, { onConflict: 'group_id' });
+        voter_id: telegramId,
+        direction: direction,
+        target_order: currentOrder
+      });
 
-    console.log('Update Result:', { error: upsertError, newId: newKanji.id });
+    if (insertError && insertError.code !== '23505') throw insertError;
 
-    if (upsertError) {
-      await ctx.editMessageText(`Sensei failed to update the scroll: ${upsertError.message || JSON.stringify(upsertError)}`);
-      return;
+    // Count votes
+    const { count } = await supabase
+      .from('kanji_navigation_votes')
+      .select('*', { count: 'exact', head: true })
+      .eq('group_id', groupId)
+      .eq('direction', direction)
+      .eq('target_order', currentOrder);
+
+    const votes = count || 0;
+
+    if (votes >= quorumCount) {
+      await ctx.reply(`Vote passed! [${votes}/${quorumCount}] Proceeding...`);
+      // Clear votes for this target_order to avoid re-triggering
+      await supabase.from('kanji_navigation_votes').delete().eq('target_order', currentOrder);
+      
+      if (direction === 'next') await broadcastNextKanji('vote');
+      else await broadcastPrevKanji();
+    } else {
+      await ctx.reply(`Agree to ${direction.toUpperCase()} (${votes}/${quorumCount})`, 
+        Markup.inlineKeyboard([Markup.button.callback('Agree', `vote:${direction}`)])
+      );
     }
-
-    // 5. Reply to the target group
-    await ctx.telegram.sendMessage(groupId, `Sensei has updated the curriculum. The Dojo is now studying: ${newKanji.character}.`);
-    await ctx.answerCbQuery("Confirmed.");
-  } catch (error: any) {
-    console.error("Navigation error:", error);
-    await ctx.editMessageText(`Sensei failed to update the scroll: ${error?.message || "Internal Error"}`);
+  } catch (err) {
+    console.error(err);
+    await ctx.reply("Sensei's brush slipped. Please try again.");
   }
 }
+
+bot.command('next', (ctx) => handleVote(ctx, 'next'));
+bot.command('prev', (ctx) => handleVote(ctx, 'prev'));
+
+bot.action(/vote:(next|prev)/, (ctx) => {
+  const direction = ctx.match[1] as 'next' | 'prev';
+  handleVote(ctx, direction);
+});
+
+// Placeholder for quiz callback (will be wired later as per spec)
+bot.action(/quiz:(\d+)/, async (ctx) => {
+  const size = ctx.match[1];
+  await ctx.answerCbQuery(`Quiz with ${size} questions initiated. Sensei is preparing.`);
+});
 
 export default bot;

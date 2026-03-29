@@ -147,3 +147,72 @@ export async function broadcastNextKanji(trigger: 'cron' | 'vote'): Promise<Broa
 
   return { skipped: false, kanji: nextKanji };
 }
+
+/**
+ * Reusable function to broadcast the previous sequential Kanji to the Telegram group.
+ * Triggered by a community /prev vote.
+ */
+export async function broadcastPrevKanji(): Promise<BroadcastResult> {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const botToken = process.env.TELEGRAM_BOT_TOKEN;
+  const groupId = process.env.TELEGRAM_GROUP_ID;
+
+  if (!supabaseUrl || !supabaseServiceKey || !botToken || !groupId) {
+    throw new Error('Missing environment variables for broadcastPrevKanji');
+  }
+
+  const supabase = createClient(supabaseUrl, supabaseServiceKey);
+  const bot = new Telegraf(botToken);
+
+  // 1. Fetch group settings
+  const { data: settings } = await supabase
+    .from('group_settings')
+    .select('current_kanji_id')
+    .eq('group_id', Number(groupId))
+    .maybeSingle();
+
+  if (!settings?.current_kanji_id) {
+    throw new Error('No active Kanji found to go back from.');
+  }
+
+  // 2. Determine "Previous" Kanji
+  const { data: currentKanji } = await supabase
+    .from('kanjis')
+    .select('jlpt_order')
+    .eq('id', settings.current_kanji_id)
+    .single();
+
+  const currentOrder = currentKanji?.jlpt_order || 1;
+
+  const { data: prevKanji, error: prevError } = await supabase
+    .from('kanjis')
+    .select('*')
+    .lt('jlpt_order', currentOrder)
+    .order('jlpt_order', { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  if (prevError || !prevKanji) {
+    return { skipped: true, reason: 'no_previous_kanji' };
+  }
+
+  // 3. Update state
+  await supabase
+    .from('group_settings')
+    .upsert({
+      group_id: Number(groupId),
+      current_kanji_id: prevKanji.id,
+      updated_at: new Date().toISOString()
+    }, { onConflict: 'group_id' });
+
+  // 4. Broadcast
+  const appUrl = process.env.APP_URL || 'http://localhost:3000';
+  const prefix = "<b>⏮️ Community Vote Passed! Returning to the previous Kanji...</b>\n\n";
+  const meanings = Array.isArray(prevKanji.meanings) ? prevKanji.meanings.join(', ') : (prevKanji.meanings || '');
+  const caption = `${prefix}Today's Kanji is: <b>${prevKanji.character}</b>\nMeaning: ${meanings}\n\n<a href="${appUrl}/practice">⛩️ Click here to begin your training.</a>`;
+
+  await bot.telegram.sendMessage(Number(groupId), caption, { parse_mode: 'HTML' });
+
+  return { skipped: false, kanji: prevKanji };
+}

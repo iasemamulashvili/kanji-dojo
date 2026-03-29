@@ -131,11 +131,11 @@ export async function broadcastNextKanji(trigger: 'cron' | 'vote'): Promise<Broa
 
   try {
     if (isLocal) {
-      await bot.telegram.sendMessage(groupId, caption, { parse_mode: 'HTML' });
+      await bot.telegram.sendMessage(Number(groupId), caption, { parse_mode: 'HTML' });
       console.log(`[broadcastNextKanji] Sent text-only message (local mode) for ${nextKanji.character}`);
     } else {
       const ogImageUrl = `${appUrl}/api/og/kanji?character=${encodeURIComponent(nextKanji.character)}&meanings=${encodeURIComponent(meanings)}&onyomi=${encodeURIComponent(onyomi)}&kunyomi=${encodeURIComponent(kunyomi)}`;
-      await bot.telegram.sendPhoto(groupId, ogImageUrl, {
+      await bot.telegram.sendPhoto(Number(groupId), ogImageUrl, {
         caption: caption,
         parse_mode: 'HTML'
       });

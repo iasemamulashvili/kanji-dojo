@@ -7,8 +7,8 @@
 - **None**
 
 ## Active Assignments
-- **Game Master**: (RESOLVED) Database Schema fix and Sequential Curriculum logic enforced. Quiz Data payload scaffolded for UI overhaul.
-- **Backend Warden**: (RESOLVED) Auth & Cron refactor verified by @qa-verifier.
+- **Game Master**: (RESOLVED) Sequential Curriculum logic enforced. Static Routing restored.
+- **Backend Warden**: (RESOLVED) TWA Rollback complete. Hardcoded Env-Routing enforced.
 - **Frontend Artist**: Ready for UI/UX Overhaul & Matching Quiz Refactor.
 
 ## Completed Tasks / Schema Definitions
@@ -36,5 +36,8 @@
     - **Payload**: Full Kanji metadata (character, readings, meanings, stroke_count, grammar_explanation) to support 5 question types (Meaning, Kun/On, Reverse, Writing, Audio).
 - **Bot Alignment**: `lib/telegram/bot.ts` updated to use `maybeSingle()` and BIGINT casting for `group_id` queries.
 
-### Backend Warden Dependency
-- (DONE) `leaderboard` and `quiz_scores` tables are ready. Backend Warden has successfully implemented `POST /api/quiz/score` dropping the legacy `user_stats` upsert and now directly inserting into `quiz_scores` (which fires `sync_leaderboard` trigger natively).
+### Backend Warden — Routing & Auth Stability (2026-03-29)
+- **Hardcoded Routing**: `bot.ts` and `broadcast.ts` now exclusively use `Number(process.env.TELEGRAM_GROUP_ID)`. Incoming messages from other chats (DMs/Groups) can no longer dynamically change the target group.
+- **TWA Rollback**: `TelegramAuthProvider` removed; universal browser access restored via JWT magic links.
+- **Persistent Sessions**: 7-day `dojo_session` cookie enforced via middleware.
+- **UI Fallback**: `app/access-denied/page.tsx` created for unauthorized traffic.

@@ -6,11 +6,6 @@ import { verifyTelegramToken } from './lib/auth/jwt';
 const protectedRoutes = ['/kanji', '/quiz', '/profile', '/settings', '/practice'];
 
 export async function middleware(request: NextRequest) {
-  // --- DEVELOPER MASTER KEY ---
-  if (process.env.NODE_ENV === 'development') {
-    return NextResponse.next();
-  }
-
   const { pathname, searchParams } = request.nextUrl;
 
   const isProtected = protectedRoutes.some(route => pathname.startsWith(route) || pathname === '/');
@@ -51,15 +46,15 @@ export async function middleware(request: NextRequest) {
       return response;
     } catch (error) {
       console.error('Middleware token verification failed:', error);
-      // If token is invalid, clear it and let client side auth try to recover
-      const response = NextResponse.next();
+      // If token is invalid, clear it and redirect to access-denied
+      const response = NextResponse.redirect(new URL('/access-denied', request.url));
       response.cookies.delete('dojo_session');
       return response;
     }
   }
 
-  // If no token, just let it pass to the client where TelegramAuthProvider can handle it
-  return NextResponse.next();
+  // Strictly block access if no token/session is present
+  return NextResponse.redirect(new URL('/access-denied', request.url));
 }
 
 export const config = {

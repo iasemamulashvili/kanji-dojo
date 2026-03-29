@@ -233,30 +233,28 @@ bot.command('quiz', async (ctx) => {
 bot.command('next', async (ctx) => {
   try {
     const telegramId = ctx.from?.id;
-    const groupId = ctx.chat?.id;
+    const groupId = Number(process.env.TELEGRAM_GROUP_ID);
 
-    if (!telegramId) return;
+    if (!telegramId || !groupId) return;
 
     // 1. Fetch current active Kanji's jlpt_order directly
     let currentJlptOrder = 0;
 
-    if (groupId) {
-      const { data: settings } = await supabase
-        .from('group_settings')
-        .select('current_kanji_id')
-        .eq('group_id', Number(groupId))
-        .maybeSingle();
+    const { data: settings } = await supabase
+      .from('group_settings')
+      .select('current_kanji_id')
+      .eq('group_id', groupId)
+      .maybeSingle();
 
-      if (settings?.current_kanji_id) {
-        const { data: currentKanji } = await supabase
-          .from('kanjis')
-          .select('jlpt_order')
-          .eq('id', settings.current_kanji_id)
-          .single();
+    if (settings?.current_kanji_id) {
+      const { data: currentKanji } = await supabase
+        .from('kanjis')
+        .select('jlpt_order')
+        .eq('id', settings.current_kanji_id)
+        .single();
 
-        if (currentKanji?.jlpt_order) {
-          currentJlptOrder = currentKanji.jlpt_order;
-        }
+      if (currentKanji?.jlpt_order) {
+        currentJlptOrder = currentKanji.jlpt_order;
       }
     }
 
@@ -311,12 +309,12 @@ bot.command('next', async (ctx) => {
 });
 
 bot.command('prev', async (ctx) => {
-  const groupId = ctx.chat?.id;
+  const groupId = Number(process.env.TELEGRAM_GROUP_ID);
   if (groupId) {
     const { data: settings } = await supabase
       .from('group_settings')
       .select('current_kanji_id')
-      .eq('group_id', Number(groupId))
+      .eq('group_id', groupId)
       .maybeSingle();
 
     let currentJlptOrder = 0;
@@ -368,14 +366,15 @@ bot.action('confirm_prev', async (ctx) => {
 
 async function handleNavigation(ctx: any, direction: number) {
   try {
-    const groupId = ctx.chat?.id;
+    const groupId = Number(process.env.TELEGRAM_GROUP_ID);
     if (!groupId) return;
 
-    // 1. Fetch current group settings
+    // 1. Fetch current group settings for the specific hardcoded group
     const { data: settings } = await supabase
       .from('group_settings')
       .select('*')
-      .single();
+      .eq('group_id', groupId)
+      .maybeSingle();
 
     // 2. Fetch all kanjis ordered strictly by jlpt_order (sequential curriculum)
     const { data: allKanjis } = await supabase
@@ -411,27 +410,14 @@ async function handleNavigation(ctx: any, direction: number) {
 
     const newKanji = allKanjis[newIndex];
 
-    // 4. Update or Insert group setting
-    const { data: currentSettings } = await supabase.from('group_settings').select('*').single();
-
-    let upsertError;
-    if (currentSettings) {
-      const { error } = await supabase
-        .from('group_settings')
-        .upsert({ 
-          id: currentSettings.id,
-          current_kanji_id: newKanji.id,
-          updated_at: new Date().toISOString()
-        });
-      upsertError = error;
-    } else {
-      const { error } = await supabase
-        .from('group_settings')
-        .insert({
-          current_kanji_id: newKanji.id
-        });
-      upsertError = error;
-    }
+    // 4. Update the hardcoded group state (Upsert pattern consistent with broadcast.ts)
+    const { error: upsertError } = await supabase
+      .from('group_settings')
+      .upsert({ 
+        group_id: groupId,
+        current_kanji_id: newKanji.id,
+        updated_at: new Date().toISOString()
+      }, { onConflict: 'group_id' });
 
     console.log('Update Result:', { error: upsertError, newId: newKanji.id });
 
@@ -440,9 +426,9 @@ async function handleNavigation(ctx: any, direction: number) {
       return;
     }
 
-    // 5. Reply
+    // 5. Reply to the target group
+    await ctx.telegram.sendMessage(groupId, `Sensei has updated the curriculum. The Dojo is now studying: ${newKanji.character}.`);
     await ctx.answerCbQuery("Confirmed.");
-    await ctx.editMessageText(`Sensei has updated the curriculum. The Dojo is now studying: ${newKanji.character}.`);
   } catch (error: any) {
     console.error("Navigation error:", error);
     await ctx.editMessageText(`Sensei failed to update the scroll: ${error?.message || "Internal Error"}`);

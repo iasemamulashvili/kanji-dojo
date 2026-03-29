@@ -30,16 +30,14 @@ export async function broadcastNextKanji(trigger: 'cron' | 'vote'): Promise<Broa
   const { data: settings, error: settingsError } = await supabase
     .from('group_settings')
     .select('id, current_kanji_id, updated_at')
-    .eq('group_id', groupId)
-    .single();
+    .eq('group_id', Number(groupId)) // Force cast to Number for BIGINT compatibility
+    .maybeSingle();
 
-  if (settingsError && settingsError.code !== 'PGRST116') {
+  if (settingsError) {
     throw new Error(`Error fetching group settings: ${settingsError.message}`);
   }
 
   // 2. Strict UTC+4 (Tbilisi) idempotency constraint
-  // To avoid skipping two Kanjis in a single day (e.g. if someone votes at 07:00, 
-  // the 08:00 cron shouldn't progress the order again on the same day).
   if (trigger === 'cron' && settings?.updated_at) {
     const tbilisiDateFormatter = new Intl.DateTimeFormat('en-CA', { 
       timeZone: 'Asia/Tbilisi',
@@ -48,7 +46,6 @@ export async function broadcastNextKanji(trigger: 'cron' | 'vote'): Promise<Broa
       day: '2-digit'
     });
     
-    // Output formatted string like "YYYY-MM-DD" natively tied to UTC+4
     const todayTbilisi = tbilisiDateFormatter.format(new Date());
     const lastUpdateTbilisi = tbilisiDateFormatter.format(new Date(settings.updated_at));
 
@@ -60,8 +57,8 @@ export async function broadcastNextKanji(trigger: 'cron' | 'vote'): Promise<Broa
 
   let nextKanji = null;
 
+  // 3. Determine the "Next" Kanji strictly by jlpt_order
   if (settings?.current_kanji_id) {
-    // Determine the current Kanji's strictly ordered integer
     const { data: currentKanji } = await supabase
       .from('kanjis')
       .select('jlpt_order')
@@ -70,19 +67,18 @@ export async function broadcastNextKanji(trigger: 'cron' | 'vote'): Promise<Broa
 
     const currentOrder = currentKanji?.jlpt_order || 0;
 
-    // Fast-forward to the precisely next Kanji in the list based on jlpt_order
     const { data: nextKanjiData } = await supabase
       .from('kanjis')
       .select('*')
       .gt('jlpt_order', currentOrder)
       .order('jlpt_order', { ascending: true })
       .limit(1)
-      .single();
+      .maybeSingle();
 
     nextKanji = nextKanjiData;
   }
   
-  // 3. Fallback: if no valid Kanji or settings, fallback to the very first Kanji (Order 1)
+  // Fallback: if no valid Kanji or settings, start at the very first Kanji (Order 1)
   if (!nextKanji) {
     const { data: fallbackKanji, error: fallbackError } = await supabase
       .from('kanjis')
@@ -97,22 +93,19 @@ export async function broadcastNextKanji(trigger: 'cron' | 'vote'): Promise<Broa
     nextKanji = fallbackKanji;
   }
 
-  // 4. Update the current_kanji_id state tracking to the NEW Kanji
-  if (settings) {
-    await supabase
-      .from('group_settings')
-      .update({ 
-        current_kanji_id: nextKanji.id,
-        updated_at: new Date().toISOString()
-      })
-      .eq('id', settings.id);
-  } else {
-    await supabase
-      .from('group_settings')
-      .insert({
-        group_id: Number(groupId),
-        current_kanji_id: nextKanji.id,
-      });
+  // 4. Update the current state tracking (Upsert pattern)
+  const upsertData = {
+    group_id: Number(groupId),
+    current_kanji_id: nextKanji.id,
+    updated_at: new Date().toISOString()
+  };
+
+  const { error: upsertError } = await supabase
+    .from('group_settings')
+    .upsert(upsertData, { onConflict: 'group_id' });
+
+  if (upsertError) {
+    console.error(`[broadcastNextKanji] Failed to update group_settings:`, upsertError);
   }
 
   // 5. Broadcast message compilation

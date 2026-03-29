@@ -13,12 +13,32 @@ if (!supabaseUrl || !supabaseServiceKey) {
 
 const supabase = createClient(supabaseUrl, supabaseServiceKey);
 
-// Ensure the group_settings row exists on startup
+// Ensure the group_settings row exists on startup (Singleton for the default group)
 async function initDatabase() {
-  const { data, error } = await supabase.from('group_settings').select('*').single();
-  if (!data) {
-    console.log("[Bot Init] No row found in group_settings. Creating...");
-    await supabase.from('group_settings').insert({});
+  const groupId = process.env.TELEGRAM_GROUP_ID;
+  if (!groupId) return;
+
+  const { data, error } = await supabase
+    .from('group_settings')
+    .select('*')
+    .eq('group_id', Number(groupId))
+    .maybeSingle();
+
+  if (!data && !error) {
+    console.log("[Bot Init] No row found in group_settings. Creating singleton...");
+    const { data: firstKanji } = await supabase
+      .from('kanjis')
+      .select('id')
+      .order('jlpt_order', { ascending: true })
+      .limit(1)
+      .single();
+
+    if (firstKanji) {
+      await supabase.from('group_settings').insert({
+        group_id: Number(groupId),
+        current_kanji_id: firstKanji.id
+      });
+    }
   }
 }
 initDatabase();
@@ -72,17 +92,17 @@ bot.command('ask', async (ctx) => {
 });
 
 bot.command('help', async (ctx) => {
-  const helpMessage = `📜 *Dojo Commands*
+  const helpMessage = `📜 <b>Dojo Commands</b>
 
-/today \\- 📅 Show today's Kanji \\(works offline\\)
-/practice \\- ⛩️ Enter the Dojo
-/quiz \\- 🧠 Random Kanji Quiz
-/ask \\- 🏮 Ask Sensei a question
-/next \\- ⏭️ Vote to skip to next Kanji
-/prev \\- ⏮️ Go to previous Kanji
-/help \\- 📜 Show this scroll`;
+/today - 📅 Show today's Kanji (works offline)
+/practice - ⛩️ Enter the Dojo
+/quiz - 🧠 Random Kanji Quiz
+/ask - <a href="tg://msg?text=/ask%20">🏮 Start asking</a>
+/next - ⏭️ Vote to skip to next Kanji
+/prev - ⏮️ Go to previous Kanji
+/help - 📜 Show this scroll`;
 
-  await ctx.reply(helpMessage, { parse_mode: 'MarkdownV2' });
+  await ctx.reply(helpMessage, { parse_mode: 'HTML' });
 });
 
 bot.command('today', async (ctx) => {
@@ -98,24 +118,24 @@ bot.command('today', async (ctx) => {
     const { data: settings, error: settingsError } = await supabase
       .from('group_settings')
       .select('current_kanji_id')
-      .eq('group_id', groupId)
-      .single();
+      .eq('group_id', Number(groupId))
+      .maybeSingle();
 
     let kanjiId = settings?.current_kanji_id;
     let isFallback = false;
 
     if (settingsError || !kanjiId) {
-      const { data: firstKanji } = await supabase
+      const { data: firstKanjis } = await supabase
         .from('kanjis')
         .select('id')
-        .eq('jlpt_order', 1)
-        .single();
+        .order('jlpt_order', { ascending: true })
+        .limit(1);
         
-      if (!firstKanji) {
+      if (!firstKanjis || firstKanjis.length === 0) {
         await ctx.reply('⚠️ Sensei could not find any Kanji in the curriculum.');
         return;
       }
-      kanjiId = firstKanji.id;
+      kanjiId = firstKanjis[0].id;
       isFallback = true;
     }
 
@@ -224,8 +244,8 @@ bot.command('next', async (ctx) => {
       const { data: settings } = await supabase
         .from('group_settings')
         .select('current_kanji_id')
-        .eq('group_id', groupId)
-        .single();
+        .eq('group_id', Number(groupId))
+        .maybeSingle();
 
       if (settings?.current_kanji_id) {
         const { data: currentKanji } = await supabase
@@ -274,7 +294,8 @@ bot.command('next', async (ctx) => {
     }
 
     const totalVotes = count || 0;
-    const QUORUM = 3;
+    const memberCount = await ctx.getChatMembersCount().catch(() => 2);
+    const QUORUM = Math.max(1, memberCount - 1);
 
     if (totalVotes < QUORUM) {
       await ctx.reply(`Vote registered! [${totalVotes}/${QUORUM}] votes to skip to the next Kanji.`);
@@ -290,8 +311,45 @@ bot.command('next', async (ctx) => {
 });
 
 bot.command('prev', async (ctx) => {
+  const groupId = ctx.chat?.id;
+  if (groupId) {
+    const { data: settings } = await supabase
+      .from('group_settings')
+      .select('current_kanji_id')
+      .eq('group_id', Number(groupId))
+      .maybeSingle();
+
+    let currentJlptOrder = 0;
+    if (settings?.current_kanji_id) {
+      const { data: currentKanji } = await supabase
+        .from('kanjis')
+        .select('jlpt_order')
+        .eq('id', settings.current_kanji_id)
+        .single();
+      if (currentKanji?.jlpt_order) {
+        currentJlptOrder = currentKanji.jlpt_order;
+      }
+    }
+
+    const { data: firstKanjis } = await supabase
+      .from('kanjis')
+      .select('jlpt_order')
+      .order('jlpt_order', { ascending: true })
+      .limit(1);
+
+    const firstOrder = firstKanjis?.[0]?.jlpt_order ?? 1;
+
+    if (currentJlptOrder === 0 || currentJlptOrder === firstOrder) {
+      await ctx.reply("Sensei says: You are already at the beginning of the path. No previous Kanji available.");
+      return;
+    }
+  }
+
+  const memberCount = await ctx.getChatMembersCount().catch(() => 2);
+  const QUORUM = Math.max(1, memberCount - 1);
+
   await ctx.reply(
-    "Return to previous Kanji? (Need 1 more confirmation)",
+    `Return to previous Kanji? (Requires ${QUORUM} confirmation${QUORUM !== 1 ? 's' : ''})`,
     Markup.inlineKeyboard([Markup.button.callback('✅ Confirm Previous', 'confirm_prev')])
   );
 });

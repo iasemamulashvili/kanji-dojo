@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
     const response = NextResponse.json({ success: true, telegramId });
     
     response.cookies.set({
-      name: 'auth_token',
+      name: 'dojo_session',
       value: token,
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',

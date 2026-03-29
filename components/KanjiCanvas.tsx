@@ -15,13 +15,13 @@ interface KanjiCanvasProps {
 export default function KanjiCanvas({ character, initialMode = 'practice', onComplete, hideControls = false }: KanjiCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const writerRef = useRef<any>(null);
-  const mistakesRef = useRef(0);
   const [mode, setMode] = useState<'practice' | 'test'>(initialMode);
+  const [renderKey, setRenderKey] = useState(0);
 
   useEffect(() => {
     if (!containerRef.current) return;
     
-    // Cleanup any existing writer instance when mode or character changes
+    // Cleanup any existing writer instance when mode, character, or key changes
     if (writerRef.current && containerRef.current) {
         containerRef.current.innerHTML = '';
         writerRef.current = null;
@@ -39,18 +39,55 @@ export default function KanjiCanvas({ character, initialMode = 'practice', onCom
       strokeColor: '#1a1a1a', // var(--ink-black)
       radicalColor: '#9b2c2c', // var(--cinnabar)
       outlineColor: '#828e70', // var(--sage)
+      leniency: 2.5, // much more forgiving stroke precision
     });
 
     if (mode === 'practice') {
         setTimeout(() => {
-            writerRef.current?.quiz();
+            writerRef.current?.quiz({
+                onMistake: () => {
+                    if (containerRef.current) {
+                        containerRef.current.classList.remove('shake-error');
+                        void containerRef.current.offsetWidth;
+                        containerRef.current.classList.add('shake-error');
+                    }
+                },
+                onCorrectStroke: () => {
+                    if (containerRef.current) {
+                        containerRef.current.classList.remove('flash-correct');
+                        void containerRef.current.offsetWidth;
+                        containerRef.current.classList.add('flash-correct');
+                    }
+                }
+            });
         }, 50);
     } else if (mode === 'test') {
         setTimeout(() => {
             writerRef.current?.quiz({
-                showHintAfterMisses: 2,
-                onComplete: () => {
+                showHintAfterMisses: 3,
+                onMistake: () => {
+                    if (containerRef.current) {
+                        containerRef.current.classList.remove('shake-error');
+                        void containerRef.current.offsetWidth;
+                        containerRef.current.classList.add('shake-error');
+                    }
+                },
+                onCorrectStroke: () => {
+                    if (containerRef.current) {
+                        containerRef.current.classList.remove('flash-correct');
+                        void containerRef.current.offsetWidth;
+                        containerRef.current.classList.add('flash-correct');
+                    }
+                },
+                onComplete: (summaryData: any) => {
                     writerRef.current?.updateColor('strokeColor', '#828e70', { duration: 500 });
+                    
+                    if (containerRef.current && summaryData.totalMistakes === 0) {
+                        containerRef.current.classList.remove('flash-perfect');
+                        void containerRef.current.offsetWidth;
+                        containerRef.current.classList.add('flash-perfect');
+                    }
+
                     setTimeout(() => {
                         writerRef.current?.updateColor('strokeColor', '#1a1a1a', { duration: 1000 });
                         if (onComplete) onComplete(true);
@@ -64,14 +101,16 @@ export default function KanjiCanvas({ character, initialMode = 'practice', onCom
       if (containerRef.current) containerRef.current.innerHTML = '';
       writerRef.current = null;
     };
-  }, [character, mode, onComplete]);
+  }, [character, mode, renderKey, onComplete]);
 
   const handlePractice = () => {
     setMode('practice');
+    setRenderKey(prev => prev + 1);
   };
 
   const handleTest = () => {
     setMode('test');
+    setRenderKey(prev => prev + 1);
   };
 
   return (

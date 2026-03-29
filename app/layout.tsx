@@ -6,6 +6,8 @@ export const metadata: Metadata = {
   description: "Your daily JLPT N5 Kanji training ground.",
 };
 
+import TelegramAuthProvider from "@/components/TelegramAuthProvider";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -14,7 +16,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {children}
+        <TelegramAuthProvider>
+          {children}
+        </TelegramAuthProvider>
       </body>
     </html>
   );

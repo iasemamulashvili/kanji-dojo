@@ -1,0 +1,89 @@
+Part 1: Quiz Structure and Architecture Leaderboards and Interactivity
+
+The quiz mode is not working properly, we need to create a seperate "page" that gives a set number of questions, the page will be accessed seperately by each user, the page will identify the user and provide a live small leaderboard in the UI, once each of the users finish the quiz, they are notified of their score and the leaderboards update. The questions should be of different types, ideas:
+
+a) What is the meaning of this Kanji, only the kanji appears with stroke order animation, the user is given 4 options to choose from, they choose.
+b) What is the "kun" or "on" meaning for this Kanji?
+c) The reverse of "a)" what is the correct Kanji used do describe "english definition of a word or concept already learnt through the Kanji app"
+d) You are prompted to write a specific Kanji (english translation also present as this should be a writing challange)(Stroke order matters) You have infininte amount of tries as the user, however no hint is given during this quiz, which is how it differs from the "test" functionality present on the main practice page.
+e) You are given instructions to connect sounds to Kanjis so there are for example 4 buttons with the aduio icon (They do not contain any other information about the Kanji on the UI other that the sound it mnakes when clicked), when pressed the Kanji is read aloud, and you have to identify which kanji is which by listening back, you should have infinite listens. The buttons and definition containers should be draggable in the UI as they will most likely fit into small containers and will be used to connect by placing in the same row.
+
+The questions must only come from the Kanji already learnt.
+The question types should be randomly chosen, so there is no pattern to the questions, for example if the quiz has 10 questions, there should be 2 of each type, or 3 of one type and 2 of another, etc. The distribution should be as even as possible.
+
+Setting the number of questions the quiz will have is done through telegram interaction, after user writes /quiz the bot must give it an option to choose from 4 numbers: 8, 13, 17, 21, when chosen the quiz should pull the exact amount of questions, possibly from google API to formulate the questions much better. We currently already have this functionality, but I am not sure how this works, so we need to make sure it works properly.
+
+After the quiz is over, the Telegram bot should send another message congratulating the winner, and offering insight into the match stats(explained later).
+
+The leaderboard itself should contain statistical information and should be a clickable navigation in the UI, to take you to another page, where you will see stats:
+
+a) how many questions the person has answered in total (all time & per quiz)
+b) how many Kanji we have learned (as this will be the same for both since the chat current Kanji is the truth)
+c) What's the correct to wrong ratio (all time & per quiz)
+
+These should also be available for each of the previously set question types, so the players have information on who answers listening questions better, or writing for example and who needs to improve on which skill. The Ui should reflect this and the filters must be easily accessible. This should egb available on a seperate page, which is also accessed once the quiz is finished and the results are shown, there is another button that says see more stats or something like that and takes the uzer to the statistics page.
+
+Part 2: UI Design Choices and Needs
+
+The current UI is not reflectingt the Kanji Dojo vibe we are looking for, I have created a user-preferences-alt.txt file that should give you a better idea of what I am looking for. The color pallette is there, and the wabi sabi aesthetic should also hold true.
+
+Part 3: The Scheduled Reminders and Messages
+
+We need to work on the automated messages, currently the daily reminder is still incorrectly sending a message on 18:33 Georgian time and it's the only message that gets sent while the daily update message is not sent at all, which arguably should be the most important message. I will provide a full timeline now of when I want each message sent:
+
+08:00 - Daily Kanji Updated Main message
+11:00 - Daily Kanji reminder to practice (The message contains one random fact about the Kanji chosen)
+15:00 - Daily Kanji reminder to practice (The message contains a question and four answers, the question is about the current Kanji, there are 4 options, it is a mini quiz before the actual quiz is invoked automaticvally later)(for this functionality must be added and the quiz-message interaction created, the stats should also be added to the statistics page for this specific question, which will be separate from the quiz invokation previously explained)
+18:00 - Main Quiz initiated, the link sent to the quiz, which needs to be filled out before the next day's 8 o'clock daily update comes through as the 08:00 update sets the Kanji and all other links or commands should reflect the change.
+21: 00 - Daily Kanji Reminder (This message contains a motivational message within, commending users for their work)
+08:00 - Daily Kanji is updated and a new one is sent going back within the loop.
+
+This times should be according to Tbilisi, Georgia time.
+
+Unfortunately, previously we could not organize the messages in this way, so we need to make sure that this timeline is followed correctly, the roadbloack was the vercel cron job, which on a free tier is limited to either 1 message per day, we need to an external free scheduler that we can incorporate like cron-job.org or any other that fits our needs for scheduled messaging in telegram.
+
+The other issue is that the daily kanji does not get automatically updated, every day whe the time reached 08:00 the previous days kanji should automatically change to the next kanji in our database, currently the change does not happen and every day we stay on the same Kanji.
+
+Yet another issue is that when the reminder or daily essages are sent the tokens do not work therefore access is denied, these links should be accessible by chat members, the token currently is used for identification but this defeats the purpose of sending the link along ith the daily kanji and reminder message if it cannot be accessed so we need a way to work around this issue and keep identification possible while also keeping this link accesible. So the engine should always know which user is accessing the link and already approve them to visit the practice page adn identify the user. The user must be able to connect to the page using the daily reminder link ort follow up reminder links either from a pc, a laptop or a mobile device. There should be no problem as long as they are logged into telegram.
+
+The other major flaw is that the kanjis are not in specific order, while we have populated the database with the correct kanji, they are not in correct learning order, we need to make sure the order is exactly the one that JLPT stands for so that we can learn in a structured consecutive manner. Right now the first kanji that we receive is "nine" it should actually start from "one" then "two" and so on, according to the jlpt order predefined by the japanese government.
+
+Part 4: Issues with telegram commands:
+
+1. /quiz - This command should invoke the main quiz, once pressed the bot should reply with a message containing 4 buttons with the numbers 8, 13, 17, 21, when chosen the quiz should pull the exact amount of questions, possibly from google API to formulate the questions much better. We currently already have this functionality, but I am not sure how this works, so we need to make sure it works properly.
+
+2. /today - This command should work offline, should have stored the current kanji and its information, so that even if the internet is down, the user can still access the current kanji and its information. This is used for reminding by text only, no links are sent durring this command, so that it is usable offline as well. It should show the last saved kanji when connected to the internet. It should update once the internet is hooked up again.
+
+3. /practice - This command should take the user to the practice page, where they can practice the current Kanji, see the meaning, the kun, on, and radicals (we have no radicals associated with the kanjis, this might also be abbsent within the database as well). The user should be able to press:
+a) A button to see the stroke order animation
+b) Another button to practice drawing on the pad, during the practice, each time the user makes 3 mistakes on a stroke, the third mistake should reveal an animation acting as hint, the animation should only show the stroke that the user got wrong, after which it should let the user continue.
+c) A test button, which clears the full drawing pad, lets the user draw the kanji from scratch, if the user manages to draw the kanji correctly, the user should be rewarded with a point these points act as the measurement of how much the user has practiced today, every day these points should be compared and the days winner should be announced when the 08:00 daily update comes through as a following message, if the user does not get the stroke order correct, the user should not be shown the correct animation. If user gives up, they can always use the animate or practice buttons to remind themselves of the kanji stroke order.
+
+The points should only be accrued from the testing button, not from the practice button. The points should reset when the next kanji is introduced, if the next kanji is introduced by using the next command, the points should reset, but a message should be sent by the bot announcing the previous kanji's test points winner. Or it should automatically be sent following the 08:00 daily update.
+
+4. /stats - This command should take the user to the statistics page, where they can see their statistics, the statistics page should contain info listed above, that can be filtered by question type and either daily, weekly, monthly, or all time. The user must be able to see how he was doing during the last week on listening questions compared to another user.
+
+5. /help - This command should be sending a message containing all commands that are present within the bot interface, it should list the commands, pressing te commands should send that command to be executed immediately. The only exception should be the /ask command, which when pressed, should automatically insert the /ask command initiation text into the input field of the device, so that the user can continue typing their question directly to the gemini api. It should only eliminate the need of typing "/ask " and allow the user to send the message after compiling it manually.
+
+6. /ask - This command should allow the user to ask a question to the gemini api, the question should be sent to the gemini api and the response should be sent back to the user. The response should be formatted in markdown and should be sent back to the user. It is currently working perfectly, ony the interaction from the /help message is to be added, for simplifying user flow.
+
+7. /next - This function, should prompt all users that jumping to the next kanji and closing the current kanji has been requested by a user, if all but 1 members of the chat (accounting for the bot itself) agree to this, the current kanji should be closed and the next kanji should be introduced. The next kanji should be introduced by sending the 08:00 daily update message, which contains the next kanji and all other information associated with it.
+
+8. /prev - This function, should prompt all users that jumping to the previous kanji and closing the current kanji has been requested by a user, if all but 1 members of the chat (accounting for the bot itself) agree to this, the current kanji should be closed and the previous kanji should be introduced. The previous kanji should be introduced by sending the 08:00 daily update message, which contains the previous kanji and all other information associated with it.
+
+
+Practice page example sentences issues:
+
+The example sentences when read from a mobile device that opens a browser within telegram repeat the kanjis that have hiragana proounciations written on top of them, basically resulting in double pronounciations for the kanji that have those definitions on the top, while it works perfectly in the regular pc browser (chrome) and does not repeat the kanjis with the hiragana pronounciations on top of them.
+
+Also currently we do not have a database created for the grammatical articles or similar words that also comprise a setntence, so the full part by part translation of the sentence is an issue as clicking these articles does not reveal their meaning or pronounciation, while they do for most other words. We need to create a database for these articles, so that the user can learn the full context of the sentence. These articles are mostly particles, like wa, ga, o, ni, de, desu etc.
+
+
+Issues with the quiz page:
+
+1. The correct answers are not recorder and do not show up once the quiz is finished keeping the user stuck on 0 correct answers.
+2. The skip button that we currently have to skip the drawing question should be added to all other questions so the user should be able to skip any of the question types and not just the drawing question.
+3. The drawing question is fundamentally flawed, as the hint is being shown, this should nt be the case within this quiz mode, the pad should stay clear, the user must be able to try as many times as they like, but should never be shown a hint, so if they do not remember, they should only be able to skip the question entirely.
+4. The drag n drop mechanic question, where the kanjis are associated with their meaning are flawed, the dragging is messed up on mobile devices and works clunky because on mobile devices the page actually opens up in a telegram built in browser which can sometimes behave unexpectingly when dragging the finger accross, it mitght close down for example kicking you out of the quiz. Because of this, we will forget the drag n drop mechanics and instead use a click to choose, click to connect mechanic, where the user clicks on the kanji, then clicks on the meaning from the opposite side list. After all 4 have been connected, the user should be shown the correct answer, and the correct answers should be recorded.
+Currently there also is another issue, where the actual correct answers are situated next to each other, we should shuffle the order of the answers so that they are not always next to each other.
+5. The listening type questions should be added, they are currently not present at all.

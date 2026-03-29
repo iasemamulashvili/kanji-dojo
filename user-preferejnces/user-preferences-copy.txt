@@ -1,0 +1,50 @@
+/* CSS HEX */
+--rich-mahogany: #4a1816ff;
+--silver: #acaca7ff;
+--ebony: #656142ff;
+--charcoal-brown: #2d291dff;
+--silver-2: #a9a69dff;
+--grey-olive: #928d79ff;
+
+/* CSS HSL */
+--rich-mahogany: hsla(2, 54%, 19%, 1);
+--silver: hsla(60, 3%, 66%, 1);
+--ebony: hsla(53, 21%, 33%, 1);
+--charcoal-brown: hsla(45, 22%, 15%, 1);
+--silver-2: hsla(45, 7%, 64%, 1);
+--grey-olive: hsla(48, 10%, 52%, 1);
+
+/* SCSS HEX */
+$rich-mahogany: #4a1816ff;
+$silver: #acaca7ff;
+$ebony: #656142ff;
+$charcoal-brown: #2d291dff;
+$silver-2: #a9a69dff;
+$grey-olive: #928d79ff;
+
+/* SCSS HSL */
+$rich-mahogany: hsla(2, 54%, 19%, 1);
+$silver: hsla(60, 3%, 66%, 1);
+$ebony: hsla(53, 21%, 33%, 1);
+$charcoal-brown: hsla(45, 22%, 15%, 1);
+$silver-2: hsla(45, 7%, 64%, 1);
+$grey-olive: hsla(48, 10%, 52%, 1);
+
+/* SCSS RGB */
+$rich-mahogany: rgba(74, 24, 22, 1);
+$silver: rgba(172, 172, 167, 1);
+$ebony: rgba(101, 97, 66, 1);
+$charcoal-brown: rgba(45, 41, 29, 1);
+$silver-2: rgba(169, 166, 157, 1);
+$grey-olive: rgba(146, 141, 121, 1);
+
+/* SCSS Gradient */
+$gradient-top: linear-gradient(0deg, #4a1816ff, #acaca7ff, #656142ff, #2d291dff, #a9a69dff, #928d79ff);
+$gradient-right: linear-gradient(90deg, #4a1816ff, #acaca7ff, #656142ff, #2d291dff, #a9a69dff, #928d79ff);
+$gradient-bottom: linear-gradient(180deg, #4a1816ff, #acaca7ff, #656142ff, #2d291dff, #a9a69dff, #928d79ff);
+$gradient-left: linear-gradient(270deg, #4a1816ff, #acaca7ff, #656142ff, #2d291dff, #a9a69dff, #928d79ff);
+$gradient-top-right: linear-gradient(45deg, #4a1816ff, #acaca7ff, #656142ff, #2d291dff, #a9a69dff, #928d79ff);
+$gradient-bottom-right: linear-gradient(135deg, #4a1816ff, #acaca7ff, #656142ff, #2d291dff, #a9a69dff, #928d79ff);
+$gradient-top-left: linear-gradient(225deg, #4a1816ff, #acaca7ff, #656142ff, #2d291dff, #a9a69dff, #928d79ff);
+$gradient-bottom-left: linear-gradient(315deg, #4a1816ff, #acaca7ff, #656142ff, #2d291dff, #a9a69dff, #928d79ff);
+$gradient-radial: radial-gradient(#4a1816ff, #acaca7ff, #656142ff, #2d291dff, #a9a69dff, #928d79ff);

@@ -1,10 +1,12 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 export default function TelegramAuthProvider({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
     // 1. Check if we're in the Telegram environment
@@ -25,7 +27,7 @@ export default function TelegramAuthProvider({ children }: { children: React.Rea
       }
 
       try {
-        // 2. Make the POST request to our new Auth Route
+        // 2. Make the POST request to our Auth Route
         const response = await fetch('/api/auth/telegram', {
           method: 'POST',
           headers: {
@@ -35,19 +37,22 @@ export default function TelegramAuthProvider({ children }: { children: React.Rea
         });
 
         if (!response.ok) {
-          throw new Error('Failed to validate Telegram session');
+          const body = await response.json().catch(() => ({}));
+          throw new Error(body.error || 'Failed to validate Telegram session');
         }
 
         // 3. Handshake successful, cookie is set!
         setIsAuthenticated(true);
+        // Trigger a refresh so server components get the newly set dojo_session cookie
+        router.refresh();
       } catch (err: any) {
         console.error('TMA Handshake failed:', err);
-        setError('Authentication failed. Please restart the app from Telegram.');
+        setError(`Authentication failed: ${err.message}. Please restart the app from Telegram.`);
       }
     };
 
     authenticate();
-  }, []);
+  }, [router]);
 
   // 4. Loading & Error States
   if (error) {

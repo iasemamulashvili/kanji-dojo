@@ -52,8 +52,8 @@ function ProgressPips({
               i < current
                 ? "#8A9A41"        // completed = moss
                 : i === current
-                ? "rgba(138,154,65,0.55)"  // active = lighter moss
-                : "rgba(44,47,36,0.18)",   // future = faint
+                  ? "rgba(138,154,65,0.55)"  // active = lighter moss
+                  : "rgba(44,47,36,0.18)",   // future = faint
             transition: "background 0.3s ease",
           }}
         />
@@ -165,8 +165,8 @@ export default function QuizClient({ sessionId }: Props) {
           throw new Error(body.error ?? `Questions HTTP ${qRes.status}`);
         }
         if (!jRes.ok) {
-           const body = await jRes.json().catch(() => ({}));
-           throw new Error(body.error ?? `Join HTTP ${jRes.status}`);
+          const body = await jRes.json().catch(() => ({}));
+          throw new Error(body.error ?? `Join HTTP ${jRes.status}`);
         }
 
         const qData: QuizQuestionsResponse = await qRes.json();

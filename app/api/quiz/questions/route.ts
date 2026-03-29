@@ -181,20 +181,16 @@ function buildDrawingQuestion(
 // ─────────────────────────────────────────────────────────────────────────────
 
 export async function GET(req: NextRequest) {
-  // 1. Auth — verify the JWT cookie or dojo_session
-  const dojoSession = req.cookies.get('dojo_session')?.value;
-  const token = req.cookies.get('auth_token')?.value;
-
-  if (!dojoSession && !token) {
+  // 1. Auth — verify the dojo_session
+  const activeToken = req.cookies.get('dojo_session')?.value;
+  if (!activeToken)
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-  }
 
-  if (!dojoSession && token) {
-    try {
-      await verifyTelegramToken(token);
-    } catch {
-      return NextResponse.json({ error: 'Invalid or expired token' }, { status: 401 });
-    }
+  try {
+    const payload = await verifyTelegramToken(activeToken);
+    if (!payload || !payload.telegramId) throw new Error('Invalid session');
+  } catch (error) {
+    return NextResponse.json({ error: 'Invalid or expired session' }, { status: 401 });
   }
 
   // 2. Validate query params

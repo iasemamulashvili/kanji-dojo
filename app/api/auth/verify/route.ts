@@ -18,11 +18,12 @@ export async function GET(req: NextRequest) {
     }
 
     const cookieStore = await cookies();
-    cookieStore.set('dojo_session', telegramId, {
+    cookieStore.set('dojo_session', token, {
       secure: process.env.NODE_ENV === 'production',
       httpOnly: true,
       sameSite: 'lax',
       path: '/',
+      maxAge: 60 * 60 * 24 * 7, // 7 days
     });
 
     const baseUrl = process.env.APP_URL || req.nextUrl.origin;

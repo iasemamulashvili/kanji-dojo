@@ -182,3 +182,31 @@ body {
   border-style: solid;
 }
 
+/* ─────────────────────────────────────────
+   Kanji Canvas Animations
+───────────────────────────────────────── */
+@keyframes mossFlash {
+  0% { box-shadow: 0 0 0 0 rgba(138, 154, 65, 0.7); background: rgba(138, 154, 65, 0.2); }
+  100% { box-shadow: 0 0 0 20px rgba(138, 154, 65, 0); background: rgba(255, 255, 255, 0.40); }
+}
+@keyframes errorShake {
+  0%, 100% { transform: translateX(0); background: rgba(255, 255, 255, 0.40); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); background: rgba(155, 44, 44, 0.15); }
+  20%, 40%, 60%, 80% { transform: translateX(4px); background: rgba(155, 44, 44, 0.15); }
+}
+@keyframes perfectFlash {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(138, 154, 65, 0.8); background: rgba(138, 154, 65, 0.4); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); box-shadow: 0 0 0 30px rgba(138, 154, 65, 0); background: rgba(255, 255, 255, 0.40); }
+}
+
+.flash-correct {
+  animation: mossFlash 0.5s ease-out;
+}
+.shake-error {
+  animation: errorShake 0.4s ease-in-out;
+}
+.flash-perfect {
+  animation: perfectFlash 0.8s ease-out;
+}
+

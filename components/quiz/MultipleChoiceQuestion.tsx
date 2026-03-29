@@ -28,6 +28,18 @@ export default function MultipleChoiceQuestion({ question, onComplete }: Props) 
 
     const isCorrect = option === question.answer;
 
+    if (question.type === 'reading') {
+      try {
+        const textToSpeak = option.replace(/・/g, '');
+        const utterance = new SpeechSynthesisUtterance(textToSpeak);
+        utterance.lang = 'ja-JP';
+        utterance.rate = 0.9;
+        window.speechSynthesis.speak(utterance);
+      } catch (err) {
+        console.error("Speech synthesis failed:", err);
+      }
+    }
+
     setOptionStates(() =>
       Object.fromEntries(
         question.options.map((o) => {
@@ -38,7 +50,7 @@ export default function MultipleChoiceQuestion({ question, onComplete }: Props) 
       )
     );
 
-    setTimeout(() => onComplete(isCorrect), 850);
+    setTimeout(() => onComplete(isCorrect), 950);
   }
 
   return (

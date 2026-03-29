@@ -3,22 +3,17 @@ import { supabase } from '@/lib/supabase';
 import { verifyTelegramToken } from '@/lib/auth/jwt';
 
 export async function POST(req: NextRequest) {
-  const dojoSession = req.cookies.get('dojo_session')?.value;
-  const token = req.cookies.get('auth_token')?.value;
-
-  if (!dojoSession && !token)
+  const activeToken = req.cookies.get('dojo_session')?.value;
+  if (!activeToken)
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
-  let telegramId: string | undefined;
-  if (dojoSession) {
-    telegramId = dojoSession;
-  } else if (token) {
-    try {
-      const payload = await verifyTelegramToken(token);
-      telegramId = payload.telegramId;
-    } catch {
-      return NextResponse.json({ error: 'Invalid token' }, { status: 401 });
-    }
+  let telegramId: string;
+  try {
+    const payload = await verifyTelegramToken(activeToken);
+    telegramId = payload.telegramId;
+    if (!telegramId) throw new Error('Missing telegramId');
+  } catch (error) {
+    return NextResponse.json({ error: 'Invalid or expired session' }, { status: 401 });
   }
 
   const body = await req.json().catch(() => ({}));

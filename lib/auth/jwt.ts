@@ -10,7 +10,7 @@ export async function signTelegramToken(telegramId: string): Promise<string> {
   return new SignJWT({ telegramId })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
-    .setExpirationTime('15m')
+    .setExpirationTime('7d')
     .sign(secret);
 }
 

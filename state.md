@@ -4,12 +4,12 @@
 - Phase 3: Sprint Iteration (Bot Fallbacks, Quiz Canvas Fixes, Grammar Tooltips)
 
 ## Global Blockers
-- **Frontend Artist** depends on **Backend Warden** to finalize the accurate correct-answer counting on `/api/quiz/score`.
+- **None**
 
 ## Active Assignments
-- **Game Master**: Implement `/today` & `/next` graceful fallbacks pointing to `jlpt_order = 1`.
-- **Backend Warden**: (DONE) Finalize true correct-answer count tracking natively in `/api/quiz/score`. Now consumes `{ totalCorrect, totalQuestions }` and natively updates `quiz_scores`.
-- **Frontend Artist**: (DONE) Fix `DrawingQuestion.tsx` Canvas UI locks, stop initial kanji flashing, verify Score display, and implement `.grammar_explanation` tooltips in `InteractiveSentence.tsx`.
+- **Game Master**: (RESOLVED) Database Schema fix and Sequential Curriculum logic enforced. Quiz Data payload scaffolded for UI overhaul.
+- **Backend Warden**: (RESOLVED) Auth & Cron refactor verified by @qa-verifier.
+- **Frontend Artist**: Ready for UI/UX Overhaul & Matching Quiz Refactor.
 
 ## Completed Tasks / Schema Definitions
 - *Frontend Artist Patch Sequence*:
@@ -18,19 +18,23 @@
   - **Scoreboard UI**: Explicitly shows "X / Y Correct" at completion.
   - **Grammar Tooltips**: Added visual cues (dashed border); interactive tokens successfully display `grammar_explanation` and english meanings.
 - *Multi-Agent Architecture Initialization completes. PM organized skills in `.agents/skills/`.*
-- **Backend Warden Sprint ✅**
-  - `/api/cron/morning` and `/api/cron/nag` now export both `GET` (Vercel) and `POST` (cron-job.org) handlers with `Bearer CRON_SECRET` auth.
-  - `docs/cron-job-org-setup.md` created — guide to configure 5 daily cron jobs on cron-job.org.
-  - `/today` Telegram command added to `lib/telegram/bot.ts` — replies with full kanji card (character, meanings, on/kun readings, JLPT level, grammar notes) in MarkdownV2 — pinnable and offline-readable.
-  - `/api/quiz/score` POST route enhanced — now upserts `user_stats` (total_quizzes, total_score, best_score, last_played_at) when a quiz session finishes. Leaderboard-ready.
+- **Backend Warden Sprint ✅ (Auth & Cron Refactor)**
+  - **Bot Authentication**: JWT sessions now have a **7-day expiration**. `dojo_session` cookie is now a strictly validated JWT.
+  - **Protected Routes**: Added `/practice` to middleware protection.
+  - **Cron Migration**: Vercel Crons (`vercel.json`) removed. Migrated to secure POST-only webhooks for external triggers (e.g., cron-job.org).
+  - **New Endpoints**:
+    - `POST /api/cron/daily` — Triggers 08:00 Kanji rollover.
+    - `POST /api/cron/reminder` — Triggers evening study nag.
+  - **Security**: Strict enforcement of `Authorization: Bearer <CRON_SECRET>` on all cron routes.
+  - `/api/quiz/score` POST route enhanced — now strictly verifies JWT sessions before updating `quiz_scores`.
 
-### Game Master — Delivered Artifacts (2026-03-27)
-- **Phase 3 Bot Fallbacks**: `/today` and `/next` now gracefully handle missing `current_kanji_id` by defaulting to `jlpt_order = 1`, bypassing wait messages for new curriculums.
-- **`supabase/migrations/00005_add_jlpt_order.sql`** — Adds `jlpt_order` INT UNIQUE to `kanjis`, backfills 1..N ordering by `jlpt_level DESC, stroke_count ASC, character ASC`. Adds unique constraint + B-tree index.
-- **`supabase/migrations/00006_leaderboard_schema.sql`** — Creates `quiz_scores` (raw per-session results) and `leaderboard` (pre-aggregated totals with computed `accuracy_pct`). Includes `sync_leaderboard` trigger to keep aggregate in sync on every insert.
-- **`supabase/migrations/00007_grammar_explanation.sql`** — Adds `grammar_explanation TEXT` to `kanjis`.
-- **`lib/telegram/bot.ts`** — `/next` command now queries `jlpt_order` directly (removed the broken `jlpt_level * 1000 + stroke_count` fallback). `handleNavigation` now orders by `jlpt_order ASC`.
-- **`scripts/harvest-n5.ts`** — Gemini prompt schema + insert payload updated to include `grammar_explanation`.
+### Game Master — Database & Curriculum Resolution (2026-03-29)
+- **`supabase/migrations/00010_fix_group_settings.sql`** — Resolves "group_id missing" crash. Unifies singleton `id: 1` pattern with `group_id` BIGINT for Telegram group tracking.
+- **Strict Sequential Logic**: Refactored `broadcastNextKanji` in `lib/game-logic/broadcast.ts`. Rollover now strictly follows `jlpt_order` using `gt(jlpt_order, current)` without random fallbacks.
+- **Quiz Data Payload**: Created `lib/db/quiz.ts` implementing `getGroupQuizData`.
+    - **Filter**: Strictly `jlpt_order <= current_kanji.jlpt_order`. 
+    - **Payload**: Full Kanji metadata (character, readings, meanings, stroke_count, grammar_explanation) to support 5 question types (Meaning, Kun/On, Reverse, Writing, Audio).
+- **Bot Alignment**: `lib/telegram/bot.ts` updated to use `maybeSingle()` and BIGINT casting for `group_id` queries.
 
 ### Backend Warden Dependency
 - (DONE) `leaderboard` and `quiz_scores` tables are ready. Backend Warden has successfully implemented `POST /api/quiz/score` dropping the legacy `user_stats` upsert and now directly inserting into `quiz_scores` (which fires `sync_leaderboard` trigger natively).

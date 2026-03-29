@@ -1,13 +1,18 @@
-export const dynamic = 'force-dynamic';
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
+import { verifyTelegramToken } from '@/lib/auth/jwt';
 
 export async function GET(req: NextRequest) {
-  const dojoSession = req.cookies.get('dojo_session')?.value;
-  const token = req.cookies.get('auth_token')?.value;
-
-  if (!dojoSession && !token) {
+  const activeToken = req.cookies.get('dojo_session')?.value;
+  if (!activeToken) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  try {
+    const payload = await verifyTelegramToken(activeToken);
+    if (!payload || !payload.telegramId) throw new Error('Invalid session');
+  } catch (error) {
+    return NextResponse.json({ error: 'Invalid or expired session' }, { status: 401 });
   }
 
   // Get current kanji

@@ -6,19 +6,9 @@ export const dynamic = 'force-dynamic';
 
 export default async function PracticePage() {
   const cookieStore = await cookies();
-  const sessionCookie = cookieStore.get('dojo_session');
-
-  if (!sessionCookie?.value) {
-    return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <div className="wabi-card p-8 text-center max-w-md w-full">
-          <div className="text-4xl mb-4">⛩️</div>
-          <h1 className="text-2xl font-bold mb-2">Access Denied</h1>
-          <p className="text-sage">Please enter the Dojo through the Telegram Group via the magic link.</p>
-        </div>
-      </div>
-    );
-  }
+  // Authentication is now handled globally by TelegramAuthProvider in layout.tsx
+  // and enforced via dojo_session JWT validation in middleware.ts.
+  // We allow the server component to proceed to fetch the current Kanji.
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;

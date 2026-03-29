@@ -1,113 +1,7 @@
 "use client";
 
-import {
-  DndContext,
-  DragEndEvent,
-  DragOverlay,
-  DragStartEvent,
-  PointerSensor,
-  TouchSensor,
-  useDraggable,
-  useDroppable,
-  useSensor,
-  useSensors,
-} from "@dnd-kit/core";
 import { useState, useEffect } from "react";
 import type { MatchingQuestion as MatchingQuestionType } from "@/app/api/quiz/questions/route";
-
-// ─── Draggable Kanji chip ───────────────────────────────────────────────────
-
-function DraggableKanji({
-  kanji,
-  isPlaced,
-}: {
-  kanji: string;
-  isPlaced: boolean;
-}) {
-  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
-    id: kanji,
-  });
-
-  return (
-    <div
-      ref={setNodeRef}
-      {...listeners}
-      {...attributes}
-      className={[
-        "drag-item",
-        isDragging ? "drag-item--dragging" : "",
-        isPlaced ? "drag-item--placed" : "",
-      ]
-        .filter(Boolean)
-        .join(" ")}
-      style={{
-        width: "72px",
-        height: "72px",
-        fontSize: "clamp(1.6rem, 6vw, 2.2rem)",
-        fontWeight: 700,
-        color: "#2C2F24",
-      }}
-      aria-label={`Drag kanji ${kanji}`}
-    >
-      {kanji}
-    </div>
-  );
-}
-
-// ─── Droppable Meaning slot ─────────────────────────────────────────────────
-
-function DroppableMeaning({
-  meaning,
-  isCorrect,
-  filledWith,
-}: {
-  meaning: string;
-  isCorrect: boolean;
-  filledWith: string | null;
-}) {
-  const { isOver, setNodeRef } = useDroppable({ id: meaning });
-
-  const classes = [
-    "drop-zone",
-    isOver ? "drop-zone--active" : "",
-    isCorrect ? "drop-zone--correct" : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
-
-  return (
-    <div
-      ref={setNodeRef}
-      className={classes}
-      style={{ padding: "0.5rem 1rem", width: "100%" }}
-      aria-label={`Drop zone for ${meaning}`}
-    >
-      {filledWith ? (
-        <span
-          style={{
-            fontSize: "1.4rem",
-            fontWeight: 700,
-            color: isCorrect ? "#5a6b1e" : "#2C2F24",
-          }}
-        >
-          {filledWith}
-        </span>
-      ) : (
-        <span
-          style={{
-            fontSize: "0.8rem",
-            color: "#8A9A41",
-            fontStyle: "italic",
-          }}
-        >
-          {meaning}
-        </span>
-      )}
-    </div>
-  );
-}
-
-// ─── Main component ─────────────────────────────────────────────────────────
 
 interface Props {
   question: MatchingQuestionType;
@@ -117,158 +11,163 @@ interface Props {
 export default function MatchingQuestion({ question, onComplete }: Props) {
   const { pairs } = question;
 
+  const [leftItems, setLeftItems] = useState<string[]>([]);
+  const [rightItems, setRightItems] = useState<string[]>([]);
+
   useEffect(() => {
-    if (typeof window !== "undefined" && (window as any).Telegram?.WebApp?.disableVerticalSwipes) {
-      (window as any).Telegram.WebApp.disableVerticalSwipes();
+    setLeftItems([...pairs.map((p) => p.kanji)].sort(() => Math.random() - 0.5));
+    setRightItems([...pairs.map((p) => p.meaning)].sort(() => Math.random() - 0.5));
+  }, [pairs]);
+
+  const [selectedLeft, setSelectedLeft] = useState<string | null>(null);
+  const [connections, setConnections] = useState<Record<string, string>>({});
+  const [submitted, setSubmitted] = useState(false);
+
+  const rightToLeft = Object.fromEntries(
+    Object.entries(connections).map(([k, v]) => [v, k])
+  );
+  
+  const connectedKanjiList = Object.keys(connections);
+
+  const handleLeftClick = (kanji: string) => {
+    if (submitted) return;
+    if (selectedLeft === kanji) {
+      setSelectedLeft(null);
+    } else {
+      setSelectedLeft(kanji);
     }
-  }, []);
+  };
 
-  const [placements, setPlacements] = useState<Record<string, string | null>>(
-    () => Object.fromEntries(pairs.map((p) => [p.meaning, null]))
-  );
-  const [correctSet, setCorrectSet] = useState<Set<string>>(new Set());
-  const [activeKanji, setActiveKanji] = useState<string | null>(null);
-  const [completed, setCompleted] = useState(false);
-
-  const placedKanjis = new Set(
-    Object.values(placements).filter((v): v is string => v !== null)
-  );
-
-  const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
-    useSensor(TouchSensor, {
-      activationConstraint: { delay: 100, tolerance: 5 },
-    })
-  );
-
-  function handleDragStart(event: DragStartEvent) {
-    setActiveKanji(event.active.id as string);
-  }
-
-  function handleDragEnd(event: DragEndEvent) {
-    setActiveKanji(null);
-    const { active, over } = event;
-    if (!over) return;
-
-    const draggedKanji = active.id as string;
-    const targetMeaning = over.id as string;
-
-    const correctPair = pairs.find((p) => p.kanji === draggedKanji);
-    const isCorrect = correctPair?.meaning === targetMeaning;
-
-    if (!isCorrect) return;
-
-    setPlacements((prev) => ({ ...prev, [targetMeaning]: draggedKanji }));
-    setCorrectSet((prev) => {
-      const next = new Set(prev);
-      next.add(targetMeaning);
-      if (next.size === pairs.length && !completed) {
-        setCompleted(true);
-        setTimeout(() => onComplete(true), 900);
+  const handleRightClick = (meaning: string) => {
+    if (submitted) return;
+    if (selectedLeft) {
+      setConnections((prev) => {
+        const next = { ...prev };
+        for (const k in next) {
+          if (next[k] === meaning) {
+            delete next[k];
+          }
+        }
+        next[selectedLeft] = meaning;
+        return next;
+      });
+      setSelectedLeft(null);
+    } else {
+      if (rightToLeft[meaning]) {
+        setConnections((prev) => {
+          const next = { ...prev };
+          delete next[rightToLeft[meaning]];
+          return next;
+        });
       }
-      return next;
-    });
-  }
+    }
+  };
 
-  const kanjis = pairs.map((p) => p.kanji);
-  const meanings = pairs.map((p) => p.meaning);
+  const handleSubmit = () => {
+    setSubmitted(true);
+    const isAllCorrect = pairs.every((p) => connections[p.kanji] === p.meaning);
+    
+    if (isAllCorrect) {
+      setTimeout(() => onComplete(true), 1500);
+    } else {
+      setTimeout(() => {
+        setSubmitted(false);
+        setConnections({});
+        setSelectedLeft(null);
+      }, 2000);
+    }
+  };
+
+  const allConnected = connectedKanjiList.length === pairs.length;
 
   return (
-    <div style={{ width: "100%" }}>
-      <p
-        style={{
-          fontSize: "0.78rem",
-          fontWeight: 600,
-          letterSpacing: "0.12em",
-          textTransform: "uppercase",
-          color: "#8A9A41",
-          textAlign: "center",
-          marginBottom: "1.5rem",
-        }}
-      >
+    <div className="flex flex-col w-full items-center">
+      <p className="text-xs font-semibold tracking-widest uppercase text-moss text-center mb-6">
         {question.instruction}
       </p>
 
-      <DndContext
-        sensors={sensors}
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-      >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "0.75rem 1.25rem",
-            alignItems: "center",
-          }}
-        >
-          {/* Left: Kanji chips */}
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "0.75rem",
-              alignItems: "center",
-            }}
-          >
-            {kanjis.map((kanji) => (
-              <DraggableKanji
-                key={kanji}
-                kanji={kanji}
-                isPlaced={placedKanjis.has(kanji)}
-              />
-            ))}
-          </div>
+      <div className="grid grid-cols-2 gap-4 w-full max-w-md mx-auto mb-8">
+        {/* Left Column: Kanji */}
+        <div className="flex flex-col gap-3">
+          {leftItems.map((kanji) => {
+            const isSelected = selectedLeft === kanji;
+            const connectedMeaning = connections[kanji];
+            const connIndex = connectedMeaning ? connectedKanjiList.indexOf(kanji) + 1 : null;
+            
+            let statusClass = "bg-white/40 border-moss-light/50";
+            if (isSelected) statusClass = "bg-moss/20 border-moss shadow-sm scale-105";
+            else if (connectedMeaning && !submitted) statusClass = "bg-white/60 border-moss/50";
+            
+            if (submitted && connectedMeaning) {
+                const correctMeaning = pairs.find(p => p.kanji === kanji)?.meaning;
+                if (connectedMeaning === correctMeaning) {
+                    statusClass = "bg-moss/20 border-moss text-moss";
+                } else {
+                    statusClass = "bg-cinnabar/10 border-cinnabar/40 text-cinnabar";
+                }
+            }
 
-          {/* Right: Meaning drop-zones */}
-          <div
-            style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}
-          >
-            {meanings.map((meaning) => (
-              <DroppableMeaning
-                key={meaning}
-                meaning={meaning}
-                isCorrect={correctSet.has(meaning)}
-                filledWith={placements[meaning]}
-              />
-            ))}
-          </div>
+            return (
+              <button
+                key={kanji}
+                onClick={() => handleLeftClick(kanji)}
+                className={`relative flex items-center justify-center h-16 w-full text-2xl font-bold rounded-[81%_19%_88%_12%/15%_79%_21%_85%] border backdrop-blur-md transition-all duration-200 ${statusClass}`}
+              >
+                {kanji}
+                {connIndex && (
+                  <span className="absolute -right-2 -top-2 w-6 h-6 flex items-center justify-center bg-parchment border border-moss rounded-full text-xs font-bold text-moss shadow-sm">
+                    {connIndex}
+                  </span>
+                )}
+              </button>
+            );
+          })}
         </div>
 
-        <DragOverlay>
-          {activeKanji ? (
-            <div
-              className="drag-item"
-              style={{
-                width: "72px",
-                height: "72px",
-                fontSize: "clamp(1.6rem,6vw,2.2rem)",
-                fontWeight: 700,
-                color: "#2C2F24",
-                opacity: 0.9,
-                cursor: "grabbing",
-              }}
-            >
-              {activeKanji}
-            </div>
-          ) : null}
-        </DragOverlay>
-      </DndContext>
+        {/* Right Column: Meanings */}
+        <div className="flex flex-col gap-3">
+          {rightItems.map((meaning) => {
+            const connectedKanji = rightToLeft[meaning];
+            const connIndex = connectedKanji ? connectedKanjiList.indexOf(connectedKanji) + 1 : null;
+            
+            let statusClass = "bg-white/20 border-dashed border-moss/30";
+            if (connectedKanji && !submitted) statusClass = "bg-white/60 border-solid border-moss/50";
+            else if (selectedLeft && !connectedKanji) statusClass = "bg-moss/5 border-dashed border-moss/50 cursor-pointer hover:bg-moss/10";
+            
+            if (submitted && connectedKanji) {
+                const correctKanji = pairs.find(p => p.meaning === meaning)?.kanji;
+                if (connectedKanji === correctKanji) {
+                    statusClass = "bg-moss/20 border-solid border-moss text-moss";
+                } else {
+                    statusClass = "bg-cinnabar/10 border-solid border-cinnabar/40 text-cinnabar";
+                }
+            }
 
-      {completed && (
-        <p
-          style={{
-            textAlign: "center",
-            marginTop: "1.25rem",
-            color: "#5a6b1e",
-            fontWeight: 600,
-            fontSize: "0.9rem",
-            letterSpacing: "0.08em",
-          }}
-        >
-          ✓ All matched!
-        </p>
-      )}
+            return (
+              <button
+                key={meaning}
+                onClick={() => handleRightClick(meaning)}
+                className={`relative flex items-center justify-center h-16 w-full px-4 text-sm font-medium rounded-xl border backdrop-blur-sm transition-all duration-200 ${statusClass} ${!connectedKanji && !selectedLeft && !submitted ? 'cursor-default' : ''}`}
+              >
+                <span className="text-center leading-tight">{meaning}</span>
+                {connIndex && (
+                  <span className="absolute -left-2 -top-2 w-6 h-6 flex items-center justify-center bg-parchment border border-moss rounded-full text-xs font-bold text-moss shadow-sm">
+                    {connIndex}
+                  </span>
+                )}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <button
+        onClick={handleSubmit}
+        disabled={!allConnected || submitted}
+        className={`px-8 py-3 rounded-[68%_32%_74%_26%/28%_62%_38%_72%] border font-bold tracking-wide transition-all ${allConnected && !submitted ? 'bg-moss text-white border-moss hover:scale-105 shadow-md' : 'bg-gray-200 text-gray-400 border-gray-300 opacity-50 cursor-not-allowed'}`}
+      >
+        {submitted ? "Checking..." : "Submit"}
+      </button>
     </div>
   );
 }

@@ -28,18 +28,18 @@ export default function KanjiCanvas({ character, initialMode = 'practice', onCom
     }
 
     writerRef.current = HanziWriter.create(containerRef.current, character, {
-      width: 300,
-      height: 300,
-      padding: 20,
+      width: 320, // Slightly larger for better touch precision
+      height: 320,
+      padding: 15,
       showCharacter: false,
-      strokeAnimationSpeed: 1,
-      delayBetweenStrokes: 50,
+      strokeAnimationSpeed: 1.25,
+      delayBetweenStrokes: 100,
       showOutline: mode === 'practice',
-      drawingWidth: 25,
-      strokeColor: '#1a1a1a', // var(--ink-black)
-      radicalColor: '#9b2c2c', // var(--cinnabar)
-      outlineColor: '#828e70', // var(--sage)
-      leniency: 2.5, // much more forgiving stroke precision
+      drawingWidth: 20, // Slimmer stroke for elegance
+      strokeColor: '#2d291d', // --charcoal-brown
+      radicalColor: '#4a1816', // --rich-mahogany
+      outlineColor: '#a7a190', // --khaki-beige
+      leniency: 2.0, // Tighter precision for 'DoJo' standard
     });
 
     if (mode === 'practice') {
@@ -63,9 +63,10 @@ export default function KanjiCanvas({ character, initialMode = 'practice', onCom
         }, 50);
     } else if (mode === 'test') {
         setTimeout(() => {
-            writerRef.current?.quiz({
-                showHintAfterMisses: 3,
-                onMistake: () => {
+            if (!writerRef.current) return;
+            writerRef.current.quiz({
+                showHintAfterMisses: 999, // Effectively NO hints as per Linguistic Architect
+    onMistake: () => {
                     if (containerRef.current) {
                         containerRef.current.classList.remove('shake-error');
                         void containerRef.current.offsetWidth;
@@ -89,9 +90,11 @@ export default function KanjiCanvas({ character, initialMode = 'practice', onCom
                     }
 
                     setTimeout(() => {
-                        writerRef.current?.updateColor('strokeColor', '#1a1a1a', { duration: 1000 });
+                        if (writerRef.current) {
+                            writerRef.current.updateColor('strokeColor', '#2d291d', { duration: 1000 });
+                        }
                         if (onComplete) onComplete(true);
-                    }, 2000);
+                    }, 1200); // Faster transition to keep momentum
                 }
             });
         }, 50);
@@ -131,23 +134,23 @@ export default function KanjiCanvas({ character, initialMode = 'practice', onCom
           </button>
           <button 
             onClick={handlePractice}
-            className="flex flex-1 items-center justify-center gap-2 bg-transparent font-semibold py-2 px-1 transition-all active:scale-95"
+            className="flex flex-1 items-center justify-center gap-2 bg-transparent font-bold py-2 px-1 transition-all active:scale-95"
             style={{ 
-              color: mode === 'practice' ? '#8A9A41' : '#2C2F24', 
-              borderBottom: `1.5px solid ${mode === 'practice' ? '#8A9A41' : 'rgba(138,154,65,0.25)'}`
+              color: mode === 'practice' ? '#4a1816' : '#a7a190', 
+              borderBottom: `2.5px solid ${mode === 'practice' ? '#4a1816' : 'transparent'}`
             }}
           >
-            <PenTool className="w-5 h-5" /> Practice
+            <PenTool className="w-4 h-4" /> Practice
           </button>
           <button 
             onClick={handleTest}
-            className="flex flex-1 items-center justify-center gap-2 bg-transparent font-semibold py-2 px-1 transition-all active:scale-95"
+            className="flex flex-1 items-center justify-center gap-2 bg-transparent font-bold py-2 px-1 transition-all active:scale-95"
             style={{ 
-              color: mode === 'test' ? '#8A9A41' : '#2C2F24', 
-              borderBottom: `1.5px solid ${mode === 'test' ? '#8A9A41' : 'rgba(138,154,65,0.25)'}`
+              color: mode === 'test' ? '#4a1816' : '#a7a190', 
+              borderBottom: `2.5px solid ${mode === 'test' ? '#4a1816' : 'transparent'}`
             }}
           >
-            <GraduationCap className="w-5 h-5" /> Test
+            <GraduationCap className="w-4 h-4" /> Test
           </button>
         </div>
       )}

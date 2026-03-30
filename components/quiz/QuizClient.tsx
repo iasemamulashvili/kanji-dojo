@@ -228,6 +228,14 @@ export default function QuizClient({ sessionId }: Props) {
     if (correct) {
       newScore += 1;
       setMyParticipant((prev: any) => prev ? { ...prev, score: newScore } : prev);
+      // Immediately update local participants list to prevent "flicker" or stale score
+      setParticipants((prev) => 
+        prev.map((p) => 
+          p.telegram_id.toString() === myParticipant?.telegram_id?.toString() 
+            ? { ...p, score: newScore } 
+            : p
+        )
+      );
     }
 
     fetch("/api/quiz/score", {
@@ -345,25 +353,28 @@ export default function QuizClient({ sessionId }: Props) {
               return (
                 <div
                   key={p.id}
-                  className="flex justify-between items-center p-4 rounded-xl"
+                  className="flex justify-between items-center p-4 rounded-xl transition-all duration-500"
                   style={{
                     background: isMe
                       ? "rgba(138,154,65,0.15)"
                       : "rgba(138,154,65,0.05)",
-                    border: "1px solid rgba(138,154,65,0.2)",
+                    border: isMe 
+                      ? "2px solid rgba(138,154,65,0.4)" 
+                      : "1px solid rgba(138,154,65,0.2)",
+                    transform: isMe ? "scale(1.02)" : "scale(1)",
                   }}
                 >
                   <span
-                    className="font-semibold"
-                    style={{ color: isMe ? "#5a6b1e" : "#8A9A41" }}
+                    className="font-semibold flex items-center gap-2"
+                    style={{ color: isMe ? "#4a1816" : "#8A9A41" }}
                   >
-                    {idx + 1}. {isMe ? "You" : `Player ${p.telegram_id.toString().slice(-4)}`}
+                    {idx + 1}. {isMe ? "✨ You" : `Player ${p.telegram_id.toString().slice(-4)}`}
                   </span>
                   <span
                     className="font-bold text-xl"
                     style={{ color: "#2C2F24" }}
                   >
-                    {p.score} / {questions.length} Correct {p.finished && "🏁"}
+                    {isMe ? Math.max(p.score, myParticipant?.score || 0) : p.score} / {questions.length} Correct {p.finished && "🏁"}
                   </span>
                 </div>
               );

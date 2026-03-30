@@ -50,12 +50,10 @@ export default function KanjiReadings({ onyomi, kunyomi }: KanjiReadingsProps) {
             </button>
           )}
         </div>
-        <div className="text-xl font-bold mb-1" style={{ color: '#2C2F24' }}>
+        <div className="text-xl font-bold mb-1" style={{ color: '#2d291d' }}>
           {onyomiKatakana}
         </div>
-        <div className="text-sm font-medium" style={{ color: 'rgba(44, 47, 36, 0.60)' }}>
-          {onyomiString || '—'}
-        </div>
+        {/* Clean Wabi-Sabi look: Only Katakana shown */}
       </div>
 
       {/* Kunyomi Card */}
@@ -81,12 +79,10 @@ export default function KanjiReadings({ onyomi, kunyomi }: KanjiReadingsProps) {
             </button>
           )}
         </div>
-        <div className="text-xl font-bold mb-1" style={{ color: '#2C2F24' }}>
+        <div className="text-xl font-bold mb-1" style={{ color: '#2d291d' }}>
           {kunyomiHiragana}
         </div>
-        <div className="text-sm font-medium" style={{ color: 'rgba(44, 47, 36, 0.60)' }}>
-          {kunyomiString || '—'}
-        </div>
+        {/* Clean Wabi-Sabi look: Only Hiragana shown */}
       </div>
 
     </div>

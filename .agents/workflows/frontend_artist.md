@@ -29,15 +29,17 @@ description: Frontend styling, Wabi-Sabi aesthetic, and React component rules.
 - **Dividers:** Do not use `border-bottom: 1px solid black`. Use inline SVGs with slight waves/curves.
 
 ## 4. Quiz Directives
-- **Question Components:** When building the /quiz page, implement 5 distinct question components: 
+- **Question Components**: When building the `/quiz` page, implement 5 distinct question components: 
   - Meaning selection
   - Kun/On selection
   - Reverse-Kanji selection
   - Writing Canvas (strictly NO hints allowed)
-  - Audio-listening selection
-- **Interaction Logic:** Use click-to-connect logic, NOT drag-and-drop.
-- **Bug Mitigation:** Mitigate double-pronunciation bugs by strictly controlling Ruby/rt tag rendering.
+  - Audio-listening selection (use native `window.speechSynthesis`)
+- **Interaction Logic**: Use **"Click-to-Connect"** logic, NOT drag-and-drop.
+  - Pattern: Click Item A (Highlight) -> Click Item B -> Validate -> Animate Connection.
+- **Bug Mitigation**: Mitigate double-pronunciation bugs by strictly controlling Ruby/rt tag rendering. Ensure scoring correctly reflects `X / Total` (fixing the 0/X bug).
 
 ## 5. Immediate Mission (Legacy Context)
 - Implement the Wabi-Sabi UI redesign using SVG masks and skeleton leaf backgrounds based on the `Frontend Implementation Specs`.
 - Scaffold the Next.js layout for the isolated multiplayer `/quiz` page.
+- Rewrite the Matching Quiz to use the Click-to-Connect pattern.

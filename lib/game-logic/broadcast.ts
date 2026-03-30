@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { Telegraf } from 'telegraf';
+import { revalidatePath } from 'next/cache';
 
 export type BroadcastResult = {
   skipped: boolean;
@@ -106,6 +107,13 @@ export async function broadcastNextKanji(trigger: 'cron' | 'vote'): Promise<Broa
 
   if (upsertError) {
     console.error(`[broadcastNextKanji] Failed to update group_settings:`, upsertError);
+  }
+
+  // Clear cache for the practice page to show the new Kanji immediately
+  try {
+    revalidatePath('/practice');
+  } catch (e) {
+    console.error('Failed to revalidate practice path:', e);
   }
 
   // 5. Broadcast message compilation

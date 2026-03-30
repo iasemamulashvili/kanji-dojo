@@ -161,7 +161,7 @@ function buildMatchingQuestion(
   );
   return {
     type: 'matching',
-    instruction: 'Drag each Kanji to its correct English meaning.',
+    instruction: 'Match each Kanji to its correct English meaning.',
     pairs,
   };
 }

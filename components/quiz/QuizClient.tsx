@@ -13,7 +13,7 @@ function WabiDivider() {
       <svg viewBox="0 0 400 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M0,10 C40,0 80,20 120,10 C160,0 200,18 240,10 C280,2 320,18 360,10 C380,6 395,12 400,10"
-          stroke="#8A9A41"
+          stroke="var(--ebony)"
           strokeWidth="1.5"
           fill="none"
           strokeLinecap="round"
@@ -44,18 +44,9 @@ function ProgressPips({
       {Array.from({ length: total }).map((_, i) => (
         <div
           key={i}
-          style={{
-            width: "8px",
-            height: "8px",
-            borderRadius: "50%",
-            background:
-              i < current
-                ? "#8A9A41"        // completed = moss
-                : i === current
-                  ? "rgba(138,154,65,0.55)"  // active = lighter moss
-                  : "rgba(44,47,36,0.18)",   // future = faint
-            transition: "background 0.3s ease",
-          }}
+          className={`w-2 h-2 rounded-full transition-colors duration-300 ${
+            i < current ? 'bg-ebony' : i === current ? 'bg-ebony/55' : 'bg-charcoal/18'
+          }`}
         />
       ))}
     </div>
@@ -66,8 +57,7 @@ function ProgressPips({
 function PageLayout({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className="relative min-h-screen overflow-x-hidden p-4 md:p-8 flex flex-col items-center"
-      style={{ background: "#F4F1EB", color: "#2C2F24" }}
+      className="relative min-h-screen overflow-x-hidden p-4 md:p-8 flex flex-col items-center bg-parchment text-charcoal"
     >
       {/* Leaf — left */}
       <div
@@ -110,14 +100,12 @@ function PageLayout({ children }: { children: React.ReactNode }) {
         {/* Header */}
         <header className="flex justify-between items-center w-full max-w-md mx-auto mb-8">
           <div
-            className="text-lg font-bold tracking-[0.25em] uppercase"
-            style={{ color: "#2C2F24" }}
+            className="text-lg font-bold tracking-[0.25em] uppercase text-charcoal"
           >
             Kanji Dojo
           </div>
           <div
-            className="text-xs font-semibold tracking-wider uppercase px-3 py-1 rounded-full"
-            style={{ background: "rgba(138,154,65,0.12)", color: "#8A9A41" }}
+            className="text-xs font-semibold tracking-wider uppercase px-3 py-1 rounded-full bg-ebony/12 text-ebony"
           >
             Quiz
           </div>
@@ -265,27 +253,12 @@ export default function QuizClient({ sessionId }: Props) {
     return (
       <PageLayout>
         <div
-          className="wabi-card w-full max-w-md p-10 flex flex-col items-center justify-center"
-          style={{ minHeight: "200px" }}
+          className="wabi-card w-full max-w-md p-10 flex flex-col items-center justify-center min-h-[200px]"
         >
-          <div
-            style={{
-              fontSize: "2rem",
-              animation: "pulse 1.8s ease-in-out infinite",
-            }}
-          >
+          <div className="text-4xl animate-pulse">
             ⛩️
           </div>
-          <p
-            style={{
-              marginTop: "1rem",
-              fontSize: "0.8rem",
-              fontWeight: 600,
-              letterSpacing: "0.12em",
-              textTransform: "uppercase",
-              color: "#8A9A41",
-            }}
-          >
+          <p className="mt-4 text-xs font-semibold tracking-widest uppercase text-ebony">
             Loading quiz…
           </p>
         </div>
@@ -298,18 +271,11 @@ export default function QuizClient({ sessionId }: Props) {
     return (
       <PageLayout>
         <div className="wabi-card w-full max-w-md p-8 flex flex-col items-center text-center">
-          <div style={{ fontSize: "2rem", marginBottom: "0.75rem" }}>🪦</div>
-          <h2
-            style={{
-              fontSize: "1.1rem",
-              fontWeight: 700,
-              color: "#9b2c2c",
-              marginBottom: "0.5rem",
-            }}
-          >
+          <div className="text-4xl mb-3">🪦</div>
+          <h2 className="text-lg font-bold text-mahogany mb-2">
             Could not load quiz
           </h2>
-          <p style={{ fontSize: "0.85rem", color: "#82896e" }}>{errorMsg}</p>
+          <p className="text-xs text-ebony/70">{errorMsg}</p>
         </div>
       </PageLayout>
     );
@@ -331,8 +297,8 @@ export default function QuizClient({ sessionId }: Props) {
           aria-label={`Kanji: ${targetKanji}`}
         >
           <span
-            className="font-bold leading-none select-none"
-            style={{ fontSize: "clamp(5rem,22vw,8rem)", color: "#2C2F24" }}
+            className="font-bold leading-none select-none text-charcoal"
+            style={{ fontSize: "clamp(5rem,22vw,8rem)" }}
           >
             {targetKanji}
           </span>
@@ -341,10 +307,7 @@ export default function QuizClient({ sessionId }: Props) {
         <WabiDivider />
 
         <div className="w-full max-w-md p-2">
-          <h3
-            className="text-center font-bold tracking-widest uppercase mb-4"
-            style={{ color: "#8A9A41", fontSize: "0.85rem" }}
-          >
+          <h3 className="text-center font-bold tracking-widest uppercase mb-4 text-ebony text-xs">
             Final Leaderboard
           </h3>
           <div className="flex flex-col gap-2">
@@ -353,27 +316,14 @@ export default function QuizClient({ sessionId }: Props) {
               return (
                 <div
                   key={p.id}
-                  className="flex justify-between items-center p-4 rounded-xl transition-all duration-500"
-                  style={{
-                    background: isMe
-                      ? "rgba(138,154,65,0.15)"
-                      : "rgba(138,154,65,0.05)",
-                    border: isMe 
-                      ? "2px solid rgba(138,154,65,0.4)" 
-                      : "1px solid rgba(138,154,65,0.2)",
-                    transform: isMe ? "scale(1.02)" : "scale(1)",
-                  }}
+                  className={`flex justify-between items-center p-4 rounded-xl transition-all duration-500 border ${
+                    isMe ? 'bg-ebony/15 border-ebony/40 scale-102' : 'bg-ebony/5 border-ebony/20'
+                  }`}
                 >
-                  <span
-                    className="font-semibold flex items-center gap-2"
-                    style={{ color: isMe ? "#4a1816" : "#8A9A41" }}
-                  >
+                  <span className={`font-semibold flex items-center gap-2 ${isMe ? 'text-mahogany' : 'text-ebony'}`}>
                     {idx + 1}. {isMe ? "✨ You" : `Player ${p.telegram_id.toString().slice(-4)}`}
                   </span>
-                  <span
-                    className="font-bold text-xl"
-                    style={{ color: "#2C2F24" }}
-                  >
+                  <span className="font-bold text-xl text-charcoal">
                     {isMe ? Math.max(p.score, myParticipant?.score || 0) : p.score} / {questions.length} Correct {p.finished && "🏁"}
                   </span>
                 </div>
@@ -398,20 +348,10 @@ export default function QuizClient({ sessionId }: Props) {
     <PageLayout>
       {/* Arena Title & Scoreboard */}
       <div className="w-full max-w-md flex flex-col mb-6">
-        <h2
-          className="text-center font-bold tracking-widest uppercase mb-3"
-          style={{ color: "#8A9A41", fontSize: "0.85rem" }}
-        >
+        <h2 className="text-center font-bold tracking-widest uppercase mb-3 text-ebony text-xs">
           Live Arena
         </h2>
-        <div
-          className="flex gap-2 flex-wrap justify-center p-3 rounded-xl"
-          style={{
-            background: "rgba(138,154,65,0.06)",
-            border: "1px solid rgba(138,154,65,0.15)",
-            minHeight: "48px"
-          }}
-        >
+        <div className="flex gap-2 flex-wrap justify-center p-3 rounded-xl bg-ebony/6 border border-ebony/15 min-h-[48px]">
           {participants.length === 0 && (
             <span className="text-sm opacity-50 flex items-center">
               Waiting for players...
@@ -424,14 +364,12 @@ export default function QuizClient({ sessionId }: Props) {
               return (
                 <div
                   key={p.id}
-                  className="text-xs px-2.5 py-1 rounded-md font-semibold flex items-center gap-2"
-                  style={{
-                    background: isMe ? "rgba(138,154,65,0.2)" : "transparent",
-                    color: isMe ? "#5a6b1e" : "#8A9A41",
-                  }}
+                  className={`text-xs px-2.5 py-1 rounded-md font-semibold flex items-center gap-2 ${
+                    isMe ? 'bg-ebony/20 text-ebony' : 'bg-transparent text-ebony'
+                  }`}
                 >
                   {isMe ? "You" : `P${p.telegram_id.toString().slice(-4)}`}
-                  <span className="bg-[#8A9A41] text-[#F4F1EB] px-1.5 py-0.5 rounded-sm">
+                  <span className="bg-ebony text-parchment px-1.5 py-0.5 rounded-sm">
                     {p.score}
                   </span>
                   {p.finished && <span title="Finished">🏁</span>}
@@ -447,16 +385,7 @@ export default function QuizClient({ sessionId }: Props) {
       <ProgressPips total={questions.length} current={currentIndex} />
 
       {/* Question type label */}
-      <p
-        style={{
-          fontSize: "0.7rem",
-          fontWeight: 700,
-          letterSpacing: "0.18em",
-          textTransform: "uppercase",
-          color: "#8A9A41",
-          marginBottom: "0.75rem",
-        }}
-      >
+      <p className="text-[0.65rem] font-bold tracking-widest uppercase text-ebony mb-3">
         {questionLabel[currentQuestion.type] ?? currentQuestion.type}
       </p>
 
@@ -470,14 +399,7 @@ export default function QuizClient({ sessionId }: Props) {
       </div>
 
       {/* Step counter */}
-      <p
-        style={{
-          marginTop: "1rem",
-          fontSize: "0.75rem",
-          color: "rgba(44,47,36,0.45)",
-          letterSpacing: "0.06em",
-        }}
-      >
+      <p className="mt-4 text-xs text-charcoal/45 tracking-wide">
         {currentIndex + 1} / {questions.length}
       </p>
     </PageLayout>

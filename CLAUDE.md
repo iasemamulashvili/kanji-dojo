@@ -38,8 +38,7 @@ Check `./.agent/skills/` for the local implementation of:
 - `ui-ux-pro-max`: Custom Wabi-Sabi palette and mobile-first rules.
 
 ## 📝 Next Actions
-1.  **Refactor Quiz**: [COMPLETED] Click-to-Connect matching mechanic.
-2.  **Fix Scoring**: [COMPLETED] Resolved `0 / X` correct answers bug and leaderboard syncing.
-3.  **Canvas Fixes**: [COMPLETED] Precision and test-mode hint rules updated for KanjiCanvas.
-4.  **Daily Sync**: [COMPLETED] Added `revalidatePath` to the broadcast logic.
-5.  **Multiplayer Stats**: Implement more detailed post-quiz results.
+1.  **Phase 4 Planning**: Prepare the roadmap for long-term retention (SRS) and advanced multiplayer features.
+2.  **Linting Cleanup**: Address `@theme` and other CSS warnings in `globals.css` once the Tailwind v4 plugin is stable.
+3.  **SRS Logic**: Design the Spaced Repetition System for individual user Kanji mastery.
+4.  **Multiplayer Enhancements**: Add real-time "battle" effects or cooperative modes.

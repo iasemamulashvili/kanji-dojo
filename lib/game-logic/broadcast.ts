@@ -109,9 +109,9 @@ export async function broadcastNextKanji(trigger: 'cron' | 'vote'): Promise<Broa
     console.error(`[broadcastNextKanji] Failed to update group_settings:`, upsertError);
   }
 
-  // Clear cache for the practice page to show the new Kanji immediately
   try {
     revalidatePath('/practice');
+    revalidatePath('/stats');
   } catch (e) {
     console.error('Failed to revalidate practice path:', e);
   }
@@ -213,6 +213,14 @@ export async function broadcastPrevKanji(): Promise<BroadcastResult> {
       current_kanji_id: prevKanji.id,
       updated_at: new Date().toISOString()
     }, { onConflict: 'group_id' });
+  
+  // Clear cache to keep web UI in sync
+  try {
+    revalidatePath('/practice');
+    revalidatePath('/stats');
+  } catch (e) {
+    console.error('Failed to revalidate paths in broadcastPrevKanji:', e);
+  }
 
   // 4. Broadcast
   const appUrl = process.env.APP_URL || 'http://localhost:3000';

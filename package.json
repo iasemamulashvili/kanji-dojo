@@ -17,6 +17,7 @@
     "@supabase/supabase-js": "^2.99.2",
     "@types/wanakana": "^4.0.6",
     "@vercel/og": "^0.11.1",
+    "framer-motion": "^12.38.0",
     "hanzi-writer": "^3.7.3",
     "jose": "^6.2.1",
     "lucide-react": "^0.577.0",

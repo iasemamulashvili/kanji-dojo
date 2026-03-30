@@ -23,7 +23,7 @@ function WaveDivider() {
       <svg viewBox="0 0 400 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style={{ display: 'block', width: '100%', height: '18px' }}>
         <path
           d="M0,10 C40,2 80,18 120,10 C160,2 200,18 240,10 C280,2 320,18 360,10 C380,6 395,13 400,10"
-          stroke="#8A9A41"
+          stroke="var(--ebony)"
           strokeWidth="1.5"
           fill="none"
           strokeLinecap="round"
@@ -50,13 +50,12 @@ export default function InteractiveSentence({ sentence }: { sentence: Sentence }
       <WaveDivider />
 
       <div className="flex justify-between items-start mb-6 mt-2">
-        <div className="text-sm font-medium italic" style={{ color: 'rgba(44, 47, 36, 0.70)' }}>
+        <div className="text-sm font-medium italic text-charcoal/70">
           {sentence.english}
         </div>
         <button
           onClick={() => playAudio(sentence.japanese)}
-          className="flex items-center gap-1 text-sm font-medium transition-colors flex-shrink-0 ml-3"
-          style={{ color: '#8A9A41' }}
+          className="flex items-center gap-1 text-sm font-medium transition-colors flex-shrink-0 ml-3 text-ebony"
         >
           <Volume2 className="h-4 w-4" /> Read
         </button>
@@ -70,14 +69,13 @@ export default function InteractiveSentence({ sentence }: { sentence: Sentence }
             onClick={() => setActiveToken(activeToken === token ? null : token)}
           >
             <ruby
-              className="text-xl transition-colors"
+              className={`text-xl transition-colors ${activeToken === token ? 'text-mahogany' : 'text-charcoal'}`}
               style={{ 
-                color: activeToken === token ? '#9b2c2c' : '#2C2F24',
-                borderBottom: `1.5px dashed ${activeToken === token ? '#9b2c2c' : 'rgba(44,47,36,0.3)'}`
+                borderBottom: `1.5px dashed ${activeToken === token ? 'var(--mahogany)' : 'rgba(44,47,36,0.3)'}`
               }}
             >
               {token.text}
-              <rt className="text-[10px]" style={{ color: '#8A9A41' }}>{token.furigana || ''}</rt>
+              <rt className="text-[10px] text-ebony">{token.furigana || ''}</rt>
             </ruby>
           </div>
         ))}
@@ -87,24 +85,23 @@ export default function InteractiveSentence({ sentence }: { sentence: Sentence }
         <div className="wabi-card p-4 flex flex-col gap-3 animate-in fade-in slide-in-from-top-2 relative mt-4">
           <div className="flex justify-between items-start">
             <div>
-              <div className="text-2xl font-bold mb-1" style={{ color: '#2C2F24' }}>
+              <div className="text-2xl font-bold mb-1 text-charcoal">
                 {activeToken.text}
               </div>
-              <div className="font-medium tracking-wide" style={{ color: '#9b2c2c' }}>
+              <div className="font-medium tracking-wide text-mahogany">
                 {activeToken.furigana || '—'}
               </div>
             </div>
             <button
               onClick={() => playAudio(activeToken.furigana || activeToken.text)}
-              className="transition-colors"
-              style={{ color: '#8A9A41' }}
+              className="transition-colors text-ebony"
               title="Play Audio"
             >
-              <Volume2 className="h-5 w-5 hover:text-[#9b2c2c] transition-colors" />
+              <Volume2 className="h-5 w-5 hover:text-mahogany transition-colors" />
             </button>
           </div>
           {activeToken.english && (
-            <p className="text-sm" style={{ color: 'rgba(44, 47, 36, 0.60)' }}>
+            <p className="text-sm text-charcoal/60">
               {activeToken.english}
             </p>
           )}
@@ -114,14 +111,14 @@ export default function InteractiveSentence({ sentence }: { sentence: Sentence }
                 <svg viewBox="0 0 400 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style={{ display: 'block', width: '100%', height: '8px' }}>
                   <path
                     d="M0,10 C40,2 80,18 120,10 C160,2 200,18 240,10 C280,2 320,18 360,10 C380,6 395,13 400,10"
-                    stroke="#8A9A41"
+                    stroke="var(--ebony)"
                     strokeWidth="2"
                     fill="none"
                     strokeLinecap="round"
                   />
                 </svg>
               </div>
-              <p className="text-xs italic leading-relaxed" style={{ color: 'rgba(44, 47, 36, 0.70)' }}>
+              <p className="text-xs italic leading-relaxed text-charcoal/70">
                 {activeToken.grammar_explanation}
               </p>
             </div>

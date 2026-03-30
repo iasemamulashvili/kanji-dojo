@@ -1,7 +1,7 @@
 # Antigravity State Blackboard
 
 ## Current Active Branch / Stage
-- Phase 3: Sprint Iteration (Quiz Callbacks, Dynamic Counts, Bot Overhaul)
+- Phase 4: Long-Term Retention & SRS (Planning)
 
 ## Global Blockers
 - **None**
@@ -9,37 +9,30 @@
 ## Active Assignments
 - **Game Master**: (RESOLVED) Sequential Curriculum logic enforced. Static Routing restored.
 - **Backend Warden**: (RESOLVED) TWA Rollback complete. Hardcoded Env-Routing enforced.
-- **Frontend Artist**: Ready for UI/UX Overhaul & Matching Quiz Refactor.
+- **Frontend Artist**: (RESOLVED) Phase 3 Wabi-Sabi Overhaul complete. Core components refactored.
 
 ## Completed Tasks / Schema Definitions
-- *Frontend Artist Patch Sequence*:
-  - **Drawing Quiz patched**: infinite attempts mapped without canvas locking (`showHintAfterMisses`), stripped initial answer flash (`showCharacter: false`).
-  - **Drag-n-Drop fixed**: `window.Telegram.WebApp.disableVerticalSwipes()` halts Telegram pull-to-refresh app close.
-  - **Scoreboard UI**: Explicitly shows "X / Y Correct" at completion.
-  - **Grammar Tooltips**: Added visual cues (dashed border); interactive tokens successfully display `grammar_explanation` and english meanings.
-- *Multi-Agent Architecture Initialization completes. PM organized skills in `.agents/skills/`.*
-- **Backend Warden Sprint ✅ (Auth & Cron Refactor)**
-  - **Bot Authentication**: JWT sessions now have a **7-day expiration**. `dojo_session` cookie is now a strictly validated JWT.
-  - **Protected Routes**: Added `/practice` to middleware protection.
-  - **Cron Migration**: Vercel Crons (`vercel.json`) removed. Migrated to secure POST-only webhooks for external triggers (e.g., cron-job.org).
-  - **New Endpoints**:
-    - `POST /api/cron/daily` — Triggers 08:00 Kanji rollover.
-    - `POST /api/cron/reminder` — Triggers evening study nag.
-  - **Security**: Strict enforcement of `Authorization: Bearer <CRON_SECRET>` on all cron routes.
-  - `/api/quiz/score` POST route enhanced — now strictly verifies JWT sessions before updating `quiz_scores`.
+
+### Phase 3 — Bot Overhaul, Stats & Wabi-Sabi Polish ✅ (2026-03-30)
+- **Telegram Bot & Sync**:
+    - **Voting Throttles**: Lowered /next and /prev quorum to 1 for rapid testing.
+    - **Help Command**: Updated /help to populate /ask in the user's input field using `switchToCurrentChat`.
+    - **Middleman Cache**: Implemented in `lib/telegram/cache.ts` to allow /today to work offline or when DB is unreachable.
+    - **Sync Logic**: Enhanced `broadcastNextKanji` and `broadcastPrevKanji` with `revalidatePath` to keep web UI synced with bot navigation.
+- **Stats Page Construction**:
+    - **Stats API**: Created `/api/stats` to securely fetch user progress (streak, accuracy, totals) from `leaderboard` and `quiz_scores` using JWT sessions.
+    - **Stats Page UI**: Built `app/stats/page.tsx` with premium Wabi-Sabi design, progress bars, and Framer Motion animations.
+- **Full Wabi-Sabi UI Polish**:
+    - **Design System Update**: Updated `app/globals.css` with the new color palette (Mahogany, Silver, Ebony, Charcoal Brown, Khaki Beige).
+    - **Imperfect Lines**: Implemented the `imperfect-border` utility class and applied it to core UI elements.
+    - **Component Refactor**: Updated `PracticeClient.tsx`, `QuizClient.tsx`, and question sub-components to use new tokens and aesthetic rules.
 
 ### Game Master — Database & Curriculum Resolution (2026-03-29)
-- **`supabase/migrations/00010_fix_group_settings.sql`** — Resolves "group_id missing" crash. Unifies singleton `id: 1` pattern with `group_id` BIGINT for Telegram group tracking.
-- **Strict Sequential Logic**: Refactored `broadcastNextKanji` in `lib/game-logic/broadcast.ts`. Rollover now strictly follows `jlpt_order` using `gt(jlpt_order, current)` without random fallbacks.
+- **`supabase/migrations/00010_fix_group_settings.sql`** — Resolves "group_id missing" crash.
+- **Strict Sequential Logic**: Refactored `broadcastNextKanji`. Rollover follows `jlpt_order`.
 - **Quiz Data Payload**: Created `lib/db/quiz.ts` implementing `getGroupQuizData`.
-    - **Filter**: Strictly `jlpt_order <= current_kanji.jlpt_order`. 
-    - **Payload**: Full Kanji metadata (character, readings, meanings, stroke_count, grammar_explanation) to support 5 question types (Meaning, Kun/On, Reverse, Writing, Audio).
-- **Bot Alignment**: `lib/telegram/bot.ts` updated to use `maybeSingle()` and BIGINT casting for `group_id` queries.
 
 ### Backend Warden — Quiz Logic & Bot Wiring (2026-03-30)
-- **Quiz Button Callbacks**: `bot.ts` now handles `quiz:8`, `quiz:13`, `quiz:17`, and `quiz:21` with Wabi-Sabi themed messages and secure JWT Magic Links.
-- **Dynamic Question Counts**: 
-    - `/api/quiz/start`: Forwards the `q` (count) parameter.
-    - `QuizClient`: Reads the `q` parameter from the URL and requests the specific count from the API.
-    - `/api/quiz/questions`: Re-architected to cycle through question builders (Meaning, Reading, Reverse, Matching, Drawing) to satisfy the requested question count.
-- **Security**: All magic links route through `/api/auth/verify` to ensure session persistence before entry.
+- **Quiz Button Callbacks**: Handles dynamic question counts and secure Magic Links.
+- **Dynamic Question Counts**: `/api/quiz/questions` re-architected to cycle through 5 question types.
+- **Security**: Magic links route through `/api/auth/verify`.

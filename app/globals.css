@@ -1,27 +1,28 @@
 @import "tailwindcss";
 
 :root {
-  /* Wabi-Sabi Core Palette */
+  /* Wabi-Sabi Phase 3 Palette */
+  --mahogany:     #4a1816;
+  --silver:       #acaca7;
+  --ebony:        #656142;
+  --charcoal:     #2d291d;
+  --khaki:        #a7a190;
   --parchment:    #F4F1EB;
-  --ink-black:    #2C2F24;   /* olive-charcoal */
-  --cinnabar:     #9b2c2c;
-  --moss:         #8A9A41;   /* primary accent */
-  --moss-light:   #D4D9A1;
-  --sage:         #828e70;
-  --washi-base:   #F4F1EB;
 
   --background:   var(--parchment);
-  --foreground:   var(--ink-black);
+  --foreground:   var(--charcoal);
+  --cinnabar:     var(--mahogany);
+  --moss:         var(--ebony);
+  --sage:         var(--khaki);
 }
 
 @theme inline {
-  --color-ink-black:  var(--ink-black);
-  --color-washi-base: var(--washi-base);
+  --color-mahogany:   var(--mahogany);
+  --color-silver:     var(--silver);
+  --color-ebony:      var(--ebony);
+  --color-charcoal:   var(--charcoal);
+  --color-khaki:      var(--khaki);
   --color-parchment:  var(--parchment);
-  --color-cinnabar:   var(--cinnabar);
-  --color-sage:       var(--sage);
-  --color-moss:       var(--moss);
-  --color-moss-light: var(--moss-light);
 }
 
 /* ─────────────────────────────────────────
@@ -208,5 +209,19 @@ body {
 }
 .flash-perfect {
   animation: perfectFlash 0.8s ease-out;
+}
+
+/* ─────────────────────────────────────────
+   Utility: Imperfect Lines (irregular border-radius)
+───────────────────────────────────────── */
+.imperfect-border {
+  border-radius: 95% 4% 92% 5% / 4% 95% 6% 95%;
+  transition: border-radius 0.4s ease;
+}
+.imperfect-border:hover {
+  border-radius: 92% 6% 94% 4% / 6% 92% 4% 94%;
+}
+.imperfect-border--alt {
+  border-radius: 4% 95% 6% 95% / 95% 4% 92% 5%;
 }
 

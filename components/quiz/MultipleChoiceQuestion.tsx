@@ -56,21 +56,12 @@ export default function MultipleChoiceQuestion({ question, onComplete }: Props) 
   return (
     <div style={{ width: "100%" }}>
       {/* Question prompt */}
-      <p
-        style={{
-          fontSize: "clamp(1rem, 3.5vw, 1.25rem)",
-          fontWeight: 600,
-          color: "#2C2F24",
-          textAlign: "center",
-          marginBottom: "1.75rem",
-          lineHeight: 1.4,
-        }}
-      >
+      <p className="text-lg md:text-xl font-semibold text-charcoal text-center mb-7 leading-relaxed">
         {question.question}
       </p>
 
       {/* Options */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "0.65rem" }}>
+      <div className="flex flex-col gap-3 w-full">
         {question.options.map((option) => {
           const state = optionStates[option];
           const cls = [
@@ -85,12 +76,12 @@ export default function MultipleChoiceQuestion({ question, onComplete }: Props) 
           return (
             <button
               key={option}
-              className={cls}
+              className={`${cls} imperfect-border`}
               onClick={() => handleSelect(option)}
               disabled={answered}
               aria-label={`Answer option: ${option}`}
             >
-              <span style={{ fontSize: "clamp(0.9rem, 3vw, 1.05rem)" }}>
+              <span className="text-sm md:text-base">
                 {state === "correct" && "✓ "}
                 {state === "incorrect" && "✗ "}
                 {option}

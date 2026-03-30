@@ -138,22 +138,47 @@ bot.command('today', async (ctx) => {
 
     if (!kanji) return ctx.reply('⚠️ Kanji not found.');
 
-    const meanings = Array.isArray(kanji.meanings) ? kanji.meanings.join(', ') : kanji.meanings;
-    const onyomi = Array.isArray(kanji.onyomi) ? kanji.onyomi.join(', ') : kanji.onyomi;
-    const kunyomi = Array.isArray(kanji.kunyomi) ? kanji.kunyomi.join(', ') : kanji.kunyomi;
+    const kanjiData = {
+      character: kanji.character,
+      meanings: Array.isArray(kanji.meanings) ? kanji.meanings.join(', ') : kanji.meanings,
+      onyomi: Array.isArray(kanji.onyomi) ? kanji.onyomi.join(', ') : kanji.onyomi,
+      kunyomi: Array.isArray(kanji.kunyomi) ? kanji.kunyomi.join(', ') : kanji.kunyomi,
+    };
+
+    // Store in middleman cache for offline resilience
+    const { setCachedTodayKanji } = await import('./cache');
+    setCachedTodayKanji(kanjiData);
 
     const message = `🏯 *Today's Kanji*
 ━━━━━━━━━━━━━━━━━━
-*${kanji.character}*
+*${kanjiData.character}*
 
-📖 *Meaning:* ${meanings}
-🔊 *Onyomi:* ${onyomi}
-🌿 *Kunyomi:* ${kunyomi}
+📖 *Meaning:* ${kanjiData.meanings}
+🔊 *Onyomi:* ${kanjiData.onyomi}
+🌿 *Kunyomi:* ${kanjiData.kunyomi}
 ━━━━━━━━━━━━━━━━━━`;
 
     await ctx.reply(message, { parse_mode: 'Markdown' });
   } catch (err) {
     console.error(err);
+    try {
+      // Attempt fallback to cache
+      const { getCachedTodayKanji } = await import('./cache');
+      const cached = getCachedTodayKanji();
+      if (cached) {
+        const message = `🏯 *Today's Kanji (Cached)*
+━━━━━━━━━━━━━━━━━━
+*${cached.character}*
+
+📖 *Meaning:* ${cached.meanings}
+🔊 *Onyomi:* ${cached.onyomi}
+🌿 *Kunyomi:* ${cached.kunyomi}
+━━━━━━━━━━━━━━━━━━`;
+        return ctx.reply(message, { parse_mode: 'Markdown' });
+      }
+    } catch (cacheErr) {
+      console.error('Cache fallback failed:', cacheErr);
+    }
     await ctx.reply('⚠️ Error fetching Kanji.');
   }
 });
@@ -230,9 +255,8 @@ async function handleVote(ctx: any, direction: 'next' | 'prev') {
       return ctx.reply("🏮 You are already at the beginning of the path.");
     }
 
-    // Dynamic Quorum
-    const totalMembers = await ctx.getChatMembersCount().catch(() => 2);
-    const quorumCount = Math.max(1, totalMembers - 1);
+    // Dynamic Quorum — Temporarily lowered to 1 for testing Phase 3
+    const quorumCount = 1;
 
     // Record vote
     const { error: insertError } = await supabase

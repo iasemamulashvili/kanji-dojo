@@ -82,7 +82,7 @@ export default function MatchingQuestion({ question, onComplete }: Props) {
 
   return (
     <div className="flex flex-col w-full items-center relative">
-      <p className="text-xs font-bold tracking-[0.2em] uppercase text-[#8A9A41] text-center mb-6 opacity-80">
+      <p className="text-xs font-bold tracking-[0.2em] uppercase text-ebony text-center mb-6 opacity-80">
         {question.instruction}
       </p>
 
@@ -94,16 +94,16 @@ export default function MatchingQuestion({ question, onComplete }: Props) {
             const connectedMeaning = connections[kanji];
             const connIndex = connectedMeaning ? connectedKanjiList.indexOf(kanji) + 1 : null;
             
-            let statusClass = "bg-white/40 border-[#acaca7]/50 text-[#2d291d]";
-            if (isSelected) statusClass = "bg-[#4a1816]/10 border-[#4a1816] shadow-sm scale-105 z-20 ring-1 ring-[#4a1816]/30";
-            else if (connectedMeaning && !submitted) statusClass = "bg-white/80 border-[#656142]/40";
+            let statusClass = "bg-white/40 border-silver/50 text-charcoal";
+            if (isSelected) statusClass = "bg-mahogany/10 border-mahogany shadow-sm scale-105 z-20 ring-1 ring-mahogany/30";
+            else if (connectedMeaning && !submitted) statusClass = "bg-white/80 border-ebony/40";
             
             if (submitted && connectedMeaning) {
                 const correctMeaning = pairs.find(p => p.kanji === kanji)?.meaning;
                 if (connectedMeaning === correctMeaning) {
-                    statusClass = "bg-[#8A9A41]/20 border-[#8A9A41] text-[#2C2F24]";
+                    statusClass = "bg-ebony/20 border-ebony text-charcoal";
                 } else {
-                    statusClass = "bg-[#4a1816]/10 border-[#4a1816]/60 text-[#4a1816]";
+                    statusClass = "bg-mahogany/10 border-mahogany/60 text-mahogany";
                 }
             }
 
@@ -111,11 +111,11 @@ export default function MatchingQuestion({ question, onComplete }: Props) {
               <button
                 key={kanji}
                 onClick={() => handleLeftClick(kanji)}
-                className={`relative flex items-center justify-center h-16 w-full text-3xl font-bold rounded-[81%_19%_88%_12%/15%_79%_21%_85%] border backdrop-blur-md transition-all duration-300 ${statusClass} hover:border-[#656142]`}
+                className={`relative flex items-center justify-center h-16 w-full text-3xl font-bold imperfect-border border backdrop-blur-md transition-all duration-300 ${statusClass} hover:border-ebony`}
               >
                 {kanji}
                 {connIndex && !submitted && (
-                  <span className="absolute -right-2 -top-2 w-6 h-6 flex items-center justify-center bg-[#F4F1EB] border-2 border-[#656142] rounded-full text-[10px] font-black text-[#656142] shadow-sm animate-in zoom-in duration-300">
+                  <span className="absolute -right-2 -top-2 w-6 h-6 flex items-center justify-center bg-parchment border-2 border-ebony rounded-full text-[10px] font-black text-ebony shadow-sm animate-in zoom-in duration-300">
                     {connIndex}
                   </span>
                 )}
@@ -130,16 +130,16 @@ export default function MatchingQuestion({ question, onComplete }: Props) {
             const connectedKanji = rightToLeft[meaning];
             const connIndex = connectedKanji ? connectedKanjiList.indexOf(connectedKanji) + 1 : null;
             
-            let statusClass = "bg-[#acaca7]/5 border-dashed border-[#acaca7]/40 text-[#2d291d]/70";
-            if (connectedKanji && !submitted) statusClass = "bg-white/80 border-solid border-[#656142]/40 text-[#2d291d]";
-            else if (selectedLeft && !connectedKanji) statusClass = "border-dashed border-[#4a1816]/40 cursor-pointer hover:bg-[#4a1816]/5 animate-pulse";
+            let statusClass = "bg-silver/5 border-dashed border-silver/40 text-charcoal/70";
+            if (connectedKanji && !submitted) statusClass = "bg-white/80 border-solid border-ebony/40 text-charcoal";
+            else if (selectedLeft && !connectedKanji) statusClass = "border-dashed border-mahogany/40 cursor-pointer hover:bg-mahogany/5 animate-pulse";
             
             if (submitted && connectedKanji) {
                 const correctKanji = pairs.find(p => p.meaning === meaning)?.kanji;
                 if (connectedKanji === correctKanji) {
-                    statusClass = "bg-[#8A9A41]/20 border-solid border-[#8A9A41] text-[#2C2F24]";
+                    statusClass = "bg-ebony/20 border-solid border-ebony text-charcoal";
                 } else {
-                    statusClass = "bg-[#4a1816]/10 border-solid border-[#4a1816]/60 text-[#4a1816]";
+                    statusClass = "bg-mahogany/10 border-solid border-mahogany/60 text-mahogany";
                 }
             }
 
@@ -151,7 +151,7 @@ export default function MatchingQuestion({ question, onComplete }: Props) {
               >
                 <span className="text-center leading-snug uppercase">{meaning}</span>
                 {connIndex && !submitted && (
-                  <span className="absolute -left-2 -top-2 w-6 h-6 flex items-center justify-center bg-[#F4F1EB] border-2 border-[#656142] rounded-full text-[10px] font-black text-[#656142] shadow-sm animate-in zoom-in duration-300">
+                  <span className="absolute -left-2 -top-2 w-6 h-6 flex items-center justify-center bg-parchment border-2 border-ebony rounded-full text-[10px] font-black text-ebony shadow-sm animate-in zoom-in duration-300">
                     {connIndex}
                   </span>
                 )}
@@ -164,7 +164,7 @@ export default function MatchingQuestion({ question, onComplete }: Props) {
       <button
         onClick={handleSubmit}
         disabled={!allConnected || submitted}
-        className={`px-12 py-4 rounded-[68%_32%_74%_26%/28%_62%_38%_72%] border-2 font-black tracking-[0.3em] uppercase transition-all duration-500 ${allConnected && !submitted ? 'bg-[#4a1816] text-[#F4F1EB] border-[#4a1816] hover:scale-105 hover:shadow-xl active:scale-95' : 'bg-[#acaca7]/20 text-[#acaca7] border-[#acaca7]/30 opacity-40 cursor-not-allowed'}`}
+        className={`px-12 py-4 imperfect-border--alt border-2 font-black tracking-[0.3em] uppercase transition-all duration-500 ${allConnected && !submitted ? 'bg-mahogany text-parchment border-mahogany hover:scale-105 hover:shadow-xl active:scale-95' : 'bg-silver/20 text-silver border-silver/30 opacity-40 cursor-not-allowed'}`}
       >
         {submitted ? "Judging..." : "Verify"}
       </button>

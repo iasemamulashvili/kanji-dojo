@@ -26,7 +26,7 @@ function WabiDivider() {
       <svg viewBox="0 0 400 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M0,10 C40,0 80,20 120,10 C160,0 200,18 240,10 C280,2 320,18 360,10 C380,6 395,12 400,10"
-          stroke="#8A9A41"
+          stroke="var(--ebony)"
           strokeWidth="1.5"
           fill="none"
           strokeLinecap="round"
@@ -53,8 +53,7 @@ export default function PracticeClient({ kanjiData }: PracticeClientProps) {
      * absolute-positioned leaves never create a scrollbar.
      */
     <div
-      className="relative min-h-screen overflow-x-hidden p-4 md:p-8 flex flex-col items-center"
-      style={{ background: '#F4F1EB', color: '#2C2F24' }}
+      className="relative min-h-screen overflow-x-hidden p-4 md:p-8 flex flex-col items-center bg-parchment text-charcoal"
     >
 
       {/* ── Background Leaf — left ── */}
@@ -117,7 +116,7 @@ export default function PracticeClient({ kanjiData }: PracticeClientProps) {
             Kanji Dojo
           </div>
           <div className="flex items-center gap-3">
-            <div className="text-sm font-medium" style={{ color: '#8A9A41' }}>
+            <div className="text-sm font-medium text-ebony">
               Session Active
             </div>
           </div>
@@ -130,8 +129,8 @@ export default function PracticeClient({ kanjiData }: PracticeClientProps) {
           className="kanji-stone w-full max-w-md flex items-center justify-center mb-10 py-14 px-8"
         >
           <span
-            className="font-bold leading-none select-none"
-            style={{ fontSize: 'clamp(5rem, 22vw, 8rem)', color: '#2C2F24' }}
+            className="font-bold leading-none select-none text-charcoal"
+            style={{ fontSize: 'clamp(5rem, 22vw, 8rem)' }}
           >
             {kanjiData.character}
           </span>
@@ -148,14 +147,12 @@ export default function PracticeClient({ kanjiData }: PracticeClientProps) {
         <div className="w-full max-w-md mb-8">
           <div className="wabi-card p-5 w-full flex flex-col items-center">
             <div
-              className="text-xs font-semibold tracking-wider uppercase mb-2"
-              style={{ color: '#8A9A41' }}
+              className="text-xs font-semibold tracking-wider uppercase mb-2 text-ebony"
             >
               Meanings
             </div>
             <div
-              className="text-2xl capitalize font-medium text-center"
-              style={{ color: '#2C2F24' }}
+              className="text-2xl capitalize font-medium text-center text-charcoal"
             >
               {meaningsText}
             </div>
@@ -172,12 +169,7 @@ export default function PracticeClient({ kanjiData }: PracticeClientProps) {
         <div className="flex flex-col items-center gap-3 w-full max-w-md mt-8 pb-8">
           <button
             onClick={handleStartGroupQuiz}
-            className="flex items-center justify-center gap-2 font-semibold py-3 px-8 rounded-2xl transition-all active:scale-95"
-            style={{
-              background: 'rgba(138, 154, 65, 0.12)',
-              color:      '#8A9A41',
-              border:     '1px solid rgba(138,154,65,0.30)',
-            }}
+            className="flex items-center justify-center gap-2 font-semibold py-3 px-8 rounded-2xl transition-all active:scale-95 bg-ebony/10 text-ebony border border-ebony/30 imperfect-border"
           >
             <Shuffle className="w-4 h-4" />
             Start Multiplayer Quiz
@@ -188,8 +180,7 @@ export default function PracticeClient({ kanjiData }: PracticeClientProps) {
         {kanjiData.example_sentences && kanjiData.example_sentences.length > 0 && (
           <div className="w-full max-w-md mt-2 pb-12">
             <h3
-              className="font-semibold uppercase tracking-wider text-sm mb-4 text-center"
-              style={{ color: '#8A9A41' }}
+              className="font-semibold uppercase tracking-wider text-sm mb-4 text-center text-ebony"
             >
               Example Sentences
             </h3>

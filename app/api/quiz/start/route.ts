@@ -40,5 +40,8 @@ export async function GET(req: NextRequest) {
   }
 
   const baseUrl = req.nextUrl.origin;
-  return NextResponse.redirect(new URL(`/quiz/${session.id}`, baseUrl));
+  const qStr = req.nextUrl.searchParams.get('q');
+  const redirectParams = qStr ? `?q=${qStr}` : '';
+  
+  return NextResponse.redirect(new URL(`/quiz/${session.id}${redirectParams}`, baseUrl));
 }

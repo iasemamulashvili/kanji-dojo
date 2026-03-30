@@ -274,14 +274,27 @@ export async function GET(req: NextRequest) {
   // Randomly pick 9 from the pool for variety
   const distractors = shuffle([...allKanjis]).slice(0, 9);
 
-  // 6. Build all 5 question types
-  const questions: QuizQuestion[] = shuffle([
-    buildMeaningQuestion(targetKanji, distractors.slice(0, 3)),
-    buildReadingQuestion(targetKanji, distractors.slice(3, 6)),
-    buildReverseQuestion(targetKanji, distractors.slice(6, 9)),
-    buildMatchingQuestion(targetKanji, distractors.slice(0, 3)),
-    buildDrawingQuestion(targetKanji),
-  ]);
+  // 6. Build the requested number of questions
+  const requestedCount = parseInt(searchParams.get('count') || '5');
+  const questions: QuizQuestion[] = [];
+  
+  // Available question builders
+  const builderPool = [
+    () => buildMeaningQuestion(targetKanji, shuffle([...distractors]).slice(0, 3)),
+    () => buildReadingQuestion(targetKanji, shuffle([...distractors]).slice(0, 3)),
+    () => buildReverseQuestion(targetKanji, shuffle([...distractors]).slice(0, 3)),
+    () => buildMatchingQuestion(targetKanji, shuffle([...distractors]).slice(0, 3)),
+    () => buildDrawingQuestion(targetKanji),
+  ];
+
+  for (let i = 0; i < requestedCount; i++) {
+    // Cycle through builders to ensure variety
+    const builder = builderPool[i % builderPool.length];
+    questions.push(builder());
+  }
+
+  // Final shuffle for randomness
+  shuffle(questions);
 
   const payload: QuizQuestionsResponse = {
     session_id: session.id,

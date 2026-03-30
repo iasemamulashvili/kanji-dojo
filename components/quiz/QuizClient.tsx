@@ -151,8 +151,12 @@ export default function QuizClient({ sessionId }: Props) {
 
     async function initQuiz() {
       try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const qCount = urlParams.get('q');
+        const qQuery = qCount ? `&count=${qCount}` : "";
+
         const [qRes, jRes] = await Promise.all([
-          fetch(`/api/quiz/questions?session_id=${sessionId}`),
+          fetch(`/api/quiz/questions?session_id=${sessionId}${qQuery}`),
           fetch(`/api/quiz/join`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },

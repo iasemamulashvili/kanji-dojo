@@ -282,10 +282,32 @@ bot.action(/vote:(next|prev)/, (ctx) => {
   handleVote(ctx, direction);
 });
 
-// Placeholder for quiz callback (will be wired later as per spec)
+// Implement quiz callback size selection with Wabi-Sabi themes and magic links
 bot.action(/quiz:(\d+)/, async (ctx) => {
   const size = ctx.match[1];
-  await ctx.answerCbQuery(`Quiz with ${size} questions initiated. Sensei is preparing.`);
+  if (!ctx.from?.id) return;
+  
+  await ctx.answerCbQuery("Sensei is preparing your quiz...");
+  
+  const token = await signTelegramToken(ctx.from.id.toString());
+  const baseUrl = process.env.APP_URL || 'http://localhost:3000';
+  // Standard magic link pattern: /api/auth/verify?token=...&redirect=...
+  const magicLink = `${baseUrl}/api/auth/verify?token=${token}&redirect=/api/quiz/start?q=${size}`;
+  
+  const wabiSabiMsgs = [
+    "🌸 The cherry blossoms fall, each a moment for reflection. Your quiz of " + size + " questions is ready.",
+    "🎋 Like a bamboo grove in the wind, your mind must be flexible and strong. Begin your " + size + "-step journey.",
+    "🍵 Wisdom is brewed slowly. Step into your testing chamber for " + size + " challenges.",
+    "🏮 The lanterns are lit. The path to knowledge awaits your " + size + " correct steps."
+  ];
+  const msg = wabiSabiMsgs[Math.floor(Math.random() * wabiSabiMsgs.length)];
+  
+  await ctx.editMessageText(msg, {
+    parse_mode: 'Markdown',
+    ...Markup.inlineKeyboard([
+      Markup.button.url('⛩️ Enter Quiz', magicLink)
+    ])
+  });
 });
 
 export default bot;

@@ -1,7 +1,7 @@
 # Antigravity State Blackboard
 
 ## Current Active Branch / Stage
-- Phase 3: Sprint Iteration (Bot Overhaul, Quiz Canvas Fixes, Grammar Tooltips)
+- Phase 3: Sprint Iteration (Quiz Callbacks, Dynamic Counts, Bot Overhaul)
 
 ## Global Blockers
 - **None**
@@ -36,14 +36,10 @@
     - **Payload**: Full Kanji metadata (character, readings, meanings, stroke_count, grammar_explanation) to support 5 question types (Meaning, Kun/On, Reverse, Writing, Audio).
 - **Bot Alignment**: `lib/telegram/bot.ts` updated to use `maybeSingle()` and BIGINT casting for `group_id` queries.
 
-### Backend Warden — Telegram Bot Overhaul (2026-03-29)
-- **Migration `00011_kanji_navigation_votes.sql`**: Created to track dynamic quorum votes for curriculum navigation.
-- **Command Overhaul (`bot.ts`)**:
-    - `/today`: Refactored to a clean, text-only Markdown format (Character, Meaning, Onyomi, Kunyomi).
-    - `/quiz`: Implemented inline keyboard selection for quiz depth (8, 13, 17, 21 buttons).
-    - `/practice` & `/stats`: Now generate secure 7-day JWT Magic Links for automated login.
-    - `/help`: Updated UI with deep-linking button for `/ask` using `switchToCurrentChat`.
-    - **Voting System**: Implemented `/next` and `/prev` starting a dynamic quorum vote (`(Members - 1)`).
-- **Navigation Logic (`broadcast.ts`)**:
-    - **`broadcastPrevKanji`**: Implemented logic to shift curriculum backwards sequentially.
-    - **Edge Case Handles**: `/prev` now correctly halts with a warning if currently at the beginning of the path (`jlpt_order = 1`).
+### Backend Warden — Quiz Logic & Bot Wiring (2026-03-30)
+- **Quiz Button Callbacks**: `bot.ts` now handles `quiz:8`, `quiz:13`, `quiz:17`, and `quiz:21` with Wabi-Sabi themed messages and secure JWT Magic Links.
+- **Dynamic Question Counts**: 
+    - `/api/quiz/start`: Forwards the `q` (count) parameter.
+    - `QuizClient`: Reads the `q` parameter from the URL and requests the specific count from the API.
+    - `/api/quiz/questions`: Re-architected to cycle through question builders (Meaning, Reading, Reverse, Matching, Drawing) to satisfy the requested question count.
+- **Security**: All magic links route through `/api/auth/verify` to ensure session persistence before entry.

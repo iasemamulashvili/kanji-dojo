@@ -53,41 +53,27 @@ const bot = new Telegraf(token);
 
 bot.start((ctx) => ctx.reply('Welcome to Kanji Dojo! Your serverless bot is active.'));
 
-bot.command('ask', async (ctx) => {
-  const message = ctx.message;
-  // Ensure the message has text
-  if (!message || !('text' in message)) return;
-
-  // Extract query after /ask (handling both /ask and /ask@bot_username)
-  const query = message.text.replace(/^\/ask(?:@\w+)?(?:\s|$)/, '').trim();
-
-  if (!query) {
-    return ctx.reply("Sensei needs a question! Try: /ask How do I remember the Kanji for Water?");
-  }
-
-  // Immediately send a placeholder to satisfy the webhook timeout
-  const pendingMsg = await ctx.reply("Sensei is consulting the scrolls... 📜");
-
-  try {
-    // Process query using Gemini
-    const response = await askTutor(query);
-
-    // Edit the placeholder with the real answer
-    await ctx.telegram.editMessageText(
-      ctx.chat.id,
-      pendingMsg.message_id,
-      undefined,
-      response
-    );
-  } catch (error) {
-    console.error('Error handling /ask command:', error);
-    // Edit the placeholder with a friendly error
-    await ctx.telegram.editMessageText(
-      ctx.chat.id,
-      pendingMsg.message_id,
-      undefined,
-      "Sorry, my mind is cloudy right now. Please try asking again."
-    );
+// 1. Smart Ear for AI Tutor (/ask or @BotHandle /ask)
+bot.on('text', async (ctx, next) => {
+  const text = ctx.message.text || "";
+  const botHandle = ctx.botInfo?.username;
+  
+  // Handlers for commands like: /ask..., /ask@Bot..., @Bot /ask...
+  const askRegex = new RegExp(`^\\s*(?:@${botHandle}\\s+)?/ask(?:@${botHandle})?(?:\\s|$)`, 'i');
+  
+  if (askRegex.test(text)) {
+    const query = text.replace(askRegex, '').trim();
+    if (!query) return ctx.reply("Sensei needs a question! Try: /ask How do I remember the Kanji for Water?");
+    
+    const pendingMsg = await ctx.reply("Sensei is consulting the scrolls... 📜");
+    try {
+      const response = await askTutor(query);
+      await ctx.telegram.editMessageText(ctx.chat.id, pendingMsg.message_id, undefined, response);
+    } catch (e) {
+      await ctx.telegram.editMessageText(ctx.chat.id, pendingMsg.message_id, undefined, "Sorry, my mind is cloudy right now. Please try asking again.");
+    }
+  } else {
+    return next();
   }
 });
 
@@ -100,15 +86,35 @@ bot.command('help', async (ctx) => {
 /stats - 📈 View your progress
 /next - ⏭️ Vote to skip to next
 /prev - ⏮️ Vote to go back
-/ask - 🏮 Ask Sensei (AI Tutor)
+/active - 🏮 View current quizzes
 /help - 📜 This scroll`;
 
   await ctx.reply(helpMessage, { 
     parse_mode: 'Markdown',
     ...Markup.inlineKeyboard([
-      Markup.button.switchToCurrentChat('🏮 Ask Sensei', '/ask ')
+      Markup.button.switchToCurrentChat('🏮 Ask Sensei Shortcut', '/ask ')
     ])
   });
+});
+
+bot.command('active', async (ctx) => {
+  const { data: activeSessions } = await supabase
+    .from('quiz_sessions')
+    .select('*, quiz_participants(count)')
+    .eq('notified', false)
+    .gt('expires_at', new Date().toISOString());
+
+  if (!activeSessions || activeSessions.length === 0) {
+    return ctx.reply("The Dojo is quiet. No active quizzes are currently in the 24-hour window.");
+  }
+
+  const msg = activeSessions.map((s, i) => {
+    const timeLeft = Math.max(0, new Date(s.expires_at).getTime() - Date.now());
+    const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+    return `*${i+1}.* ID: \`${s.id.slice(0,8)}\` — ⏳ *${hours}h left*`;
+  }).join('\n');
+
+  ctx.reply(`🏮 *Active Dojo Sessions*\n---------------------------\n${msg}`, { parse_mode: 'Markdown' });
 });
 
 bot.command('today', async (ctx) => {

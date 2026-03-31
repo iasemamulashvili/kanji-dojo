@@ -3,6 +3,19 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import type { QuizQuestion as QuizQuestionType, QuizQuestionsResponse } from "@/app/api/quiz/questions/route";
+import { 
+  Trophy, 
+  Flame, 
+  Target, 
+  History, 
+  ChevronRight, 
+  Volume2, 
+  PenTool, 
+  BookOpen, 
+  ArrowRightLeft, 
+  Search,
+  Filter
+} from "lucide-react";
 import QuizQuestion from "./QuizQuestion";
 import { createClient } from "@supabase/supabase-js";
 
@@ -249,6 +262,11 @@ export default function QuizClient({ sessionId }: Props) {
     });
 
     if (isFinished) {
+       // Allow a moment for the DB to process
+       setTimeout(() => setStatus("complete"), 800);
+    }
+
+    if (isFinished) {
       setStatus("complete");
     } else {
       setCurrentIndex((i) => i + 1);
@@ -300,27 +318,43 @@ export default function QuizClient({ sessionId }: Props) {
       return timeA - timeB;
     });
 
+    const score = myParticipant?.score || 0;
+
     return (
       <PageLayout>
-        <div
-          className="kanji-stone w-full max-w-md flex items-center justify-center mb-8 py-14 px-8"
-          aria-label={`Kanji: ${targetKanji}`}
-        >
-          <span
-            className="font-bold leading-none select-none text-charcoal"
-            style={{ fontSize: "clamp(5rem,22vw,8rem)" }}
-          >
-            {targetKanji}
-          </span>
-        </div>
+        <div className="relative z-10 w-full max-w-lg flex flex-col items-center">
+          {/* Kanji Stone Summary */}
+          <div className="kanji-stone w-full aspect-square flex flex-col items-center justify-center p-8 mb-12">
+            <h2 className="text-xl font-bold tracking-[0.2em] uppercase text-ebony opacity-60 mb-2">Quiz Complete</h2>
+            <div className="text-6xl font-black text-charcoal mb-4">
+              {score} <span className="text-2xl text-ebony/40">/ {questions.length}</span>
+            </div>
+            <p className="text-xs font-bold tracking-widest uppercase text-mahogany bg-mahogany/10 px-4 py-2 rounded-full imperfect-border">
+               {score === questions.length ? "Sensei's Perfection" : "A Disciplined Effort"}
+            </p>
+          </div>
 
-        <WabiDivider />
+          {/* Action Buttons */}
+          <div className="flex flex-col gap-4 w-full mb-12">
+             <button 
+               onClick={() => window.location.href = '/practice'}
+               className="wabi-card p-4 text-xs font-black uppercase tracking-[0.2em] hover:border-ebony transition-all flex items-center justify-center gap-2 group"
+             >
+               Retreat to Dojo <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-all" />
+             </button>
+             <button 
+               onClick={() => window.location.href = '/stats'}
+               className="wabi-card p-4 text-xs font-black uppercase tracking-[0.2em] hover:border-ebony transition-all flex items-center justify-center gap-2 group"
+             >
+               Mastery Scroll <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-all" />
+             </button>
+          </div>
 
-        <div className="w-full max-w-md p-2">
-          <h3 className="text-center font-bold tracking-widest uppercase mb-4 text-ebony text-xs">
-            Final Leaderboard
-          </h3>
-          <div className="flex flex-col gap-2">
+          <WabiDivider />
+          
+          <h3 className="text-[0.6rem] font-bold tracking-[0.4em] uppercase text-ebony opacity-60 mb-6 mt-8">Final Leaderboard</h3>
+          
+          <div className="flex flex-col gap-3 w-full pb-20">
             {sorted.map((p, idx) => {
               const isMe = p.telegram_id.toString() === myParticipant?.telegram_id?.toString();
               return (

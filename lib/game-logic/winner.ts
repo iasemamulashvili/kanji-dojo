@@ -5,25 +5,37 @@ const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN!);
 
 export async function checkAndAnnounceWinner(sessionId: string) {
   try {
-    // 1. Fetch current participants and their scores
-    const { data: participants, error: participantsError } = await supabase
-      .from('quiz_participants')
-      .select('telegram_id, username, score, finished, finished_at')
-      .eq('session_id', sessionId);
+    // 1. Fetch current session and participants
+    const { data: session, error: sessionError } = await supabase
+      .from('quiz_sessions')
+      .select('*, quiz_participants(*)')
+      .eq('id', sessionId)
+      .single();
 
-    if (participantsError || !participants || participants.length === 0) return;
+    if (sessionError || !session || session.notified) return;
 
-    // 2. Check if everyone is finished or if this is just a milestone?
-    // We'll announce when: 
-    // - All current participants are finished
-    // - Or, if it's the 1st person to finish with 100%
-    const allFinished = participants.every(p => p.finished);
-    
+    const participants = session.quiz_participants || [];
+    if (participants.length === 0) return;
+
+    // 2. Check competition status
+    const allFinished = participants.every((p: any) => p.finished);
+    const isExpired = new Date(session.expires_at).getTime() < Date.now();
+
+    // ONLY announce if everyone is done OR the 24-hour window is closed
+    if (!allFinished && !isExpired) {
+      const timeLeft = Math.max(0, new Date(session.expires_at).getTime() - Date.now());
+      const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+      
+      // Optional: Inform the group that results are pending
+      await bot.telegram.sendMessage(process.env.TELEGRAM_GROUP_ID!, 
+        `⏱️ *Quiz Entry Logged!* \nCompetition remains open for *${hours}h* more or until all participants finish.`, 
+        { parse_mode: 'Markdown' });
+      return;
+    }
+
     // 3. Find the leader
     const leader = [...participants].sort((a, b) => {
-      // Primary: Score
       if (b.score !== a.score) return b.score - a.score;
-      // Secondary: Finished At (earlier is better)
       const timeA = new Date(a.finished_at || 0).getTime() || Infinity;
       const timeB = new Date(b.finished_at || 0).getTime() || Infinity;
       return timeA - timeB;
@@ -31,35 +43,29 @@ export async function checkAndAnnounceWinner(sessionId: string) {
 
     if (!leader || !leader.finished) return;
 
-    // 4. Determine Group ID
-    // We should ideally have group_id on the session.
-    // Fallback to TELEGRAM_GROUP_ID environment variable
     const groupId = process.env.TELEGRAM_GROUP_ID;
     if (!groupId) return;
 
-    // 5. Build stylized message
-    // If all finished, it's the FINAL winner.
-    // If not, it's the "Current Leader"
-    const finishedIcon = allFinished ? "🏆" : "🔥";
-    const statusText = allFinished ? "Final Winner" : "Current Leader";
+    // 4. Final Broadcast
+    const medal = allFinished ? "🏆" : "⌛";
+    const title = allFinished ? "Dojo Champion Crowned!" : "Time's Up! Dojo Results:";
     
     const message = `
-${finishedIcon} *Dojo Quiz Results* ${finishedIcon}
+${medal} *${title}* ${medal}
 ---------------------------
-*${statusText}:* ${leader.username || `Player ${leader.telegram_id.toString().slice(-4)}`}
-*Score:* ${leader.score} / ${participants.length > 0 ? "Correct" : ""}
+*Winner:* ${leader.username || `Player ${leader.telegram_id.toString().slice(-4)}`}
+*Score:* ${leader.score} / ${participants[0]?.total_questions || '??'}
 
-${allFinished ? "The competition in this session has concluded!" : "Waiting for other disciples to finish..."}
+Congrats to the winner! The session is now closed.
     `.trim();
 
-    // Avoid duplicate announcements for the same session/winner/score combo
-    // We could store it in session status, but let's keep it simple for now.
-    if (allFinished) {
-      await bot.telegram.sendMessage(groupId, message, { parse_mode: 'Markdown' });
-      
-      // Mark session as finished in DB
-      await supabase.from('quiz_sessions').update({ status: 'finished' }).eq('id', sessionId);
-    }
+    await bot.telegram.sendMessage(groupId, message, { parse_mode: 'Markdown' });
+    
+    // Mark session as notified/closed
+    await supabase.from('quiz_sessions').update({ 
+      status: 'finished', 
+      notified: true 
+    }).eq('id', sessionId);
 
   } catch (err) {
     console.error('Error in checkAndAnnounceWinner:', err);

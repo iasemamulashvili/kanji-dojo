@@ -33,7 +33,13 @@ export default function MultipleChoiceQuestion({ question, onComplete }: Props) 
         const textToSpeak = option.replace(/・/g, '');
         const utterance = new SpeechSynthesisUtterance(textToSpeak);
         utterance.lang = 'ja-JP';
-        utterance.rate = 0.9;
+        
+        // Improved voice selection for iOS stability
+        const voices = window.speechSynthesis.getVoices();
+        const jaVoice = voices.find(v => v.lang === 'ja-JP' || v.lang === 'ja_JP');
+        if (jaVoice) utterance.voice = jaVoice;
+        
+        utterance.rate = 0.85;
         window.speechSynthesis.speak(utterance);
       } catch (err) {
         console.error("Speech synthesis failed:", err);

@@ -14,7 +14,13 @@ export default function KanjiReadings({ onyomi, kunyomi }: KanjiReadingsProps) {
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'ja-JP';
-    utterance.rate = 0.8;
+    
+    // Improved voice selection for iOS stability
+    const voices = window.speechSynthesis.getVoices();
+    const jaVoice = voices.find(v => v.lang === 'ja-JP' || v.lang === 'ja_JP');
+    if (jaVoice) utterance.voice = jaVoice;
+    
+    utterance.rate = 0.85;
     window.speechSynthesis.speak(utterance);
   };
 

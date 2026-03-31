@@ -133,6 +133,7 @@ export default function QuizClient({ sessionId }: Props) {
   const [targetKanji, setTargetKanji] = useState<string>("");
   const [participants, setParticipants] = useState<any[]>([]);
   const [myParticipant, setMyParticipant] = useState<any>(null);
+  const [typeStats, setTypeStats] = useState<Record<string, { correct: number, total: number }>>({});
 
   useEffect(() => {
     let channel: any;
@@ -226,15 +227,24 @@ export default function QuizClient({ sessionId }: Props) {
       );
     }
 
+    // Update granular stats
+    const qType = questions[currentIndex].type;
+    const updatedStats = { ...typeStats };
+    if (!updatedStats[qType]) updatedStats[qType] = { correct: 0, total: 0 };
+    updatedStats[qType].total += 1;
+    if (correct) updatedStats[qType].correct += 1;
+    setTypeStats(updatedStats);
+
     fetch("/api/quiz/score", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         sessionId,
-        score: newScore, // or some calculated score, assuming newScore matches totalCorrect for now
+        score: newScore,
+        finished: isFinished,
         totalCorrect: newScore,
         totalQuestions: questions.length,
-        finished: isFinished,
+        typeStats: updatedStats, // Send the final session stats
       }),
     });
 
@@ -342,6 +352,7 @@ export default function QuizClient({ sessionId }: Props) {
     reading: "Reading",
     reverse: "Kanji Recognition",
     matching: "Matching",
+    listening: "Listening",
   };
 
   return (

@@ -41,7 +41,13 @@ export default function InteractiveSentence({ sentence }: { sentence: Sentence }
     window.speechSynthesis.cancel();
     const utterance = new SpeechSynthesisUtterance(text);
     utterance.lang = 'ja-JP';
-    utterance.rate = 0.8;
+    
+    // Improved voice selection for iOS stability
+    const voices = window.speechSynthesis.getVoices();
+    const jaVoice = voices.find(v => v.lang === 'ja-JP' || v.lang === 'ja_JP');
+    if (jaVoice) utterance.voice = jaVoice;
+    
+    utterance.rate = 0.85;
     window.speechSynthesis.speak(utterance);
   };
 
@@ -73,9 +79,12 @@ export default function InteractiveSentence({ sentence }: { sentence: Sentence }
               style={{ 
                 borderBottom: `1.5px dashed ${activeToken === token ? 'var(--mahogany)' : 'rgba(44,47,36,0.3)'}`
               }}
+              aria-label={token.text}
             >
-              {token.text}
-              <rt className="text-[10px] text-ebony">{token.furigana || ''}</rt>
+              <span aria-hidden="true">{token.text}</span>
+              <rt className="text-[10px] text-ebony" aria-hidden="true">
+                {token.furigana || ''}
+              </rt>
             </ruby>
           </div>
         ))}

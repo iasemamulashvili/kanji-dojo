@@ -49,7 +49,15 @@ export type QuizQuestion =
   | ReadingQuestion
   | ReverseQuestion
   | MatchingQuestion
-  | DrawingQuestion;
+  | DrawingQuestion
+  | ListeningQuestion;
+
+export interface ListeningQuestion {
+  type: 'listening';
+  audio_text: string;
+  options: string[];
+  answer: string;
+}
 
 export interface QuizQuestionsResponse {
   session_id: string;
@@ -176,6 +184,24 @@ function buildDrawingQuestion(
   };
 }
 
+function buildListeningQuestion(
+  target: KanjiRow,
+  distractors: KanjiRow[]
+): ListeningQuestion {
+  // Use the first onyomi or kunyomi as the audio source
+  const audio_text = target.onyomi?.[0] || target.kunyomi?.[0] || target.character;
+  const answer = target.character;
+  const wrongOptions = distractors.map(k => k.character).filter(c => c !== answer);
+  const options = shuffle([answer, ...wrongOptions.slice(0, 3)]);
+  
+  return {
+    type: 'listening',
+    audio_text,
+    options,
+    answer,
+  };
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Route handler
 // ─────────────────────────────────────────────────────────────────────────────
@@ -285,6 +311,7 @@ export async function GET(req: NextRequest) {
     () => buildReverseQuestion(targetKanji, shuffle([...distractors]).slice(0, 3)),
     () => buildMatchingQuestion(targetKanji, shuffle([...distractors]).slice(0, 3)),
     () => buildDrawingQuestion(targetKanji),
+    () => buildListeningQuestion(targetKanji, shuffle([...distractors]).slice(0, 3)),
   ];
 
   for (let i = 0; i < requestedCount; i++) {

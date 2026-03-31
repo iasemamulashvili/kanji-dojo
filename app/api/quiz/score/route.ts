@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { supabase } from '@/lib/supabase';
 import { verifyTelegramToken } from '@/lib/auth/jwt';
+import { checkAndAnnounceWinner } from '@/lib/game-logic/winner';
 
 export async function POST(req: NextRequest) {
   const activeToken = req.cookies.get('dojo_session')?.value;
@@ -17,13 +18,16 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json().catch(() => ({}));
-  const { sessionId, score, finished, totalCorrect, totalQuestions } = body;
+  const { sessionId, score, finished, totalCorrect, totalQuestions, typeStats } = body;
 
   if (!sessionId)
     return NextResponse.json({ error: 'Missing session_id' }, { status: 400 });
 
   // --- 1. Update quiz_participants row ---
-  const updateData: Record<string, unknown> = { score };
+  const updateData: Record<string, unknown> = { 
+    score,
+    type_stats: typeStats || {}
+  };
   if (finished) {
     updateData.finished = true;
     updateData.finished_at = new Date().toISOString();
@@ -55,11 +59,26 @@ export async function POST(req: NextRequest) {
       score: numericScore,
       total_questions: questionsCount,
       correct_answers: correctCount,
-      kanji_id: data?.kanji_id || null, // Best effort from participants row if it exists
+      kanji_id: data?.kanji_id || null, 
+      type_stats: typeStats || {}
     });
 
     if (insertError) {
       console.error('[POST /api/quiz/score] quiz_scores insert failed:', insertError);
+    }
+
+    // --- 3. Check for Winner Announcement ---
+    // In a production environment, we'd check if所有人 finished.
+    // For competitive flare, we'll announce the first person to finish with 100% 
+    // or the final winner if this was the last person.
+    
+    // We'll pass this to a background utility that handles the Telegram logic.
+    // This prevents blocking the response for the user.
+    try {
+      // Trigger a winner check broadcast if this was the finish
+      await checkAndAnnounceWinner(sessionId);
+    } catch (e) {
+      console.error("Winner broadcast failed:", e);
     }
   }
 

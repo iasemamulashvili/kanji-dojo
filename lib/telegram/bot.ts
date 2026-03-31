@@ -58,8 +58,8 @@ bot.command('ask', async (ctx) => {
   // Ensure the message has text
   if (!message || !('text' in message)) return;
 
-  // Extract query after /ask
-  const query = message.text.replace(/^\/ask(?:\s|$)/, '').trim();
+  // Extract query after /ask (handling both /ask and /ask@bot_username)
+  const query = message.text.replace(/^\/ask(?:@\w+)?(?:\s|$)/, '').trim();
 
   if (!query) {
     return ctx.reply("Sensei needs a question! Try: /ask How do I remember the Kanji for Water?");
@@ -100,6 +100,7 @@ bot.command('help', async (ctx) => {
 /stats - 📈 View your progress
 /next - ⏭️ Vote to skip to next
 /prev - ⏮️ Vote to go back
+/ask - 🏮 Ask Sensei (AI Tutor)
 /help - 📜 This scroll`;
 
   await ctx.reply(helpMessage, { 

@@ -1,5 +1,5 @@
 import { cookies } from 'next/headers';
-import { createClient } from '@supabase/supabase-js';
+import { supabase } from '../../lib/supabase';
 import PracticeClient from '../../components/PracticeClient';
 
 export const dynamic = 'force-dynamic';
@@ -10,30 +10,27 @@ export default async function PracticePage() {
   // and enforced via dojo_session JWT validation in middleware.ts.
   // We allow the server component to proceed to fetch the current Kanji.
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  if (!supabaseUrl || !supabaseAnonKey) {
-    return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <p className="text-cinnabar">System configuration error. Supabase credentials are missing.</p>
-      </div>
-    );
-  }
-
-  const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
   let kanjiData = null;
   let errorMsg = null;
 
   try {
-    // Normal Mode: use group_settings current_kanji_id
+    // Normal Mode: fetch current active Kanji for the Dojo
+    const groupIdStr = process.env.TELEGRAM_GROUP_ID || '1';
+    const groupId = Number(groupIdStr);
+
+    console.log(`[${new Date().toISOString()}] Fetching settings for group_id: ${groupId}`);
+
     const { data: settings, error: settingsError } = await supabase
       .from('group_settings')
       .select('current_kanji_id')
-      .single();
+      .eq('group_id', groupId)
+      .maybeSingle();
 
-    console.log(`[${new Date().toISOString()}] Current Setting ID:`, settings?.current_kanji_id);
+    if (settingsError) {
+      console.error("Settings Query error:", settingsError);
+    }
+
+    console.log(`[${new Date().toISOString()}] Current Setting ID for group ${groupId}:`, settings?.current_kanji_id);
 
     let kanji = null;
 
@@ -43,6 +40,10 @@ export default async function PracticePage() {
         .select('*')
         .eq('id', settings.current_kanji_id)
         .single();
+      
+      if (kanjiError) {
+        console.error("Kanji Query error:", kanjiError);
+      }
       kanji = data;
     }
 

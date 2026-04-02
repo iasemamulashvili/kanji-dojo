@@ -80,7 +80,8 @@ function OrganicProgress({ value, label, icon: Icon, colorClass = "text-mahogany
 export default function StatsPage() {
   const [stats, setStats] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'mastery' | 'history'>('mastery');
+  const [timeFilter, setTimeFilter] = useState<'all-time' | 'latest' | 'history'>('all-time');
+  const [typeFilter, setTypeFilter] = useState<string>('all');
 
   useEffect(() => {
     async function loadStats() {
@@ -164,52 +165,115 @@ export default function StatsPage() {
 
         <WabiDivider />
 
-        {/* Navigation Tabs */}
-        <div className="flex gap-4 mb-8">
-          <button 
-            onClick={() => setActiveTab('mastery')}
-            className={`text-xs font-black uppercase tracking-widest px-4 py-2 transition-all rounded-xl ${activeTab === 'mastery' ? 'bg-ebony text-parchment shadow-md' : 'text-ebony/60 hover:text-ebony'}`}
-          >
-            Skill Mastery
-          </button>
-          <button 
-            onClick={() => setActiveTab('history')}
-            className={`text-xs font-black uppercase tracking-widest px-4 py-2 transition-all rounded-xl ${activeTab === 'history' ? 'bg-ebony text-parchment shadow-md' : 'text-ebony/60 hover:text-ebony'}`}
-          >
-            Chronicle
-          </button>
+        {/* Filters */}
+        <div className="flex flex-col sm:flex-row gap-4 mb-8 w-full justify-between items-center bg-ebony/5 p-4 rounded-xl border border-ebony/10">
+          <div className="flex gap-2 bg-parchment p-1 rounded-lg">
+            <button 
+              onClick={() => setTimeFilter('all-time')}
+              className={`text-[0.65rem] font-bold uppercase tracking-widest px-4 py-2 transition-all rounded-md ${timeFilter === 'all-time' ? 'bg-ebony text-parchment shadow-sm' : 'text-ebony/70 hover:text-ebony'}`}
+            >
+              All Time
+            </button>
+            <button 
+              onClick={() => setTimeFilter('latest')}
+              className={`text-[0.65rem] font-bold uppercase tracking-widest px-4 py-2 transition-all rounded-md ${timeFilter === 'latest' ? 'bg-ebony text-parchment shadow-sm' : 'text-ebony/70 hover:text-ebony'}`}
+            >
+              Latest Quiz
+            </button>
+            <button 
+              onClick={() => setTimeFilter('history')}
+              className={`text-[0.65rem] font-bold uppercase tracking-widest px-4 py-2 transition-all rounded-md ${timeFilter === 'history' ? 'bg-ebony text-parchment shadow-sm' : 'text-ebony/70 hover:text-ebony'}`}
+            >
+              History
+            </button>
+          </div>
+          
+          {(timeFilter === 'all-time' || timeFilter === 'latest') && (
+            <div className="relative">
+              <select 
+                value={typeFilter}
+                onChange={(e) => setTypeFilter(e.target.value)}
+                className="appearance-none bg-parchment text-ebony text-xs font-bold uppercase tracking-widest px-4 py-2 pr-8 rounded-lg border border-ebony/20 outline-none cursor-pointer"
+              >
+                <option value="all">All Types</option>
+                <option value="meaning">Meaning</option>
+                <option value="reading">Reading</option>
+                <option value="reverse">Recognition</option>
+                <option value="listening">Listening</option>
+                <option value="drawing">Drawing</option>
+                <option value="matching">Matching</option>
+              </select>
+              <Filter className="w-3 h-3 text-ebony absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+            </div>
+          )}
         </div>
+
 
         {/* Dynamic Content Area */}
         <div className="w-full">
           <AnimatePresence mode="wait">
-            {activeTab === 'mastery' ? (
-              <motion.div 
-                key="mastery"
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: 20 }}
-                className="grid grid-cols-2 sm:grid-cols-3 gap-y-10 gap-x-4 pb-20"
-              >
-                {stats?.mastery.length > 0 ? (
-                  stats.mastery.map((item: any) => {
-                    const accuracy = item.total_count === 0 ? 0 : (item.correct_count / item.total_count) * 100;
-                    return (
+            {(timeFilter === 'all-time' || timeFilter === 'latest') ? (() => {
+              
+              // Compute Display Data
+              let displayData: Record<string, { correct: number, total: number }> = {};
+              
+              if (timeFilter === 'latest') {
+                const latest = stats?.recent?.[0];
+                if (latest?.type_stats) {
+                  displayData = latest.type_stats;
+                } else if (latest) {
+                   // Fallback if recent quiz lacked granular stats
+                   return (
+                     <motion.div key="latest-empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="col-span-full py-12 text-center text-xs font-medium text-ebony/60 italic">
+                        Latest quiz had no granular stat breakdown.
+                     </motion.div>
+                   );
+                } else {
+                   return (
+                     <motion.div key="latest-empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="col-span-full py-12 text-center text-xs font-medium text-ebony/60 italic">
+                        No recent quiz found.
+                     </motion.div>
+                   );
+                }
+              } else {
+                // all-time
+                stats?.mastery?.forEach((m: any) => {
+                  displayData[m.question_type] = { correct: m.correct_count, total: m.total_count };
+                });
+              }
+
+              // Filter by Selected Type
+              const statsConfig = Object.entries(displayData).map(([type, counts]) => ({
+                question_type: type,
+                accuracy: counts.total === 0 ? 0 : (counts.correct / counts.total) * 100,
+                total: counts.total
+              })).filter(m => typeFilter === 'all' || m.question_type === typeFilter);
+
+              return (
+                <motion.div 
+                  key={`chart-${timeFilter}-${typeFilter}`}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  className="grid grid-cols-2 sm:grid-cols-3 gap-y-10 gap-x-4 pb-20"
+                >
+                  {statsConfig.length > 0 ? (
+                    statsConfig.map((item) => (
                       <OrganicProgress 
                         key={item.question_type}
-                        value={accuracy}
-                        label={item.question_type}
+                        value={item.accuracy}
+                        label={`${item.question_type} (${item.total})`}
                         icon={categoryIcons[item.question_type] || BookOpen}
                       />
-                    );
-                  })
-                ) : (
-                  <div className="col-span-full py-12 text-center text-xs font-medium text-ebony/60 italic">
-                    Train in the Dojo to unlock your mastery path.
-                  </div>
-                )}
-              </motion.div>
-            ) : (
+                    ))
+                  ) : (
+                    <div className="col-span-full py-12 text-center text-xs font-medium text-ebony/60 italic">
+                      {timeFilter === 'latest' ? "No data for this type in the latest quiz." : "Train in the Dojo to unlock your mastery path."}
+                    </div>
+                  )}
+                </motion.div>
+              );
+            })() : (
               <motion.div 
                 key="history"
                 initial={{ opacity: 0, x: 20 }}

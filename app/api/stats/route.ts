@@ -33,14 +33,20 @@ export async function GET(req: NextRequest) {
     // 3. Fetch Recent Scores
     const { data: recent, error: recentError } = await supabase
       .from('quiz_scores')
-      .select('score, total_questions, correct_answers, created_at')
+      // Note: type_stats requires the 00012_granular_scoring_and_stats migration to be run
+      .select('score, total_questions, correct_answers, created_at, type_stats')
       .eq('telegram_id', telegramId)
       .order('created_at', { ascending: false })
       .limit(5);
 
-    if (globalError || masteryError || recentError) {
-      console.error('Stats fetch error:', { globalError, masteryError, recentError });
+    if (globalError || masteryError) {
+      console.error('Stats fetch error:', { globalError, masteryError });
       return NextResponse.json({ error: 'Failed to fetch statistics' }, { status: 500 });
+    }
+
+    if (recentError) {
+      console.error('Recent stats fetch error (maybe migration 0012 not pushed?):', recentError);
+      // We don't fail entirely if recentError happens due to missing column
     }
 
     return NextResponse.json({

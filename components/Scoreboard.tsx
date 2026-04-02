@@ -5,9 +5,12 @@ import Image from "next/image";
 
 interface LeaderboardEntry {
   telegram_id: string;
+  username?: string;
   total_score: number;
-  sessions_played: number;
+  sessions_played?: number;
   completed_sessions: number;
+  streak_days: number;
+  accuracy_pct: number;
 }
 
 export default function Scoreboard() {
@@ -163,11 +166,21 @@ export default function Scoreboard() {
                     {medal}
                   </span>
                   <div className="flex flex-col">
-                    <span className="font-bold text-[1.05rem]" style={{ color: "#2C2F24" }}>
-                      Player {player.telegram_id.slice(-4)}
+                    <span className="font-bold text-[1.05rem] flex items-center gap-2" style={{ color: "#2C2F24" }}>
+                      {player.username || `Player ${player.telegram_id.slice(-4)}`}
+                      {player.accuracy_pct > 80 && (
+                        <span className="text-[0.55rem] tracking-widest uppercase bg-amber-900/10 text-amber-900 px-2 py-0.5 rounded-full whitespace-nowrap">
+                          ⛩️ Sensei
+                        </span>
+                      )}
                     </span>
-                    <span className="text-xs font-semibold tracking-wide uppercase mt-0.5" style={{ color: "rgba(138,154,65,0.8)" }}>
-                      {player.sessions_played} Session{player.sessions_played !== 1 && "s"}
+                    <span className="text-xs font-semibold tracking-wide uppercase mt-0.5 flex items-center gap-2" style={{ color: "rgba(138,154,65,0.8)" }}>
+                      <span>{player.completed_sessions} completions</span>
+                      {player.streak_days > 0 && (
+                        <span className="flex items-center gap-1 text-orange-700/80">
+                          🔥 {player.streak_days}
+                        </span>
+                      )}
                     </span>
                   </div>
                 </div>

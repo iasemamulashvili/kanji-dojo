@@ -3,6 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 import { askTutor } from '../ai/tutor';
 import { signTelegramToken } from '../auth/jwt';
 import { broadcastNextKanji, broadcastPrevKanji } from '../game-logic/broadcast';
+import { checkAndAnnounceWinner } from '../game-logic/winner';
 // Initialize Supabase Client for bot interactions
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -97,7 +98,27 @@ bot.command('help', async (ctx) => {
   });
 });
 
+async function reapExpiredSessions() {
+  try {
+    const { data: expired } = await supabase
+      .from('quiz_sessions')
+      .select('id')
+      .eq('notified', false)
+      .lt('expires_at', new Date().toISOString());
+
+    if (expired && expired.length > 0) {
+      for (const session of expired) {
+        await checkAndAnnounceWinner(session.id);
+      }
+    }
+  } catch (err) {
+    console.error("Reaper failed:", err);
+  }
+}
+
 bot.command('active', async (ctx) => {
+  await reapExpiredSessions();
+
   const { data: activeSessions } = await supabase
     .from('quiz_sessions')
     .select('*, quiz_participants(count)')
@@ -118,6 +139,7 @@ bot.command('active', async (ctx) => {
 });
 
 bot.command('today', async (ctx) => {
+  await reapExpiredSessions();
   try {
     const groupId = process.env.TELEGRAM_GROUP_ID;
     if (!groupId) return ctx.reply('⚠️ Configuration error.');

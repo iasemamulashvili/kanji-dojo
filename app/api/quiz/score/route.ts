@@ -33,6 +33,7 @@ export async function POST(req: NextRequest) {
     updateData.finished_at = new Date().toISOString();
   }
 
+  // We'll wrap to avoid complete breakage if type_stats is problematic
   const { data, error } = await supabase
     .from('quiz_participants')
     .update(updateData)
@@ -42,8 +43,15 @@ export async function POST(req: NextRequest) {
     .single();
 
   if (error) {
-    console.error('[POST /api/quiz/score] quiz_participants update failed:', error);
-    return NextResponse.json({ error: 'Failed to update score' }, { status: 500 });
+    if (error.code === 'PGRST204' || error.message.includes('type_stats')) {
+      console.warn("Retrying quiz_participants without type_stats");
+      delete updateData.type_stats;
+      await supabase.from('quiz_participants').update(updateData)
+        .eq('session_id', sessionId).eq('telegram_id', telegramId);
+    } else {
+      console.error('[POST /api/quiz/score] quiz_participants update failed:', error);
+      return NextResponse.json({ error: 'Failed to update score' }, { status: 500 });
+    }
   }
 
   // --- 2. Insert into quiz_scores for leaderboard (only when quiz is finished) ---
@@ -64,7 +72,20 @@ export async function POST(req: NextRequest) {
     });
 
     if (insertError) {
-      console.error('[POST /api/quiz/score] quiz_scores insert failed:', insertError);
+      if (insertError.code === '42703' || insertError.message.includes('type_stats')) {
+         console.warn("Retrying quiz_scores insert without type_stats");
+         await supabase.from('quiz_scores').insert({
+          telegram_id: telegramId,
+          username: data?.username || null,
+          quiz_session_id: sessionId || null,
+          score: numericScore,
+          total_questions: questionsCount,
+          correct_answers: correctCount,
+          kanji_id: data?.kanji_id || null
+        });
+      } else {
+         console.error('[POST /api/quiz/score] quiz_scores insert failed:', insertError);
+      }
     }
 
     // --- 3. Check for Winner Announcement ---

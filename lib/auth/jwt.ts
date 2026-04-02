@@ -1,13 +1,13 @@
 import { SignJWT, jwtVerify } from 'jose';
 
-export async function signTelegramToken(telegramId: string): Promise<string> {
+export async function signTelegramToken(telegramId: string, username?: string): Promise<string> {
   if (!process.env.JWT_SECRET) {
     throw new Error('JWT_SECRET is not defined');
   }
 
   const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
-  return new SignJWT({ telegramId })
+  return new SignJWT({ telegramId, username })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
     .setExpirationTime('7d')

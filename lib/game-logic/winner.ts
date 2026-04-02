@@ -18,7 +18,16 @@ export async function checkAndAnnounceWinner(sessionId: string) {
     if (participants.length === 0) return;
 
     // 2. Check competition status
-    const allFinished = participants.every((p: any) => p.finished);
+    let totalPlayers = participants.length;
+    try {
+      const chatMemberCount = await bot.telegram.getChatMembersCount(process.env.TELEGRAM_GROUP_ID!);
+      totalPlayers = Math.max(1, chatMemberCount - 1); // Subtract the bot itself
+    } catch (e) {
+      console.warn("Could not get chat member count, falling back to 1", e);
+    }
+    
+    // allFinished requires all participants to be finished AND that everyone in the group has participated
+    const allFinished = participants.length >= totalPlayers && participants.every((p: any) => p.finished);
     const isExpired = new Date(session.expires_at).getTime() < Date.now();
 
     // ONLY announce if everyone is done OR the 24-hour window is closed
@@ -50,10 +59,12 @@ export async function checkAndAnnounceWinner(sessionId: string) {
     const medal = allFinished ? "🏆" : "⌛";
     const title = allFinished ? "Dojo Champion Crowned!" : "Time's Up! Dojo Results:";
     
+    const displayUsername = leader.username || `Player ${leader.telegram_id?.toString().slice(-4) || 'Unknown'}`;
+    
     const message = `
 ${medal} *${title}* ${medal}
 ---------------------------
-*Winner:* ${leader.username || `Player ${leader.telegram_id.toString().slice(-4)}`}
+*Winner:* ${displayUsername}
 *Score:* ${leader.score} / ${participants[0]?.total_questions || '??'}
 
 Congrats to the winner! The session is now closed.

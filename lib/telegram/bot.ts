@@ -215,7 +215,7 @@ bot.command('today', async (ctx) => {
 bot.command('practice', async (ctx) => {
   try {
     if (!ctx.from?.id) return;
-    const token = await signTelegramToken(ctx.from.id.toString());
+    const token = await signTelegramToken(ctx.from.id.toString(), ctx.from.username || ctx.from.first_name);
     const baseUrl = process.env.APP_URL || 'http://localhost:3000';
     const magicLink = `${baseUrl}/api/auth/verify?token=${token}&redirect=/practice`;
 
@@ -241,7 +241,7 @@ bot.command('quiz', async (ctx) => {
 bot.command('stats', async (ctx) => {
   try {
     if (!ctx.from?.id) return;
-    const token = await signTelegramToken(ctx.from.id.toString());
+    const token = await signTelegramToken(ctx.from.id.toString(), ctx.from.username || ctx.from.first_name);
     const baseUrl = process.env.APP_URL || 'http://localhost:3000';
     const magicLink = `${baseUrl}/api/auth/verify?token=${token}&redirect=/stats`;
 
@@ -342,7 +342,7 @@ bot.action(/quiz:(\d+)/, async (ctx) => {
   
   await ctx.answerCbQuery("Sensei is preparing your quiz...");
   
-  const token = await signTelegramToken(ctx.from.id.toString());
+  const token = await signTelegramToken(ctx.from.id.toString(), ctx.from.username || ctx.from.first_name);
   const baseUrl = process.env.APP_URL || 'http://localhost:3000';
   // Standard magic link pattern: /api/auth/verify?token=...&redirect=...
   const magicLink = `${baseUrl}/api/auth/verify?token=${token}&redirect=/api/quiz/start?q=${size}`;

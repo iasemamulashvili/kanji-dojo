@@ -8,9 +8,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   let telegramId;
+  let username;
   try {
     const payload = await verifyTelegramToken(activeToken);
     telegramId = payload.telegramId;
+    username = payload.username;
     if (!telegramId) throw new Error('Missing telegramId');
   } catch (error) {
     return NextResponse.json({ error: 'Invalid or expired session' }, { status: 401 });
@@ -21,9 +23,12 @@ export async function POST(req: NextRequest) {
   if (!sessionId) return NextResponse.json({ error: 'Missing session_id' }, { status: 400 });
 
 
+  const upsertData: any = { session_id: sessionId, telegram_id: telegramId };
+  if (username) upsertData.username = username;
+
   const { data: myParticipant, error } = await supabase
     .from('quiz_participants')
-    .upsert({ session_id: sessionId, telegram_id: telegramId }, { onConflict: 'session_id, telegram_id' })
+    .upsert(upsertData, { onConflict: 'session_id, telegram_id' })
     .select('*')
     .single();
 

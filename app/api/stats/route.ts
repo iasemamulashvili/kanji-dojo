@@ -39,14 +39,10 @@ export async function GET(req: NextRequest) {
       .order('created_at', { ascending: false })
       .limit(5);
 
-    if (globalError || masteryError) {
-      console.error('Stats fetch error:', { globalError, masteryError });
-      return NextResponse.json({ error: 'Failed to fetch statistics' }, { status: 500 });
-    }
-
+    if (globalError) console.error('Global stats fetch error:', globalError);
+    if (masteryError) console.error('Mastery stats fetch error:', masteryError);
     if (recentError) {
       console.error('Recent stats fetch error (maybe migration 0012 not pushed?):', recentError);
-      // We don't fail entirely if recentError happens due to missing column
     }
 
     return NextResponse.json({
@@ -60,7 +56,8 @@ export async function GET(req: NextRequest) {
         streak_days: 0
       },
       mastery: mastery || [],
-      recent: recent || []
+      recent: recent || [],
+      debug: { globalError, masteryError, recentError }
     });
 
   } catch (err) {

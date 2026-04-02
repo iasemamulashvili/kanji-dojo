@@ -5,14 +5,20 @@ const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN!);
 
 export async function checkAndAnnounceWinner(sessionId: string) {
   try {
-    // 1. Fetch current session and participants
+  // 1. Fetch current session and participants
     const { data: session, error: sessionError } = await supabase
       .from('quiz_sessions')
       .select('*, quiz_participants(*)')
       .eq('id', sessionId)
       .single();
 
-    if (sessionError || !session || session.notified) return;
+    if (sessionError || !session || (session as any).notified) return;
+
+    // Safety fallback for expires_at (Prevents NaNh)
+    const expiresAt = session.expires_at ? new Date(session.expires_at).getTime() : Date.now() + 24 * 60 * 60 * 1000;
+    const isExpired = expiresAt < Date.now();
+    const timeLeft = Math.max(0, expiresAt - Date.now());
+    const hours = isNaN(timeLeft) ? 24 : Math.floor(timeLeft / (1000 * 60 * 60));
 
     const participants = session.quiz_participants || [];
     if (participants.length === 0) return;
@@ -23,18 +29,14 @@ export async function checkAndAnnounceWinner(sessionId: string) {
       const chatMemberCount = await bot.telegram.getChatMembersCount(process.env.TELEGRAM_GROUP_ID!);
       totalPlayers = Math.max(1, chatMemberCount - 1); // Subtract the bot itself
     } catch (e) {
-      console.warn("Could not get chat member count, falling back to 1", e);
+      console.warn("Could not get chat member count, falling back to participant count", e);
     }
     
-    // allFinished requires all participants to be finished AND that everyone in the group has participated
+    // allFinished requires participants length >= totalPlayers AND everyone finished
     const allFinished = participants.length >= totalPlayers && participants.every((p: any) => p.finished);
-    const isExpired = new Date(session.expires_at).getTime() < Date.now();
 
     // ONLY announce if everyone is done OR the 24-hour window is closed
     if (!allFinished && !isExpired) {
-      const timeLeft = Math.max(0, new Date(session.expires_at).getTime() - Date.now());
-      const hours = Math.floor(timeLeft / (1000 * 60 * 60));
-      
       // Optional: Inform the group that results are pending
       await bot.telegram.sendMessage(process.env.TELEGRAM_GROUP_ID!, 
         `⏱️ *Quiz Entry Logged!* \nCompetition remains open for *${hours}h* more or until all participants finish.`, 

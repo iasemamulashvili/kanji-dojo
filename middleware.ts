@@ -19,6 +19,26 @@ export async function middleware(request: NextRequest) {
 
   const activeToken = tokenFromUrl || sessionToken;
 
+  // --- MOCK AUTH BYPASS FOR LOCAL DEV ---
+  if (process.env.NODE_ENV === 'development') {
+    const response = NextResponse.next();
+    response.headers.set('x-telegram-id', '123456789');
+    
+    if (!sessionToken || sessionToken !== 'mock-dev-token') {
+      response.cookies.set({
+        name: 'dojo_session',
+        value: 'mock-dev-token',
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+        maxAge: 60 * 60 * 24 * 7,
+        path: '/',
+      });
+    }
+    return response;
+  }
+  // -------------------------------------
+
   if (activeToken) {
     try {
       const payload = await verifyTelegramToken(activeToken);

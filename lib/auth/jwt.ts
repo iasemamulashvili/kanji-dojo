@@ -15,6 +15,12 @@ export async function signTelegramToken(telegramId: string, username?: string): 
 }
 
 export async function verifyTelegramToken(token: string): Promise<any> {
+  // --- MOCK AUTH BYPASS FOR LOCAL DEV ---
+  if (process.env.NODE_ENV === 'development' && token === 'mock-dev-token') {
+    return { telegramId: 123456789, username: 'Mock User' };
+  }
+  // -------------------------------------
+
   if (!process.env.JWT_SECRET) {
     throw new Error('JWT_SECRET is not defined');
   }

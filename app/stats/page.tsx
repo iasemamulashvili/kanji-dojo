@@ -85,12 +85,18 @@ export default function StatsPage() {
 
   useEffect(() => {
     async function loadStats() {
+      console.log("[Stats UI] Stats page loaded. Attempting to fetch data...");
       try {
         const res = await fetch('/api/stats');
         const data = await res.json();
+        
+        console.log("[Stats UI] Fetch completed.");
+        console.log("[Stats UI] Response Status:", res.status);
+        console.log("[Stats UI] Data Received:", data);
+        
         if (res.ok) setStats(data);
       } catch (err) {
-        console.error("Stats fail", err);
+        console.error("[Stats UI] Stats fetch failed", err);
       } finally {
         setLoading(false);
       }

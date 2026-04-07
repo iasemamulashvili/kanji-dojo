@@ -11,6 +11,7 @@ export async function GET(req: NextRequest) {
   try {
     const payload = await verifyTelegramToken(activeToken);
     telegramId = payload.telegramId;
+    console.log("[Stats API] Request received. Extracted User ID (telegramId):", telegramId);
     if (!telegramId) throw new Error('Missing telegramId');
   } catch (error) {
     return NextResponse.json({ error: 'Invalid or expired session' }, { status: 401 });
@@ -44,6 +45,12 @@ export async function GET(req: NextRequest) {
     if (recentError) {
       console.error('Recent stats fetch error (maybe migration 0012 not pushed?):', recentError);
     }
+
+    console.log("[Stats API] Sending stats response:", {
+      telegramId,
+      globalScore: global?.total_score,
+      recentScoresCount: recent?.length,
+    });
 
     return NextResponse.json({
       global: global || {

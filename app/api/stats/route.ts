@@ -64,7 +64,6 @@ export async function GET(req: NextRequest) {
       },
       mastery: mastery || [],
       recent: recent || [],
-      debug: { globalError, masteryError, recentError }
     });
 
   } catch (err) {

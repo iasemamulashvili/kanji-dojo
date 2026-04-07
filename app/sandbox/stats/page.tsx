@@ -1,19 +1,19 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  Trophy,
-  Flame,
-  Target,
-  ChevronRight,
-  Volume2,
-  PenTool,
-  BookOpen,
-  ArrowRightLeft,
+import { 
+  Trophy, 
+  Flame, 
+  Target, 
+  ChevronRight, 
+  Volume2, 
+  PenTool, 
+  BookOpen, 
+  ArrowRightLeft, 
   Search,
   Filter,
-  Swords,
+  Swords
 } from "lucide-react";
 
 // ─────────────────────────────────────────
@@ -137,7 +137,7 @@ function WabiDivider() {
       <svg viewBox="0 0 400 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M0,10 C40,0 80,20 120,10 C160,0 200,18 240,10 C280,2 320,18 360,10 C380,6 395,12 400,10"
-          stroke="var(--ebony)"
+          stroke="var(--color-text-muted)"
           strokeWidth="1.5"
           fill="none"
           strokeLinecap="round"
@@ -159,15 +159,7 @@ function getAestheticColor(value: number) {
 // ─────────────────────────────────────────
 // Organic circular progress
 // ─────────────────────────────────────────
-function OrganicProgress({
-  value,
-  label,
-  icon: Icon,
-}: {
-  value: number;
-  label: string;
-  icon: React.ComponentType<{ className?: string }>;
-}) {
+function OrganicProgress({ value, label, icon: Icon }: { value: number; label: string; icon: React.ComponentType<{ className?: string }> }) {
   const radius = 35;
   const circumference = 2 * Math.PI * radius;
   const strokeDashoffset = circumference - (value / 100) * circumference;
@@ -178,18 +170,14 @@ function OrganicProgress({
       <div className="relative w-24 h-24 flex items-center justify-center">
         <svg className="absolute w-full h-full rotate-[-90deg]">
           <circle
-            cx="50%"
-            cy="50%"
-            r={radius}
+            cx="50%" cy="50%" r={radius}
             fill="transparent"
             stroke="rgba(var(--rgb-ebony), 0.1)"
             strokeWidth="3"
             strokeDasharray={circumference}
           />
           <motion.circle
-            cx="50%"
-            cy="50%"
-            r={radius}
+            cx="50%" cy="50%" r={radius}
             fill="transparent"
             stroke="currentColor"
             strokeWidth="3"
@@ -212,31 +200,25 @@ function OrganicProgress({
 }
 
 // ─────────────────────────────────────────
-// Loading skeleton
+// Mock data
 // ─────────────────────────────────────────
-function LoadingSkeleton() {
-  return (
-    <div className="relative min-h-screen overflow-x-hidden bg-[var(--soft-linen)]">
-      <AntlerBackground />
-      <div className="relative z-10 w-full max-w-lg mx-auto px-4 pt-8 flex flex-col items-center gap-6">
-        <div className="w-full py-6 px-4 bg-white/20 imperfect-border backdrop-blur-sm animate-pulse flex flex-col items-center gap-4">
-          <div className="h-6 w-48 bg-[var(--charcoal-brown)]/20 rounded" />
-          <div className="h-7 w-24 bg-[var(--charcoal-blue)]/20 rounded-full" />
-        </div>
-        <div className="grid grid-cols-2 gap-4 w-full">
-          {[0, 1].map((i) => (
-            <div key={i} className="kanji-stone p-6 aspect-square animate-pulse bg-white/20" />
-          ))}
-        </div>
-        <div className="w-full kanji-stone p-6 animate-pulse bg-white/20 h-40" />
-      </div>
-    </div>
-  );
-}
+const mockStats = {
+  global: { accuracy_pct: 85, streak_days: 14, total_correct: 382 },
+  recent: [
+    { score: 18, total_questions: 21, correct_answers: 18, created_at: new Date().toISOString() },
+    { score: 15, total_questions: 17, correct_answers: 15, created_at: new Date(Date.now() - 86400000).toISOString() },
+    { score: 10, total_questions: 13, correct_answers: 10, created_at: new Date(Date.now() - 172800000).toISOString() },
+  ],
+  mastery: [
+    { question_type: "meaning",  correct_count: 85, total_count: 100 },
+    { question_type: "reading",  correct_count: 70, total_count: 90  },
+    { question_type: "reverse",  correct_count: 65, total_count: 80  },
+    { question_type: "listening",correct_count: 50, total_count: 55  },
+    { question_type: "drawing",  correct_count: 42, total_count: 60  },
+    { question_type: "matching", correct_count: 70, total_count: 75  },
+  ],
+};
 
-// ─────────────────────────────────────────
-// Icon map
-// ─────────────────────────────────────────
 const categoryIcons: Record<string, React.ComponentType<{ className?: string }>> = {
   meaning:  BookOpen,
   reading:  Search,
@@ -249,40 +231,17 @@ const categoryIcons: Record<string, React.ComponentType<{ className?: string }>>
 // ─────────────────────────────────────────
 // Page
 // ─────────────────────────────────────────
-export default function StatsPage() {
-  const [stats, setStats]           = useState<any>(null);
-  const [loading, setLoading]       = useState(true);
-  const [tab, setTab]               = useState<"all-time" | "history">("all-time");
+export default function SandboxStatsPage() {
+  const [tab, setTab] = useState<"all-time" | "history">("all-time");
   const [typeFilter, setTypeFilter] = useState("all");
 
-  useEffect(() => {
-    async function loadStats() {
-      try {
-        const res  = await fetch("/api/stats");
-        const data = await res.json();
-        if (res.ok) setStats(data);
-      } catch (err) {
-        console.error("[Stats] Fetch failed", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-    loadStats();
-  }, []);
-
-  if (loading) return <LoadingSkeleton />;
-
-  const masteryData: { question_type: string; accuracy: number; total: number }[] = (
-    stats?.mastery ?? []
-  )
-    .map((m: any) => ({
+  const statsConfig = mockStats.mastery
+    .map((m) => ({
       question_type: m.question_type,
       accuracy: m.total_count === 0 ? 0 : (m.correct_count / m.total_count) * 100,
       total: m.total_count,
     }))
-    .filter((m: any) => typeFilter === "all" || m.question_type === typeFilter);
-
-  const rank = (stats?.global?.accuracy_pct ?? 0) > 80 ? "Sensei" : "Pupil";
+    .filter((m) => typeFilter === "all" || m.question_type === typeFilter);
 
   return (
     <div className="relative min-h-screen overflow-x-hidden bg-[var(--soft-linen)] text-text-main">
@@ -298,7 +257,7 @@ export default function StatsPage() {
           <div className="flex items-center justify-center">
             <div className="flex items-center gap-2 text-xs font-bold tracking-[0.2em] uppercase text-[var(--soft-linen)] bg-[var(--charcoal-blue)] px-6 py-2 rounded-full shadow-md">
               <Swords className="w-4 h-4 opacity-80" aria-hidden="true" />
-              <span>{rank}</span>
+              <span>{mockStats.global.accuracy_pct > 80 ? "Sensei" : "Pupil"}</span>
             </div>
           </div>
         </header>
@@ -311,7 +270,7 @@ export default function StatsPage() {
             className="kanji-stone p-6 flex flex-col items-center justify-center aspect-square"
           >
             <Flame className="w-8 h-8 text-accent mb-3" />
-            <span className="text-4xl font-black text-text-main">{stats?.global?.streak_days ?? "—"}</span>
+            <span className="text-4xl font-black text-text-main">{mockStats.global.streak_days}</span>
             <span className="text-[0.6rem] font-bold uppercase tracking-wider text-text-muted mt-1">Day Streak</span>
           </motion.div>
 
@@ -322,7 +281,7 @@ export default function StatsPage() {
             className="kanji-stone p-6 flex flex-col items-center justify-center aspect-square"
           >
             <Trophy className="w-8 h-8 text-text-muted mb-3" />
-            <span className="text-4xl font-black text-text-main">{stats?.global?.total_correct ?? "—"}</span>
+            <span className="text-4xl font-black text-text-main">{mockStats.global.total_correct}</span>
             <span className="text-[0.6rem] font-bold uppercase tracking-wider text-text-muted mt-1">Correct Kanjis</span>
           </motion.div>
         </div>
@@ -333,7 +292,7 @@ export default function StatsPage() {
         <div className="w-full flex flex-col sm:flex-row gap-6 justify-between items-center py-4 border-b border-[rgba(var(--rgb-grey-olive),0.3)]">
           <div className="flex gap-6">
             <button
-              id="stats-tab-overview"
+              id="tab-overview"
               onClick={() => setTab("all-time")}
               className={`text-xs font-black uppercase tracking-widest pb-2 transition-all border-b-2 ${
                 tab === "all-time"
@@ -344,7 +303,7 @@ export default function StatsPage() {
               Overview
             </button>
             <button
-              id="stats-tab-history"
+              id="tab-history"
               onClick={() => setTab("history")}
               className={`text-xs font-black uppercase tracking-widest pb-2 transition-all border-b-2 ${
                 tab === "history"
@@ -356,13 +315,9 @@ export default function StatsPage() {
             </button>
           </div>
 
-          <div
-            className={`relative transition-all duration-300 ${
-              tab === "history" ? "opacity-0 pointer-events-none" : "opacity-100"
-            }`}
-          >
+          <div className={`relative transition-all duration-300 ${tab === "history" ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
             <select
-              id="stats-type-filter"
+              id="type-filter"
               value={typeFilter}
               onChange={(e) => setTypeFilter(e.target.value)}
               className="appearance-none bg-transparent text-[var(--charcoal-brown)] text-[0.65rem] font-bold uppercase tracking-[0.2em] px-3 py-1 pr-8 outline-none cursor-pointer border-none"
@@ -384,14 +339,14 @@ export default function StatsPage() {
           <AnimatePresence mode="wait">
             {tab === "all-time" ? (
               <motion.div
-                key={`mastery-${typeFilter}`}
+                key={`chart-${typeFilter}`}
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: 20 }}
                 className="grid grid-cols-2 sm:grid-cols-3 gap-y-10 gap-x-4 pb-24 kanji-stone border-2 border-[var(--grey-olive)] p-6 bg-transparent"
               >
-                {masteryData.length > 0 ? (
-                  masteryData.map((item) => (
+                {statsConfig.length > 0 ? (
+                  statsConfig.map((item) => (
                     <OrganicProgress
                       key={item.question_type}
                       value={item.accuracy}
@@ -413,46 +368,40 @@ export default function StatsPage() {
                 exit={{ opacity: 0, x: -20 }}
                 className="flex flex-col w-full pb-24"
               >
-                {(stats?.recent ?? []).length > 0 ? (
-                  (stats.recent as any[]).map((quiz: any, idx: number) => {
-                    const accValue = Math.round((quiz.correct_answers / quiz.total_questions) * 100) || 0;
-                    let accColor = "var(--palm-leaf)";
-                    if (accValue <= 33) accColor = "var(--rich-mahogany)";
-                    else if (accValue <= 66) accColor = "var(--charcoal-blue)";
+                {mockStats.recent.map((quiz, idx) => {
+                  const accValue = Math.round((quiz.correct_answers / quiz.total_questions) * 100) || 0;
+                  let accColor = "var(--palm-leaf)";
+                  if (accValue <= 33) accColor = "var(--rich-mahogany)";
+                  else if (accValue <= 66) accColor = "var(--charcoal-blue)";
 
-                    const dateObj = new Date(quiz.created_at);
-                    const formattedDate = dateObj.toLocaleDateString(undefined, { month: "short", day: "numeric" });
-                    const formattedTime = dateObj.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
+                  const dateObj = new Date(quiz.created_at);
+                  const formattedDate = dateObj.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+                  const formattedTime = dateObj.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
 
-                    return (
-                      <div
-                        key={idx}
-                        className="group flex justify-between items-center py-4 border-b border-[rgba(var(--rgb-grey-olive),0.2)] hover:bg-[rgba(var(--rgb-soft-linen),0.2)] transition-colors cursor-pointer px-2"
-                      >
-                        <div className="flex items-center gap-6">
-                          <div className="flex flex-col gap-1 w-24">
-                            <span className="text-[0.65rem] font-black uppercase tracking-[0.1em] text-[var(--charcoal-brown)]">{formattedDate}</span>
-                            <span className="text-[0.6rem] font-bold uppercase tracking-widest text-[var(--grey-olive)]">{formattedTime}</span>
-                          </div>
-                          <span className="text-[0.6rem] uppercase font-black px-2 py-0.5" style={{ color: accColor }}>
-                            {accValue}% Acc
-                          </span>
+                  return (
+                    <div
+                      key={idx}
+                      className="group flex justify-between items-center py-4 border-b border-[rgba(var(--rgb-grey-olive),0.2)] hover:bg-[rgba(var(--rgb-soft-linen),0.2)] transition-colors cursor-pointer px-2"
+                    >
+                      <div className="flex items-center gap-6">
+                        <div className="flex flex-col gap-1 w-24">
+                          <span className="text-[0.65rem] font-black uppercase tracking-[0.1em] text-[var(--charcoal-brown)]">{formattedDate}</span>
+                          <span className="text-[0.6rem] font-bold uppercase tracking-widest text-[var(--grey-olive)]">{formattedTime}</span>
                         </div>
-                        <div className="flex items-center gap-4">
-                          <div className="flex items-baseline gap-1">
-                            <span className="text-xl font-serif font-black text-[var(--ebony)]">{quiz.score}</span>
-                            <span className="text-[0.65rem] font-bold text-[var(--grey-olive)]">/{quiz.total_questions}</span>
-                          </div>
-                          <ChevronRight className="w-4 h-4 text-[var(--grey-olive)] opacity-30 group-hover:opacity-100 group-hover:text-[var(--charcoal-blue)] transition-all transform group-hover:translate-x-1" />
-                        </div>
+                        <span className="text-[0.6rem] uppercase font-black px-2 py-0.5" style={{ color: accColor }}>
+                          {accValue}% Acc
+                        </span>
                       </div>
-                    );
-                  })
-                ) : (
-                  <div className="py-12 text-center text-xs font-medium text-text-muted/60 italic">
-                    No history found in the annals yet.
-                  </div>
-                )}
+                      <div className="flex items-center gap-4">
+                        <div className="flex items-baseline gap-1">
+                          <span className="text-xl font-serif font-black text-[var(--ebony)]">{quiz.score}</span>
+                          <span className="text-[0.65rem] font-bold text-[var(--grey-olive)]">/{quiz.total_questions}</span>
+                        </div>
+                        <ChevronRight className="w-4 h-4 text-[var(--grey-olive)] opacity-30 group-hover:opacity-100 group-hover:text-[var(--charcoal-blue)] transition-all transform group-hover:translate-x-1" />
+                      </div>
+                    </div>
+                  );
+                })}
               </motion.div>
             )}
           </AnimatePresence>

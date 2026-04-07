@@ -2,12 +2,12 @@
 
 :root {
   /* Wabi-Sabi Phase 3 Palette */
-  --mahogany:     #4a1816;
-  --silver:       #acaca7;
-  --ebony:        #656142;
-  --charcoal:     #2d291d;
-  --khaki:        #a7a190;
-  --parchment:    #F4F1EB;
+  --mahogany: #4a1816;
+  --silver: #acaca7;
+  --ebony: #656142;
+  --charcoal: #2d291d;
+  --khaki: #a7a190;
+  --parchment: #F4F1EB;
 
   /* Semantic Architecture */
   --color-background: var(--parchment);
@@ -28,7 +28,9 @@
 /* ─────────────────────────────────────────
    Base Reset
 ───────────────────────────────────────── */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -47,7 +49,8 @@ body {
   background: rgba(255, 255, 255, 0.40);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(138, 154, 65, 0.25);   /* soft moss edge */
+  border: 1px solid rgba(138, 154, 65, 0.25);
+  /* soft moss edge */
   border-radius: 1.25rem;
   /* No box-shadow — anti-rigidity */
 }
@@ -59,11 +62,13 @@ body {
   background: rgba(255, 255, 255, 0.42);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(212, 217, 161, 0.45);  /* moss-light edge */
+  border: 1px solid rgba(212, 217, 161, 0.45);
+  /* moss-light edge */
   /* Irregular 8-value border-radius for organic feel */
   border-radius: 81% 19% 88% 12% / 15% 79% 21% 85%;
   transition: border-radius 0.6s ease;
 }
+
 .kanji-stone:hover {
   border-radius: 72% 28% 80% 20% / 22% 70% 30% 78%;
 }
@@ -77,6 +82,7 @@ body {
   line-height: 0;
   opacity: 0.35;
 }
+
 .wabi-divider svg {
   display: block;
   width: 100%;
@@ -101,14 +107,17 @@ body {
   padding: 0.85rem 1.25rem;
   text-align: center;
 }
+
 .quiz-option:hover {
   background: rgba(255, 255, 255, 0.55);
   border-color: rgba(138, 154, 65, 0.40);
   border-radius: 60% 40% 68% 32% / 34% 58% 42% 66%;
 }
+
 .quiz-option:active {
   transform: scale(0.97);
 }
+
 .quiz-option--correct {
   background: rgba(138, 154, 65, 0.22) !important;
   border-color: rgba(138, 154, 65, 0.55) !important;
@@ -117,6 +126,7 @@ body {
   cursor: default;
   pointer-events: none;
 }
+
 .quiz-option--incorrect {
   background: rgba(155, 44, 44, 0.14) !important;
   border-color: rgba(155, 44, 44, 0.40) !important;
@@ -125,6 +135,7 @@ body {
   cursor: default;
   pointer-events: none;
 }
+
 .quiz-option--dimmed {
   opacity: 0.40;
   cursor: default;
@@ -148,13 +159,16 @@ body {
   user-select: none;
   touch-action: none;
 }
+
 .drag-item:hover {
   border-color: rgba(138, 154, 65, 0.55);
 }
+
 .drag-item--dragging {
   opacity: 0.50;
   cursor: grabbing;
 }
+
 .drag-item--placed {
   opacity: 0.35;
   cursor: default;
@@ -173,10 +187,12 @@ body {
   justify-content: center;
   min-height: 3rem;
 }
+
 .drop-zone--active {
   background: rgba(138, 154, 65, 0.12);
   border-color: rgba(138, 154, 65, 0.60);
 }
+
 .drop-zone--correct {
   background: rgba(138, 154, 65, 0.18);
   border-color: rgba(138, 154, 65, 0.55);
@@ -187,26 +203,69 @@ body {
    Kanji Canvas Animations
 ───────────────────────────────────────── */
 @keyframes mossFlash {
-  0% { box-shadow: 0 0 0 0 rgba(138, 154, 65, 0.7); background: rgba(138, 154, 65, 0.2); }
-  100% { box-shadow: 0 0 0 20px rgba(138, 154, 65, 0); background: rgba(255, 255, 255, 0.40); }
+  0% {
+    box-shadow: 0 0 0 0 rgba(138, 154, 65, 0.7);
+    background: rgba(138, 154, 65, 0.2);
+  }
+
+  100% {
+    box-shadow: 0 0 0 20px rgba(138, 154, 65, 0);
+    background: rgba(255, 255, 255, 0.40);
+  }
 }
+
 @keyframes errorShake {
-  0%, 100% { transform: translateX(0); background: rgba(255, 255, 255, 0.40); }
-  10%, 30%, 50%, 70%, 90% { transform: translateX(-4px); background: rgba(155, 44, 44, 0.15); }
-  20%, 40%, 60%, 80% { transform: translateX(4px); background: rgba(155, 44, 44, 0.15); }
+
+  0%,
+  100% {
+    transform: translateX(0);
+    background: rgba(255, 255, 255, 0.40);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-4px);
+    background: rgba(155, 44, 44, 0.15);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(4px);
+    background: rgba(155, 44, 44, 0.15);
+  }
 }
+
 @keyframes perfectFlash {
-  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(138, 154, 65, 0.8); background: rgba(138, 154, 65, 0.4); }
-  50% { transform: scale(1.05); }
-  100% { transform: scale(1); box-shadow: 0 0 0 30px rgba(138, 154, 65, 0); background: rgba(255, 255, 255, 0.40); }
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(138, 154, 65, 0.8);
+    background: rgba(138, 154, 65, 0.4);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 30px rgba(138, 154, 65, 0);
+    background: rgba(255, 255, 255, 0.40);
+  }
 }
 
 .flash-correct {
   animation: mossFlash 0.5s ease-out;
 }
+
 .shake-error {
   animation: errorShake 0.4s ease-in-out;
 }
+
 .flash-perfect {
   animation: perfectFlash 0.8s ease-out;
 }
@@ -218,10 +277,11 @@ body {
   border-radius: 95% 4% 92% 5% / 4% 95% 6% 95%;
   transition: border-radius 0.4s ease;
 }
+
 .imperfect-border:hover {
   border-radius: 92% 6% 94% 4% / 6% 92% 4% 94%;
 }
+
 .imperfect-border--alt {
   border-radius: 4% 95% 6% 95% / 95% 4% 92% 5%;
 }
-

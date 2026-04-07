@@ -67,24 +67,26 @@ export async function POST(req: NextRequest) {
       score: numericScore,
       total_questions: questionsCount,
       correct_answers: correctCount,
-      kanji_id: data?.kanji_id || null, 
       type_stats: typeStats || {}
     });
 
     if (insertError) {
-      if (insertError.code === '42703' || insertError.message.includes('type_stats')) {
-         console.warn("Retrying quiz_scores insert without type_stats");
-         await supabase.from('quiz_scores').insert({
+      // PGRST204 = column not found in schema cache; retry without type_stats
+      if (insertError.code === 'PGRST204' || insertError.message.includes('type_stats')) {
+        console.warn("Retrying quiz_scores insert without type_stats");
+        const { error: retryError } = await supabase.from('quiz_scores').insert({
           telegram_id: telegramId,
           username: data?.username || null,
           quiz_session_id: sessionId || null,
           score: numericScore,
           total_questions: questionsCount,
           correct_answers: correctCount,
-          kanji_id: data?.kanji_id || null
         });
+        if (retryError) {
+          console.error('[POST /api/quiz/score] quiz_scores retry insert failed:', retryError);
+        }
       } else {
-         console.error('[POST /api/quiz/score] quiz_scores insert failed:', insertError);
+        console.error('[POST /api/quiz/score] quiz_scores insert failed:', insertError);
       }
     }
 

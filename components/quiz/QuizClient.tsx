@@ -58,7 +58,7 @@ function ProgressPips({
         <div
           key={i}
           className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-            i < current ? 'bg-ebony' : i === current ? 'bg-ebony/55' : 'bg-charcoal/18'
+            i < current ? 'bg-text-muted' : i === current ? 'bg-text-muted/55' : 'bg-text-main/18'
           }`}
         />
       ))}
@@ -70,7 +70,7 @@ function ProgressPips({
 function PageLayout({ children }: { children: React.ReactNode }) {
   return (
     <div
-      className="relative min-h-screen overflow-x-hidden p-4 md:p-8 flex flex-col items-center bg-parchment text-charcoal"
+      className="relative min-h-screen overflow-x-hidden p-4 md:p-8 flex flex-col items-center bg-background text-text-main"
     >
       {/* Leaf — left */}
       <div
@@ -113,12 +113,12 @@ function PageLayout({ children }: { children: React.ReactNode }) {
         {/* Header */}
         <header className="flex justify-between items-center w-full max-w-md mx-auto mb-8">
           <div
-            className="text-lg font-bold tracking-[0.25em] uppercase text-charcoal"
+            className="text-lg font-bold tracking-[0.25em] uppercase text-text-main"
           >
             Kanji Dojo
           </div>
           <div
-            className="text-xs font-semibold tracking-wider uppercase px-3 py-1 rounded-full bg-ebony/12 text-ebony"
+            className="text-xs font-semibold tracking-wider uppercase px-3 py-1 rounded-full bg-text-muted/12 text-text-muted"
           >
             Quiz
           </div>
@@ -286,7 +286,7 @@ export default function QuizClient({ sessionId }: Props) {
           <div className="text-4xl animate-pulse">
             ⛩️
           </div>
-          <p className="mt-4 text-xs font-semibold tracking-widest uppercase text-ebony">
+          <p className="mt-4 text-xs font-semibold tracking-widest uppercase text-text-muted">
             Loading quiz…
           </p>
         </div>
@@ -300,10 +300,10 @@ export default function QuizClient({ sessionId }: Props) {
       <PageLayout>
         <div className="wabi-card w-full max-w-md p-8 flex flex-col items-center text-center">
           <div className="text-4xl mb-3">🪦</div>
-          <h2 className="text-lg font-bold text-mahogany mb-2">
+          <h2 className="text-lg font-bold text-accent mb-2">
             Could not load quiz
           </h2>
-          <p className="text-xs text-ebony/70">{errorMsg}</p>
+          <p className="text-xs text-text-muted/70">{errorMsg}</p>
         </div>
       </PageLayout>
     );
@@ -325,11 +325,11 @@ export default function QuizClient({ sessionId }: Props) {
         <div className="relative z-10 w-full max-w-lg flex flex-col items-center">
           {/* Kanji Stone Summary */}
           <div className="kanji-stone w-full aspect-square flex flex-col items-center justify-center p-8 mb-12">
-            <h2 className="text-xl font-bold tracking-[0.2em] uppercase text-ebony opacity-60 mb-2">Quiz Complete</h2>
-            <div className="text-6xl font-black text-charcoal mb-4">
-              {score} <span className="text-2xl text-ebony/40">/ {questions.length}</span>
+            <h2 className="text-xl font-bold tracking-[0.2em] uppercase text-text-muted opacity-60 mb-2">Quiz Complete</h2>
+            <div className="text-6xl font-black text-text-main mb-4">
+              {score} <span className="text-2xl text-text-muted/40">/ {questions.length}</span>
             </div>
-            <p className="text-xs font-bold tracking-widest uppercase text-mahogany bg-mahogany/10 px-4 py-2 rounded-full imperfect-border">
+            <p className="text-xs font-bold tracking-widest uppercase text-accent bg-accent/10 px-4 py-2 rounded-full imperfect-border">
                {score === questions.length ? "Sensei's Perfection" : "A Disciplined Effort"}
             </p>
           </div>
@@ -338,13 +338,13 @@ export default function QuizClient({ sessionId }: Props) {
           <div className="flex flex-col gap-4 w-full mb-12">
              <button 
                onClick={() => window.location.href = '/practice'}
-               className="wabi-card p-4 text-xs font-black uppercase tracking-[0.2em] hover:border-ebony transition-all flex items-center justify-center gap-2 group"
+               className="wabi-card p-4 text-xs font-black uppercase tracking-[0.2em] hover:border-text-muted transition-all flex items-center justify-center gap-2 group"
              >
                Retreat to Dojo <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-all" />
              </button>
              <button 
                onClick={() => window.location.href = '/stats'}
-               className="wabi-card p-4 text-xs font-black uppercase tracking-[0.2em] hover:border-ebony transition-all flex items-center justify-center gap-2 group"
+               className="wabi-card p-4 text-xs font-black uppercase tracking-[0.2em] hover:border-text-muted transition-all flex items-center justify-center gap-2 group"
              >
                Mastery Scroll <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-all" />
              </button>
@@ -352,7 +352,7 @@ export default function QuizClient({ sessionId }: Props) {
 
           <WabiDivider />
           
-          <h3 className="text-[0.6rem] font-bold tracking-[0.4em] uppercase text-ebony opacity-60 mb-6 mt-8">Final Leaderboard</h3>
+          <h3 className="text-[0.6rem] font-bold tracking-[0.4em] uppercase text-text-muted opacity-60 mb-6 mt-8">Final Leaderboard</h3>
           
           <div className="flex flex-col gap-3 w-full pb-20">
             {sorted.map((p, idx) => {
@@ -361,13 +361,13 @@ export default function QuizClient({ sessionId }: Props) {
                 <div
                   key={p.id}
                   className={`flex justify-between items-center p-4 rounded-xl transition-all duration-500 border ${
-                    isMe ? 'bg-ebony/15 border-ebony/40 scale-102' : 'bg-ebony/5 border-ebony/20'
+                    isMe ? 'bg-text-muted/15 border-text-muted/40 scale-102' : 'bg-text-muted/5 border-text-muted/20'
                   }`}
                 >
-                  <span className={`font-semibold flex items-center gap-2 ${isMe ? 'text-mahogany' : 'text-ebony'}`}>
+                  <span className={`font-semibold flex items-center gap-2 ${isMe ? 'text-accent' : 'text-text-muted'}`}>
                     {idx + 1}. {isMe ? "✨ You" : `Player ${p.telegram_id.toString().slice(-4)}`}
                   </span>
-                  <span className="font-bold text-xl text-charcoal">
+                  <span className="font-bold text-xl text-text-main">
                     {isMe ? Math.max(p.score, myParticipant?.score || 0) : p.score} / {questions.length} Correct {p.finished && "🏁"}
                   </span>
                 </div>
@@ -393,10 +393,10 @@ export default function QuizClient({ sessionId }: Props) {
     <PageLayout>
       {/* Arena Title & Scoreboard */}
       <div className="w-full max-w-md flex flex-col mb-6">
-        <h2 className="text-center font-bold tracking-widest uppercase mb-3 text-ebony text-xs">
+        <h2 className="text-center font-bold tracking-widest uppercase mb-3 text-text-muted text-xs">
           Live Arena
         </h2>
-        <div className="flex gap-2 flex-wrap justify-center p-3 rounded-xl bg-ebony/6 border border-ebony/15 min-h-[48px]">
+        <div className="flex gap-2 flex-wrap justify-center p-3 rounded-xl bg-text-muted/6 border border-text-muted/15 min-h-[48px]">
           {participants.length === 0 && (
             <span className="text-sm opacity-50 flex items-center">
               Waiting for players...
@@ -410,11 +410,11 @@ export default function QuizClient({ sessionId }: Props) {
                 <div
                   key={p.id}
                   className={`text-xs px-2.5 py-1 rounded-md font-semibold flex items-center gap-2 ${
-                    isMe ? 'bg-ebony/20 text-ebony' : 'bg-transparent text-ebony'
+                    isMe ? 'bg-text-muted/20 text-text-muted' : 'bg-transparent text-text-muted'
                   }`}
                 >
                   {isMe ? "You" : `P${p.telegram_id.toString().slice(-4)}`}
-                  <span className="bg-ebony text-parchment px-1.5 py-0.5 rounded-sm">
+                  <span className="bg-text-muted text-background px-1.5 py-0.5 rounded-sm">
                     {p.score}
                   </span>
                   {p.finished && <span title="Finished">🏁</span>}
@@ -430,7 +430,7 @@ export default function QuizClient({ sessionId }: Props) {
       <ProgressPips total={questions.length} current={currentIndex} />
 
       {/* Question type label */}
-      <p className="text-[0.65rem] font-bold tracking-widest uppercase text-ebony mb-3">
+      <p className="text-[0.65rem] font-bold tracking-widest uppercase text-text-muted mb-3">
         {questionLabel[currentQuestion.type] ?? currentQuestion.type}
       </p>
 
@@ -444,7 +444,7 @@ export default function QuizClient({ sessionId }: Props) {
       </div>
 
       {/* Step counter */}
-      <p className="mt-4 text-xs text-charcoal/45 tracking-wide">
+      <p className="mt-4 text-xs text-text-main/45 tracking-wide">
         {currentIndex + 1} / {questions.length}
       </p>
     </PageLayout>

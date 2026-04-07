@@ -56,12 +56,12 @@ export default function InteractiveSentence({ sentence }: { sentence: Sentence }
       <WaveDivider />
 
       <div className="flex justify-between items-start mb-6 mt-2">
-        <div className="text-sm font-medium italic text-charcoal/70">
+        <div className="text-sm font-medium italic text-text-main/70">
           {sentence.english}
         </div>
         <button
           onClick={() => playAudio(sentence.japanese)}
-          className="flex items-center gap-1 text-sm font-medium transition-colors flex-shrink-0 ml-3 text-ebony"
+          className="flex items-center gap-1 text-sm font-medium transition-colors flex-shrink-0 ml-3 text-text-muted"
         >
           <Volume2 className="h-4 w-4" /> Read
         </button>
@@ -75,14 +75,14 @@ export default function InteractiveSentence({ sentence }: { sentence: Sentence }
             onClick={() => setActiveToken(activeToken === token ? null : token)}
           >
             <ruby
-              className={`text-xl transition-colors ${activeToken === token ? 'text-mahogany' : 'text-charcoal'}`}
+              className={`text-xl transition-colors ${activeToken === token ? 'text-accent' : 'text-text-main'}`}
               style={{ 
                 borderBottom: `1.5px dashed ${activeToken === token ? 'var(--mahogany)' : 'rgba(44,47,36,0.3)'}`
               }}
               aria-label={token.text}
             >
               <span aria-hidden="true">{token.text}</span>
-              <rt className="text-[10px] text-ebony" aria-hidden="true">
+              <rt className="text-[10px] text-text-muted" aria-hidden="true">
                 {token.furigana || ''}
               </rt>
             </ruby>
@@ -94,23 +94,23 @@ export default function InteractiveSentence({ sentence }: { sentence: Sentence }
         <div className="wabi-card p-4 flex flex-col gap-3 animate-in fade-in slide-in-from-top-2 relative mt-4">
           <div className="flex justify-between items-start">
             <div>
-              <div className="text-2xl font-bold mb-1 text-charcoal">
+              <div className="text-2xl font-bold mb-1 text-text-main">
                 {activeToken.text}
               </div>
-              <div className="font-medium tracking-wide text-mahogany">
+              <div className="font-medium tracking-wide text-accent">
                 {activeToken.furigana || '—'}
               </div>
             </div>
             <button
               onClick={() => playAudio(activeToken.furigana || activeToken.text)}
-              className="transition-colors text-ebony"
+              className="transition-colors text-text-muted"
               title="Play Audio"
             >
-              <Volume2 className="h-5 w-5 hover:text-mahogany transition-colors" />
+              <Volume2 className="h-5 w-5 hover:text-accent transition-colors" />
             </button>
           </div>
           {activeToken.english && (
-            <p className="text-sm text-charcoal/60">
+            <p className="text-sm text-text-main/60">
               {activeToken.english}
             </p>
           )}
@@ -127,7 +127,7 @@ export default function InteractiveSentence({ sentence }: { sentence: Sentence }
                   />
                 </svg>
               </div>
-              <p className="text-xs italic leading-relaxed text-charcoal/70">
+              <p className="text-xs italic leading-relaxed text-text-main/70">
                 {activeToken.grammar_explanation}
               </p>
             </div>

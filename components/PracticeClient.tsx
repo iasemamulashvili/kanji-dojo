@@ -53,7 +53,7 @@ export default function PracticeClient({ kanjiData }: PracticeClientProps) {
      * absolute-positioned leaves never create a scrollbar.
      */
     <div
-      className="relative min-h-screen overflow-x-hidden p-4 md:p-8 flex flex-col items-center bg-parchment text-charcoal"
+      className="relative min-h-screen overflow-x-hidden p-4 md:p-8 flex flex-col items-center bg-background text-text-main"
     >
 
       {/* ── Background Leaf — left ── */}
@@ -116,7 +116,7 @@ export default function PracticeClient({ kanjiData }: PracticeClientProps) {
             Kanji Dojo
           </div>
           <div className="flex items-center gap-3">
-            <div className="text-sm font-medium text-ebony">
+            <div className="text-sm font-medium text-text-muted">
               Session Active
             </div>
           </div>
@@ -129,7 +129,7 @@ export default function PracticeClient({ kanjiData }: PracticeClientProps) {
           className="kanji-stone w-full max-w-md flex items-center justify-center mb-10 py-14 px-8"
         >
           <span
-            className="font-bold leading-none select-none text-charcoal"
+            className="font-bold leading-none select-none text-text-main"
             style={{ fontSize: 'clamp(5rem, 22vw, 8rem)' }}
           >
             {kanjiData.character}
@@ -147,12 +147,12 @@ export default function PracticeClient({ kanjiData }: PracticeClientProps) {
         <div className="w-full max-w-md mb-8">
           <div className="wabi-card p-5 w-full flex flex-col items-center">
             <div
-              className="text-xs font-semibold tracking-wider uppercase mb-2 text-ebony"
+              className="text-xs font-semibold tracking-wider uppercase mb-2 text-text-muted"
             >
               Meanings
             </div>
             <div
-              className="text-2xl capitalize font-medium text-center text-charcoal"
+              className="text-2xl capitalize font-medium text-center text-text-main"
             >
               {meaningsText}
             </div>
@@ -169,7 +169,7 @@ export default function PracticeClient({ kanjiData }: PracticeClientProps) {
         <div className="flex flex-col items-center gap-3 w-full max-w-md mt-8 pb-8">
           <button
             onClick={handleStartGroupQuiz}
-            className="flex items-center justify-center gap-2 font-semibold py-3 px-8 rounded-2xl transition-all active:scale-95 bg-ebony/10 text-ebony border border-ebony/30 imperfect-border"
+            className="flex items-center justify-center gap-2 font-semibold py-3 px-8 rounded-2xl transition-all active:scale-95 bg-text-muted/10 text-text-muted border border-text-muted/30 imperfect-border"
           >
             <Shuffle className="w-4 h-4" />
             Start Multiplayer Quiz
@@ -180,7 +180,7 @@ export default function PracticeClient({ kanjiData }: PracticeClientProps) {
         {kanjiData.example_sentences && kanjiData.example_sentences.length > 0 && (
           <div className="w-full max-w-md mt-2 pb-12">
             <h3
-              className="font-semibold uppercase tracking-wider text-sm mb-4 text-center text-ebony"
+              className="font-semibold uppercase tracking-wider text-sm mb-4 text-center text-text-muted"
             >
               Example Sentences
             </h3>

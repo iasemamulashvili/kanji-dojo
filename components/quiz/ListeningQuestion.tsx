@@ -68,7 +68,7 @@ export default function ListeningQuestion({ question, onComplete }: Props) {
 
   return (
     <div className="flex flex-col items-center w-full">
-      <p className="text-sm font-bold tracking-[0.2em] uppercase text-ebony/60 text-center mb-8">
+      <p className="text-sm font-bold tracking-[0.2em] uppercase text-text-muted/60 text-center mb-8">
         Listen and choose the matching Kanji
       </p>
 
@@ -77,21 +77,21 @@ export default function ListeningQuestion({ question, onComplete }: Props) {
         onClick={playAudio}
         disabled={answered}
         className={`w-32 h-32 rounded-full flex items-center justify-center mb-12 transition-all duration-300 border-2 
-          ${isPlaying ? 'bg-mahogany/10 border-mahogany scale-105 shadow-lg' : 'bg-parchment border-ebony/30 hover:border-ebony hover:shadow-md'} 
+          ${isPlaying ? 'bg-accent/10 border-accent scale-105 shadow-lg' : 'bg-background border-text-muted/30 hover:border-text-muted hover:shadow-md'} 
           ${answered ? 'opacity-50 cursor-default' : 'cursor-pointer active:scale-95'}`}
         aria-label="Play audio"
       >
-        <Volume2 className={`w-12 h-12 ${isPlaying ? 'text-mahogany animate-pulse' : 'text-ebony'}`} />
+        <Volume2 className={`w-12 h-12 ${isPlaying ? 'text-accent animate-pulse' : 'text-text-muted'}`} />
       </button>
 
       {/* Kanji Options Grid */}
       <div className="grid grid-cols-2 gap-4 w-full max-w-sm">
         {question.options.map((option) => {
           const state = optionStates[option];
-          let statusCls = "bg-white/40 border-silver/50 text-charcoal";
+          let statusCls = "bg-white/40 border-silver/50 text-text-main";
           
-          if (state === "correct") statusCls = "bg-ebony/20 border-ebony text-charcoal scale-[1.02] z-10 shadow-sm";
-          if (state === "incorrect") statusCls = "bg-mahogany/10 border-mahogany text-mahogany";
+          if (state === "correct") statusCls = "bg-text-muted/20 border-text-muted text-text-main scale-[1.02] z-10 shadow-sm";
+          if (state === "incorrect") statusCls = "bg-accent/10 border-accent text-accent";
           if (state === "dimmed") statusCls = "opacity-40 grayscale-[0.5]";
 
           return (
@@ -99,7 +99,7 @@ export default function ListeningQuestion({ question, onComplete }: Props) {
               key={option}
               disabled={answered}
               onClick={() => handleSelect(option)}
-              className={`flex items-center justify-center h-24 text-4xl font-bold imperfect-border border transition-all duration-300 ${statusCls} ${!answered ? 'hover:border-ebony hover:bg-white/60' : ''}`}
+              className={`flex items-center justify-center h-24 text-4xl font-bold imperfect-border border transition-all duration-300 ${statusCls} ${!answered ? 'hover:border-text-muted hover:bg-white/60' : ''}`}
             >
               {option}
             </button>

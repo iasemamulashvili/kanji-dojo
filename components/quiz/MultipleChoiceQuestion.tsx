@@ -62,7 +62,7 @@ export default function MultipleChoiceQuestion({ question, onComplete }: Props) 
   return (
     <div style={{ width: "100%" }}>
       {/* Question prompt */}
-      <p className="text-lg md:text-xl font-semibold text-charcoal text-center mb-7 leading-relaxed">
+      <p className="text-lg md:text-xl font-semibold text-text-main text-center mb-7 leading-relaxed">
         {question.question}
       </p>
 

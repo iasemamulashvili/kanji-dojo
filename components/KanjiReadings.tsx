@@ -35,50 +35,50 @@ export default function KanjiReadings({ onyomi, kunyomi }: KanjiReadingsProps) {
 
       {/* Onyomi Card */}
       <div
-        className="wabi-card p-5 relative group transition-all border border-ebony/25"
+        className="wabi-card p-5 relative group transition-all border border-text-muted/25"
       >
         <div className="flex justify-between items-start mb-1">
           <div
-            className="text-xs font-semibold tracking-wider uppercase text-charcoal/55"
+            className="text-xs font-semibold tracking-wider uppercase text-text-main/55"
           >
             Onyomi
           </div>
           {onyomiString && (
             <button
               onClick={() => playAudio(onyomiKatakana)}
-              className="opacity-50 group-hover:opacity-100 transition-all text-ebony"
+              className="opacity-50 group-hover:opacity-100 transition-all text-text-muted"
               title="Play Onyomi"
             >
-              <Volume2 className="h-5 w-5 hover:text-mahogany transition-colors" />
+              <Volume2 className="h-5 w-5 hover:text-accent transition-colors" />
             </button>
           )}
         </div>
-        <div className="text-xl font-bold mb-1 text-charcoal">
+        <div className="text-xl font-bold mb-1 text-text-main">
           {onyomiKatakana}
         </div>
       </div>
 
       {/* Kunyomi Card */}
       <div
-        className="wabi-card p-5 relative group transition-all border border-ebony/25"
+        className="wabi-card p-5 relative group transition-all border border-text-muted/25"
       >
         <div className="flex justify-between items-start mb-1">
           <div
-            className="text-xs font-semibold tracking-wider uppercase text-charcoal/55"
+            className="text-xs font-semibold tracking-wider uppercase text-text-main/55"
           >
             Kunyomi
           </div>
           {kunyomiString && (
             <button
               onClick={() => playAudio(kunyomiHiragana)}
-              className="opacity-50 group-hover:opacity-100 transition-all text-ebony"
+              className="opacity-50 group-hover:opacity-100 transition-all text-text-muted"
               title="Play Kunyomi"
             >
-              <Volume2 className="h-5 w-5 hover:text-mahogany transition-colors" />
+              <Volume2 className="h-5 w-5 hover:text-accent transition-colors" />
             </button>
           )}
         </div>
-        <div className="text-xl font-bold mb-1 text-charcoal">
+        <div className="text-xl font-bold mb-1 text-text-main">
           {kunyomiHiragana}
         </div>
       </div>

@@ -9,20 +9,20 @@
   --khaki:        #a7a190;
   --parchment:    #F4F1EB;
 
-  --background:   var(--parchment);
-  --foreground:   var(--charcoal);
-  --cinnabar:     var(--mahogany);
-  --moss:         var(--ebony);
-  --sage:         var(--khaki);
+  /* Semantic Architecture */
+  --color-background: var(--parchment);
+  --color-surface: var(--khaki);
+  --color-text-main: var(--charcoal);
+  --color-text-muted: var(--ebony);
+  --color-accent: var(--mahogany);
 }
 
 @theme inline {
-  --color-mahogany:   var(--mahogany);
-  --color-silver:     var(--silver);
-  --color-ebony:      var(--ebony);
-  --color-charcoal:   var(--charcoal);
-  --color-khaki:      var(--khaki);
-  --color-parchment:  var(--parchment);
+  --color-background: var(--color-background);
+  --color-surface: var(--color-surface);
+  --color-text-main: var(--color-text-main);
+  --color-text-muted: var(--color-text-muted);
+  --color-accent: var(--color-accent);
 }
 
 /* ─────────────────────────────────────────
@@ -33,8 +33,8 @@
 }
 
 body {
-  background-color: var(--parchment);
-  color: var(--ink-black);
+  background-color: var(--color-background);
+  color: var(--color-text-main);
   font-family: 'Inter', 'Hiragino Sans', 'Noto Sans JP', Arial, Helvetica, sans-serif;
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;

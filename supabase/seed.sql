@@ -1,6 +1,36 @@
 -- Mock User Seed for Local Development
 -- Creates a dummy user in auth.users and profiles, and adds 5 fake quiz results.
 
+CREATE TABLE IF NOT EXISTS public.leaderboard (
+  id               UUID        PRIMARY KEY DEFAULT uuid_generate_v4(),
+  telegram_id      BIGINT      UNIQUE NOT NULL,
+  username         VARCHAR(64),
+  total_score      BIGINT      NOT NULL DEFAULT 0,
+  total_quizzes    INTEGER     NOT NULL DEFAULT 0,
+  total_correct    INTEGER     NOT NULL DEFAULT 0,
+  total_questions  INTEGER     NOT NULL DEFAULT 0,
+  best_score       INTEGER     NOT NULL DEFAULT 0,
+  accuracy_pct     NUMERIC(5,2) GENERATED ALWAYS AS (
+    CASE WHEN total_questions = 0 THEN 0
+         ELSE ROUND((total_correct::NUMERIC / total_questions) * 100, 2)
+    END
+  ) STORED,
+  streak_days      INTEGER     NOT NULL DEFAULT 0,
+  last_quiz_at     TIMESTAMPTZ,
+  updated_at       TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS public.user_question_stats (
+  id              UUID        PRIMARY KEY DEFAULT uuid_generate_v4(),
+  telegram_id     BIGINT      NOT NULL,
+  question_type   VARCHAR(32) NOT NULL,
+  correct_count   INTEGER     NOT NULL DEFAULT 0,
+  total_count     INTEGER     NOT NULL DEFAULT 0,
+  updated_at      TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  UNIQUE(telegram_id, question_type)
+);
+
+
 INSERT INTO auth.users (instance_id, id, aud, role, email, encrypted_password, email_confirmed_at, recovery_sent_at, last_sign_in_at, raw_app_meta_data, raw_user_meta_data, created_at, updated_at, confirmation_token, email_change, email_change_token_new, recovery_token)
 VALUES (
   '00000000-0000-0000-0000-000000000000',

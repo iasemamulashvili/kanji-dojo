@@ -31,10 +31,10 @@ VALUES (
 
 DELETE FROM public.quiz_scores WHERE telegram_id = 123456789;
 
-INSERT INTO public.quiz_scores (telegram_id, username, score, total_questions, correct_answers, quiz_type, type_stats, created_at)
+INSERT INTO public.quiz_scores (telegram_id, username, score, total_questions, correct_answers, type_stats, created_at)
 VALUES 
-(123456789, 'Mock User', 100, 10, 10, 'mixed', '{"meaning": {"total": 5, "correct": 5}, "reading": {"total": 5, "correct": 5}}', NOW() - INTERVAL '5 days'),
-(123456789, 'Mock User', 90,  10,  9, 'meaning', '{"meaning": {"total": 10, "correct": 9}}', NOW() - INTERVAL '4 days'),
-(123456789, 'Mock User', 100, 10, 10, 'mixed', '{"audio": {"total": 5, "correct": 5}, "writing": {"total": 5, "correct": 5}}', NOW() - INTERVAL '3 days'),
-(123456789, 'Mock User', 80,  10,  8, 'reverse', '{"reverse": {"total": 10, "correct": 8}}', NOW() - INTERVAL '2 days'),
-(123456789, 'Mock User', 100, 10, 10, 'audio', '{"audio": {"total": 10, "correct": 10}}', NOW() - INTERVAL '1 day');
+(123456789, 'Mock User', 100, 10, 10, '{"meaning": {"total": 5, "correct": 5}, "reading": {"total": 5, "correct": 5}}', NOW() - INTERVAL '5 days'),
+(123456789, 'Mock User', 90,  10,  9, '{"meaning": {"total": 10, "correct": 9}}', NOW() - INTERVAL '4 days'),
+(123456789, 'Mock User', 100, 10, 10, '{"audio": {"total": 5, "correct": 5}, "writing": {"total": 5, "correct": 5}}', NOW() - INTERVAL '3 days'),
+(123456789, 'Mock User', 80,  10,  8, '{"reverse": {"total": 10, "correct": 8}}', NOW() - INTERVAL '2 days'),
+(123456789, 'Mock User', 100, 10, 10, '{"audio": {"total": 10, "correct": 10}}', NOW() - INTERVAL '1 day');

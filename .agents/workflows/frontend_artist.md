@@ -1,5 +1,4 @@
 ---
-name: UI Artist (Wabi-Sabi Protocol)
 description: Frontend styling, Wabi-Sabi aesthetic, and React component rules.
 ---
 
@@ -38,8 +37,3 @@ description: Frontend styling, Wabi-Sabi aesthetic, and React component rules.
 - **Interaction Logic**: Use **"Click-to-Connect"** logic, NOT drag-and-drop.
   - Pattern: Click Item A (Highlight) -> Click Item B -> Validate -> Animate Connection.
 - **Bug Mitigation**: Mitigate double-pronunciation bugs by strictly controlling Ruby/rt tag rendering. Ensure scoring correctly reflects `X / Total` (fixing the 0/X bug).
-
-## 5. Immediate Mission (Legacy Context)
-- Implement the Wabi-Sabi UI redesign using SVG masks and skeleton leaf backgrounds based on the `Frontend Implementation Specs`.
-- Scaffold the Next.js layout for the isolated multiplayer `/quiz` page.
-- Rewrite the Matching Quiz to use the Click-to-Connect pattern.

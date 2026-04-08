@@ -224,7 +224,10 @@ CREATE INDEX IF NOT EXISTS idx_user_question_stats_telegram_id ON user_question_
 
 -- 4a. Leaderboard sync — runs after every quiz_scores INSERT or UPDATE
 CREATE OR REPLACE FUNCTION sync_leaderboard()
-RETURNS TRIGGER LANGUAGE plpgsql AS $$
+RETURNS TRIGGER LANGUAGE plpgsql 
+SECURITY DEFINER
+SET search_path = public
+AS $$
 DECLARE agg RECORD;
 BEGIN
     SELECT
@@ -278,7 +281,10 @@ FOR EACH ROW EXECUTE FUNCTION sync_leaderboard();
 
 -- 4b. Granular per-type mastery sync — runs after every quiz_scores INSERT
 CREATE OR REPLACE FUNCTION sync_user_question_stats()
-RETURNS TRIGGER LANGUAGE plpgsql AS $$
+RETURNS TRIGGER LANGUAGE plpgsql 
+SECURITY DEFINER
+SET search_path = public
+AS $$
 DECLARE
     stat_key text;
     stat_val jsonb;

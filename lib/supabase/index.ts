@@ -12,3 +12,8 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     fetch: (url, options) => fetch(url, { ...options, next: { revalidate: 0 } }),
   },
 });
+
+const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+export const supabaseAdmin = serviceRoleKey 
+  ? createClient(supabaseUrl, serviceRoleKey)
+  : supabase;

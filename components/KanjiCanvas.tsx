@@ -36,9 +36,9 @@ export default function KanjiCanvas({ character, initialMode = 'practice', onCom
       delayBetweenStrokes: 100,
       showOutline: mode === 'practice',
       drawingWidth: 20, // Slimmer stroke for elegance
-      strokeColor: '#2d291d', // --charcoal-brown
-      radicalColor: '#4a1816', // --rich-mahogany
-      outlineColor: '#a7a190', // --khaki-beige
+      strokeColor: '#4a1816', // --rich-mahogany (when user is writing)
+      radicalColor: '#1b1a15', // --carbon-black
+      outlineColor: '#9f9b8f', // --grey-olive
       leniency: 2.0, // Tighter precision for 'DoJo' standard
     });
 
@@ -81,7 +81,7 @@ export default function KanjiCanvas({ character, initialMode = 'practice', onCom
                     }
                 },
                 onComplete: (summaryData: any) => {
-                    writerRef.current?.updateColor('strokeColor', '#828e70', { duration: 500 });
+                    writerRef.current?.updateColor('strokeColor', '#3a3f4b', { duration: 500 }); // Charcoal blue when correct
                     
                     if (containerRef.current && summaryData.totalMistakes === 0) {
                         containerRef.current.classList.remove('flash-perfect');
@@ -91,7 +91,7 @@ export default function KanjiCanvas({ character, initialMode = 'practice', onCom
 
                     setTimeout(() => {
                         if (writerRef.current) {
-                            writerRef.current.updateColor('strokeColor', '#2d291d', { duration: 1000 });
+                            writerRef.current.updateColor('strokeColor', '#4a1816', { duration: 1000 }); // reset to rich mahogany
                         }
                         if (onComplete) onComplete(true);
                     }, 1200); // Faster transition to keep momentum

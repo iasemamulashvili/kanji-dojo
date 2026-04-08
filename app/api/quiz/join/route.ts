@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { supabase, supabaseAdmin } from '@/lib/supabase';
 import { verifyTelegramToken } from '@/lib/auth/jwt';
 
 export async function POST(req: NextRequest) {
@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
   const upsertData: any = { session_id: sessionId, telegram_id: telegramId };
   if (username) upsertData.username = username;
 
-  let { data: myParticipant, error } = await supabase
+  let { data: myParticipant, error } = await supabaseAdmin
     .from('quiz_participants')
     .upsert(upsertData, { onConflict: 'session_id, telegram_id' })
     .select('*')
@@ -35,7 +35,7 @@ export async function POST(req: NextRequest) {
     if (error.code === '42703' || error.message.includes('username')) {
       console.warn("Retrying quiz_participants join without username column");
       delete upsertData.username;
-      const retry = await supabase.from('quiz_participants')
+      const retry = await supabaseAdmin.from('quiz_participants')
         .upsert(upsertData, { onConflict: 'session_id, telegram_id' })
         .select('*').single();
       myParticipant = retry.data;
@@ -48,7 +48,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Failed to join', details: error }, { status: 500 });
   }
 
-  const { data: participants } = await supabase
+  const { data: participants } = await supabaseAdmin
     .from('quiz_participants')
     .select('*')
     .eq('session_id', sessionId);

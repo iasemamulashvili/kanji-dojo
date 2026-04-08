@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { supabase, supabaseAdmin } from '@/lib/supabase';
 import { verifyTelegramToken } from '@/lib/auth/jwt';
 import { checkAndAnnounceWinner } from '@/lib/game-logic/winner';
 
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
   }
 
   // We'll wrap to avoid complete breakage if type_stats is problematic
-  const { data, error } = await supabase
+  let { data, error } = await supabaseAdmin
     .from('quiz_participants')
     .update(updateData)
     .eq('session_id', sessionId)
@@ -43,11 +43,13 @@ export async function POST(req: NextRequest) {
     .single();
 
   if (error) {
-    if (error.code === 'PGRST204' || error.message.includes('type_stats')) {
-      console.warn("Retrying quiz_participants without type_stats");
+    if (error.code === '42703' || error.message.includes('type_stats')) {
+      console.warn("Retrying quiz_participants update without type_stats");
       delete updateData.type_stats;
-      await supabase.from('quiz_participants').update(updateData)
-        .eq('session_id', sessionId).eq('telegram_id', telegramId);
+      const retry = await supabaseAdmin.from('quiz_participants').update(updateData)
+        .eq('session_id', sessionId).eq('telegram_id', telegramId).select('*').single();
+      data = retry.data;
+      error = retry.error;
     } else {
       console.error('[POST /api/quiz/score] quiz_participants update failed:', error);
       return NextResponse.json({ error: 'Failed to update score' }, { status: 500 });
@@ -60,7 +62,7 @@ export async function POST(req: NextRequest) {
     const correctCount = typeof totalCorrect === 'number' ? totalCorrect : numericScore;
     const questionsCount = typeof totalQuestions === 'number' ? totalQuestions : 0;
 
-    const { error: insertError } = await supabase.from('quiz_scores').insert({
+    const { error: insertError } = await supabaseAdmin.from('quiz_scores').insert({
       telegram_id: telegramId,
       username: data?.username || null,
       quiz_session_id: sessionId || null,
@@ -71,10 +73,9 @@ export async function POST(req: NextRequest) {
     });
 
     if (insertError) {
-      // PGRST204 = column not found in schema cache; retry without type_stats
-      if (insertError.code === 'PGRST204' || insertError.message.includes('type_stats')) {
+      if (insertError.code === '42703' || insertError.message.includes('type_stats')) {
         console.warn("Retrying quiz_scores insert without type_stats");
-        const { error: retryError } = await supabase.from('quiz_scores').insert({
+        const { error: retryError } = await supabaseAdmin.from('quiz_scores').insert({
           telegram_id: telegramId,
           username: data?.username || null,
           quiz_session_id: sessionId || null,

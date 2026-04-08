@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Trophy,
@@ -250,17 +251,35 @@ const categoryIcons: Record<string, React.ComponentType<{ className?: string }>>
 // Page
 // ─────────────────────────────────────────
 export default function StatsPage() {
+  return (
+    <Suspense fallback={<LoadingSkeleton />}>
+      <StatsContent />
+    </Suspense>
+  );
+}
+
+function StatsContent() {
+  const searchParams                 = useSearchParams();
+  const sessionId                    = searchParams.get("session_id");
+
   const [stats, setStats]           = useState<any>(null);
   const [loading, setLoading]       = useState(true);
-  const [tab, setTab]               = useState<"all-time" | "history">("all-time");
+  const [tab, setTab]               = useState<"result" | "all-time" | "history">(sessionId ? "result" : "all-time");
   const [typeFilter, setTypeFilter] = useState("all");
 
   useEffect(() => {
     async function loadStats() {
       try {
-        const res  = await fetch("/api/stats");
+        const url = sessionId ? `/api/stats?session_id=${sessionId}` : "/api/stats";
+        const res  = await fetch(url);
         const data = await res.json();
-        if (res.ok) setStats(data);
+        if (res.ok) {
+          setStats(data);
+          // If we specifically requested a session and got a result, ensure we are on the result tab
+          if (sessionId && data.sessionResult) {
+            setTab("result");
+          }
+        }
       } catch (err) {
         console.error("[Stats] Fetch failed", err);
       } finally {
@@ -268,7 +287,7 @@ export default function StatsPage() {
       }
     }
     loadStats();
-  }, []);
+  }, [sessionId]);
 
   if (loading) return <LoadingSkeleton />;
 
@@ -331,11 +350,24 @@ export default function StatsPage() {
 
         {/* Filter bar */}
         <div className="w-full flex flex-col sm:flex-row gap-6 justify-between items-center py-4 border-b border-[rgba(var(--rgb-grey-olive),0.3)]">
-          <div className="flex gap-6">
+          <div className="flex gap-6 overflow-x-auto w-full sm:w-auto scrollbar-hide py-1">
+            {stats?.sessionResult && (
+              <button
+                id="stats-tab-result"
+                onClick={() => setTab("result")}
+                className={`text-xs font-black uppercase tracking-widest pb-2 transition-all border-b-2 whitespace-nowrap ${
+                  tab === "result"
+                    ? "border-[var(--charcoal-blue)] text-[var(--charcoal-blue)]"
+                    : "border-transparent text-[var(--charcoal-brown)] opacity-60 hover:opacity-100"
+                }`}
+              >
+                Current Result
+              </button>
+            )}
             <button
               id="stats-tab-overview"
               onClick={() => setTab("all-time")}
-              className={`text-xs font-black uppercase tracking-widest pb-2 transition-all border-b-2 ${
+              className={`text-xs font-black uppercase tracking-widest pb-2 transition-all border-b-2 whitespace-nowrap ${
                 tab === "all-time"
                   ? "border-[var(--charcoal-blue)] text-[var(--charcoal-blue)]"
                   : "border-transparent text-[var(--charcoal-brown)] opacity-60 hover:opacity-100"
@@ -346,7 +378,7 @@ export default function StatsPage() {
             <button
               id="stats-tab-history"
               onClick={() => setTab("history")}
-              className={`text-xs font-black uppercase tracking-widest pb-2 transition-all border-b-2 ${
+              className={`text-xs font-black uppercase tracking-widest pb-2 transition-all border-b-2 whitespace-nowrap ${
                 tab === "history"
                   ? "border-[var(--charcoal-blue)] text-[var(--charcoal-blue)]"
                   : "border-transparent text-[var(--charcoal-brown)] opacity-60 hover:opacity-100"
@@ -382,7 +414,60 @@ export default function StatsPage() {
         {/* Dynamic content */}
         <div className="w-full">
           <AnimatePresence mode="wait">
-            {tab === "all-time" ? (
+            {tab === "result" && stats?.sessionResult ? (
+              <motion.div
+                key="result"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="flex flex-col gap-6 w-full pb-24"
+              >
+                {/* Session specific stats summary */}
+                <div className="kanji-stone p-6 bg-white/10 flex flex-col gap-4">
+                  <div className="flex justify-between items-center border-b border-text-muted/10 pb-3">
+                    <span className="text-xs font-black uppercase tracking-widest text-text-muted">Your Performance</span>
+                    <span className="text-xl font-serif font-black text-text-main">
+                      {stats.sessionResult.score?.score ?? 0} / {stats.sessionResult.score?.total_questions ?? 0}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="flex flex-col">
+                      <span className="text-[0.6rem] font-bold uppercase tracking-wider text-text-muted">Accuracy</span>
+                      <span className="text-lg font-black text-accent">
+                        {Math.round((stats.sessionResult.score?.correct_answers / stats.sessionResult.score?.total_questions) * 100) || 0}%
+                      </span>
+                    </div>
+                    <div className="flex flex-col text-right">
+                      <span className="text-[0.6rem] font-bold uppercase tracking-wider text-text-muted">Completed</span>
+                      <span className="text-lg font-black text-text-main italic">
+                        {new Date(stats.sessionResult.score?.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Session Leaderboard */}
+                <div className="flex flex-col gap-2">
+                  <h3 className="text-[0.65rem] font-black uppercase tracking-[0.2em] text-text-muted mb-2">Quiz Leaderboard</h3>
+                  <div className="flex flex-col gap-2 bg-text-muted/5 p-3 rounded-xl border border-text-muted/10">
+                    {stats.sessionResult.leaderboard.length > 0 ? (
+                      stats.sessionResult.leaderboard.map((p: any, idx: number) => (
+                        <div key={p.id} className="flex justify-between items-center py-2 px-1 border-b border-text-muted/5 last:border-0">
+                          <span className="text-xs font-bold text-text-muted">
+                            {idx + 1}. {p.username || `Player ${p.telegram_id.toString().slice(-4)}`}
+                          </span>
+                          <span className="text-sm font-black text-text-main">
+                            {p.score} pts
+                          </span>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-[0.6rem] text-text-muted italic text-center py-4">No other participants yet.</p>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            ) : tab === "all-time" ? (
               <motion.div
                 key={`mastery-${typeFilter}`}
                 initial={{ opacity: 0, x: -20 }}

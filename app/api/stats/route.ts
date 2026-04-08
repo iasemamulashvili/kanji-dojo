@@ -8,10 +8,12 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
 
   let telegramId: string;
+  const sessionId = req.nextUrl.searchParams.get('session_id');
+
   try {
     const payload = await verifyTelegramToken(activeToken);
     telegramId = payload.telegramId;
-    console.log("[Stats API] Request received. Extracted User ID (telegramId):", telegramId);
+    console.log("[Stats API] Request received. User:", telegramId, "Session:", sessionId);
     if (!telegramId) throw new Error('Missing telegramId');
   } catch (error) {
     return NextResponse.json({ error: 'Invalid or expired session' }, { status: 401 });
@@ -52,6 +54,30 @@ export async function GET(req: NextRequest) {
       recentScoresCount: recent?.length,
     });
 
+    // 4. Fetch Specific Session Result (Leaderboard + Score)
+    let sessionResult = null;
+    if (sessionId) {
+      const { data: score } = await supabase
+        .from('quiz_scores')
+        .select('*')
+        .eq('quiz_session_id', sessionId)
+        .eq('telegram_id', telegramId)
+        .maybeSingle();
+
+      const { data: participants } = await supabase
+        .from('quiz_participants')
+        .select('*')
+        .eq('session_id', sessionId)
+        .order('score', { ascending: false });
+
+      if (score || participants) {
+        sessionResult = {
+          score,
+          leaderboard: participants || []
+        };
+      }
+    }
+
     return NextResponse.json({
       global: global || {
         total_score: 0,
@@ -64,6 +90,7 @@ export async function GET(req: NextRequest) {
       },
       mastery: mastery || [],
       recent: recent || [],
+      sessionResult
     });
 
   } catch (err) {

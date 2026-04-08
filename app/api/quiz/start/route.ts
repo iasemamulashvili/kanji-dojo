@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { supabase } from '@/lib/supabase';
+import { supabase, supabaseAdmin } from '@/lib/supabase';
 import { verifyTelegramToken, signTelegramToken } from '@/lib/auth/jwt';
 import { Telegraf, Markup } from 'telegraf';
 
@@ -51,10 +51,11 @@ export async function GET(req: NextRequest) {
 
   const groupId = process.env.TELEGRAM_GROUP_ID;
   const baseUrl = process.env.APP_URL ?? req.nextUrl.origin;
+  const isForcingNew = req.nextUrl.searchParams.get('new') === 'true';
   const qStr = req.nextUrl.searchParams.get('q');
 
   // 2. Look up the current group kanji
-  const { data: settings } = await supabase
+  const { data: settings } = await supabaseAdmin
     .from('group_settings')
     .select('current_kanji_id')
     .eq('group_id', Number(groupId))
@@ -63,7 +64,7 @@ export async function GET(req: NextRequest) {
   let kanjiId = settings?.current_kanji_id;
 
   if (!kanjiId) {
-    const { data: fallback } = await supabase
+    const { data: fallback } = await supabaseAdmin
       .from('kanjis')
       .select('id')
       .order('jlpt_level', { ascending: false })
@@ -77,21 +78,22 @@ export async function GET(req: NextRequest) {
     return new NextResponse('No kanji found', { status: 404 });
   }
 
-  // 3. Check if there is already an open (non-notified, non-expired) session for this group today.
-  //    If yes, redirect the user into that existing session (they're joining, not starting).
-  const { data: existingSession } = await supabase
-    .from('quiz_sessions')
-    .select('id')
-    .eq('group_id', Number(groupId))
-    .eq('notified', false)
-    .gt('expires_at', new Date().toISOString())
-    .order('started_at', { ascending: false })
-    .limit(1)
-    .maybeSingle();
+  // 3. Check if there is already an open session, UNLESS we are forcing a new one.
+  if (!isForcingNew) {
+    const { data: existingSession } = await supabaseAdmin
+      .from('quiz_sessions')
+      .select('id')
+      .eq('group_id', Number(groupId))
+      .eq('notified', false)
+      .gt('expires_at', new Date().toISOString())
+      .order('started_at', { ascending: false })
+      .limit(1)
+      .maybeSingle();
 
-  if (existingSession) {
-    const redirectParams = qStr ? `?q=${qStr}` : '';
-    return NextResponse.redirect(new URL(`/quiz/${existingSession.id}${redirectParams}`, baseUrl));
+    if (existingSession) {
+      const redirectParams = qStr ? `?q=${qStr}` : '';
+      return NextResponse.redirect(new URL(`/quiz/${existingSession.id}${redirectParams}`, baseUrl));
+    }
   }
 
   // 4. No open session — create a new one with the 08:00 deadline
@@ -112,7 +114,7 @@ export async function GET(req: NextRequest) {
     is_active: true,
   };
 
-  let { data: session, error } = await supabase
+  let { data: session, error } = await supabaseAdmin
     .from('quiz_sessions')
     .insert(insertData)
     .select('id')
@@ -122,7 +124,7 @@ export async function GET(req: NextRequest) {
   if (error && (error.code === '42703' || error.message.includes('is_active'))) {
     console.warn('is_active column missing, retrying without it');
     const { is_active, ...fallbackData } = insertData;
-    const retry = await supabase
+    const retry = await supabaseAdmin
       .from('quiz_sessions')
       .insert(fallbackData)
       .select('id')

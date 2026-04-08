@@ -223,7 +223,7 @@ export default function QuizClient({ sessionId }: Props) {
     };
   }, [sessionId]);
 
-  function handleNext(correct: boolean) {
+  async function handleNext(correct: boolean) {
     const isFinished = currentIndex + 1 >= questions.length;
     let newScore = myParticipant?.score || 0;
 
@@ -248,27 +248,41 @@ export default function QuizClient({ sessionId }: Props) {
     if (correct) updatedStats[qType].correct += 1;
     setTypeStats(updatedStats);
 
-    fetch("/api/quiz/score", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        sessionId,
-        score: newScore,
-        finished: isFinished,
-        totalCorrect: newScore,
-        totalQuestions: questions.length,
-        typeStats: updatedStats, // Send the final session stats
-      }),
-    });
-
     if (isFinished) {
-       // Allow a moment for the DB to process
-       setTimeout(() => setStatus("complete"), 800);
-    }
-
-    if (isFinished) {
+      // 1. Submit final score immediately and await it
+      try {
+        await fetch("/api/quiz/score", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            sessionId,
+            score: newScore,
+            finished: true,
+            totalCorrect: newScore,
+            totalQuestions: questions.length,
+            typeStats: updatedStats,
+          }),
+        });
+      } catch (err) {
+        console.error("Failed to submit final score:", err);
+      }
+      
+      // 2. Then show completion UI
       setStatus("complete");
     } else {
+      // No await needed for intermediate updates
+      fetch("/api/quiz/score", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sessionId,
+          score: newScore,
+          finished: false,
+          totalCorrect: newScore,
+          totalQuestions: questions.length,
+          typeStats: updatedStats,
+        }),
+      });
       setCurrentIndex((i) => i + 1);
     }
   }
@@ -343,7 +357,7 @@ export default function QuizClient({ sessionId }: Props) {
                Retreat to Dojo <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-all" />
              </button>
              <button 
-               onClick={() => window.location.href = '/stats'}
+               onClick={() => window.location.href = `/stats${sessionId ? `?session_id=${sessionId}` : ''}`}
                className="wabi-card p-4 text-xs font-black uppercase tracking-[0.2em] hover:border-text-muted transition-all flex items-center justify-center gap-2 group"
              >
                Mastery Scroll <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-all" />

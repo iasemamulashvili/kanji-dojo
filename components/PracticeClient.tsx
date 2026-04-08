@@ -108,16 +108,14 @@ export default function PracticeClient({ kanjiData }: PracticeClientProps) {
       <div className="relative z-10 flex flex-col items-center w-full">
 
         {/* Header */}
-        <header className="flex justify-between items-center w-full max-w-md mx-auto mb-10">
-          <div
-            className="text-lg font-bold tracking-[0.25em] uppercase"
-            style={{ color: '#2C2F24' }}
-          >
-            Kanji Dojo
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="text-sm font-medium text-text-muted">
-              Session Active
+        <header className="flex flex-col items-center w-full max-w-md mx-auto mb-8 py-6 space-y-4 bg-white/20 imperfect-border backdrop-blur-sm px-4">
+          <h1 className="text-xl md:text-2xl font-serif font-black tracking-[0.2em] uppercase text-[var(--charcoal-brown)] text-center">
+            Kanji Practice
+          </h1>
+          <div className="flex items-center justify-center">
+            <div className="flex items-center gap-2 text-[0.65rem] font-bold tracking-[0.2em] uppercase text-[var(--charcoal-blue)] px-4 py-1.5 rounded-full border border-[rgba(var(--rgb-charcoal-blue),0.2)] bg-transparent">
+               <span className="w-1.5 h-1.5 bg-[var(--rich-mahogany)] rounded-full animate-pulse"></span>
+               <span>Session Active</span>
             </div>
           </div>
         </header>

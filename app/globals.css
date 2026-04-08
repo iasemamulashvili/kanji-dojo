@@ -2,19 +2,30 @@
 
 :root {
   /* Wabi-Sabi Phase 3 Palette */
-  --mahogany: #4a1816;
-  --silver: #acaca7;
-  --ebony: #656142;
-  --charcoal: #2d291d;
-  --khaki: #a7a190;
-  --parchment: #F4F1EB;
+  --carbon-black: #1b1a15;
+  --charcoal-brown: #2d291d;
+  --rich-mahogany: #4a1816;
+  --ebony: #5e5a3c;
+  --palm-leaf: #8f8a6a;
+  --grey-olive: #9f9b8f;
+  --soft-linen: #e8e3d6;
+  --charcoal-blue: #3a3f4b;
+
+  --rgb-carbon-black: 27, 26, 21;
+  --rgb-charcoal-brown: 45, 41, 29;
+  --rgb-rich-mahogany: 74, 24, 22;
+  --rgb-ebony: 94, 90, 60;
+  --rgb-palm-leaf: 143, 138, 106;
+  --rgb-grey-olive: 159, 155, 143;
+  --rgb-soft-linen: 232, 227, 214;
+  --rgb-charcoal-blue: 58, 63, 75;
 
   /* Semantic Architecture */
-  --color-background: var(--parchment);
-  --color-surface: var(--khaki);
-  --color-text-main: var(--charcoal);
-  --color-text-muted: var(--ebony);
-  --color-accent: var(--mahogany);
+  --color-background: var(--soft-linen);
+  --color-surface: var(--palm-leaf);
+  --color-text-main: var(--carbon-black);
+  --color-text-muted: var(--charcoal-brown);
+  --color-accent: var(--rich-mahogany);
 }
 
 @theme inline {
@@ -23,6 +34,14 @@
   --color-text-main: var(--color-text-main);
   --color-text-muted: var(--color-text-muted);
   --color-accent: var(--color-accent);
+  --color-carbon-black: var(--carbon-black);
+  --color-charcoal-brown: var(--charcoal-brown);
+  --color-rich-mahogany: var(--rich-mahogany);
+  --color-ebony: var(--ebony);
+  --color-palm-leaf: var(--palm-leaf);
+  --color-grey-olive: var(--grey-olive);
+  --color-soft-linen: var(--soft-linen);
+  --color-charcoal-blue: var(--charcoal-blue);
 }
 
 /* ─────────────────────────────────────────
@@ -47,12 +66,10 @@ body {
 ───────────────────────────────────────── */
 .wabi-card {
   background: rgba(255, 255, 255, 0.40);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(138, 154, 65, 0.25);
-  /* soft moss edge */
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(var(--rgb-palm-leaf), 0.25);
   border-radius: 1.25rem;
-  /* No box-shadow — anti-rigidity */
 }
 
 /* ─────────────────────────────────────────
@@ -60,11 +77,9 @@ body {
 ───────────────────────────────────────── */
 .kanji-stone {
   background: rgba(255, 255, 255, 0.42);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(212, 217, 161, 0.45);
-  /* moss-light edge */
-  /* Irregular 8-value border-radius for organic feel */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(var(--rgb-grey-olive), 0.45);
   border-radius: 81% 19% 88% 12% / 15% 79% 21% 85%;
   transition: border-radius 0.6s ease;
 }
@@ -94,12 +109,11 @@ body {
 ───────────────────────────────────────── */
 .quiz-option {
   background: rgba(255, 255, 255, 0.38);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(138, 154, 65, 0.20);
-  /* Organic 8-value radius per Wabi-Sabi spec */
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(var(--rgb-palm-leaf), 0.20);
   border-radius: 68% 32% 74% 26% / 28% 62% 38% 72%;
-  color: #2C2F24;
+  color: var(--carbon-black);
   font-weight: 500;
   cursor: pointer;
   transition: opacity 0.25s ease, background 0.25s ease, border-color 0.25s ease;
@@ -110,7 +124,7 @@ body {
 
 .quiz-option:hover {
   background: rgba(255, 255, 255, 0.55);
-  border-color: rgba(138, 154, 65, 0.40);
+  border-color: rgba(var(--rgb-palm-leaf), 0.40);
   border-radius: 60% 40% 68% 32% / 34% 58% 42% 66%;
 }
 
@@ -119,18 +133,18 @@ body {
 }
 
 .quiz-option--correct {
-  background: rgba(138, 154, 65, 0.22) !important;
-  border-color: rgba(138, 154, 65, 0.55) !important;
-  color: #5a6b1e;
+  background: rgba(var(--rgb-charcoal-blue), 0.15) !important;
+  border-color: rgba(var(--rgb-charcoal-blue), 0.55) !important;
+  color: var(--charcoal-blue);
   opacity: 0.92;
   cursor: default;
   pointer-events: none;
 }
 
 .quiz-option--incorrect {
-  background: rgba(155, 44, 44, 0.14) !important;
-  border-color: rgba(155, 44, 44, 0.40) !important;
-  color: #9b2c2c;
+  background: rgba(var(--rgb-rich-mahogany), 0.14) !important;
+  border-color: rgba(var(--rgb-rich-mahogany), 0.40) !important;
+  color: var(--rich-mahogany);
   opacity: 0.80;
   cursor: default;
   pointer-events: none;
@@ -147,9 +161,9 @@ body {
 ───────────────────────────────────────── */
 .drag-item {
   background: rgba(255, 255, 255, 0.42);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(212, 217, 161, 0.50);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(var(--rgb-grey-olive), 0.50);
   border-radius: 81% 19% 88% 12% / 15% 79% 21% 85%;
   cursor: grab;
   display: flex;
@@ -161,7 +175,7 @@ body {
 }
 
 .drag-item:hover {
-  border-color: rgba(138, 154, 65, 0.55);
+  border-color: rgba(var(--rgb-palm-leaf), 0.55);
 }
 
 .drag-item--dragging {
@@ -179,7 +193,7 @@ body {
   background: rgba(255, 255, 255, 0.22);
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
-  border: 1.5px dashed rgba(138, 154, 65, 0.30);
+  border: 1.5px dashed rgba(var(--rgb-palm-leaf), 0.30);
   border-radius: 1rem;
   transition: background 0.2s ease, border-color 0.2s ease;
   display: flex;
@@ -189,33 +203,32 @@ body {
 }
 
 .drop-zone--active {
-  background: rgba(138, 154, 65, 0.12);
-  border-color: rgba(138, 154, 65, 0.60);
+  background: rgba(var(--rgb-palm-leaf), 0.12);
+  border-color: rgba(var(--rgb-palm-leaf), 0.60);
 }
 
 .drop-zone--correct {
-  background: rgba(138, 154, 65, 0.18);
-  border-color: rgba(138, 154, 65, 0.55);
+  background: rgba(var(--rgb-charcoal-blue), 0.18);
+  border-color: rgba(var(--rgb-charcoal-blue), 0.55);
   border-style: solid;
 }
 
 /* ─────────────────────────────────────────
    Kanji Canvas Animations
 ───────────────────────────────────────── */
-@keyframes mossFlash {
+@keyframes correctFlash {
   0% {
-    box-shadow: 0 0 0 0 rgba(138, 154, 65, 0.7);
-    background: rgba(138, 154, 65, 0.2);
+    box-shadow: 0 0 0 0 rgba(var(--rgb-charcoal-blue), 0.3);
+    background: rgba(var(--rgb-charcoal-blue), 0.1);
   }
 
   100% {
-    box-shadow: 0 0 0 20px rgba(138, 154, 65, 0);
+    box-shadow: 0 0 0 20px rgba(var(--rgb-charcoal-blue), 0);
     background: rgba(255, 255, 255, 0.40);
   }
 }
 
 @keyframes errorShake {
-
   0%,
   100% {
     transform: translateX(0);
@@ -228,7 +241,7 @@ body {
   70%,
   90% {
     transform: translateX(-4px);
-    background: rgba(155, 44, 44, 0.15);
+    background: rgba(var(--rgb-rich-mahogany), 0.15);
   }
 
   20%,
@@ -236,15 +249,15 @@ body {
   60%,
   80% {
     transform: translateX(4px);
-    background: rgba(155, 44, 44, 0.15);
+    background: rgba(var(--rgb-rich-mahogany), 0.15);
   }
 }
 
 @keyframes perfectFlash {
   0% {
     transform: scale(1);
-    box-shadow: 0 0 0 0 rgba(138, 154, 65, 0.8);
-    background: rgba(138, 154, 65, 0.4);
+    box-shadow: 0 0 0 0 rgba(var(--rgb-charcoal-blue), 0.6);
+    background: rgba(var(--rgb-charcoal-blue), 0.3);
   }
 
   50% {
@@ -253,13 +266,13 @@ body {
 
   100% {
     transform: scale(1);
-    box-shadow: 0 0 0 30px rgba(138, 154, 65, 0);
+    box-shadow: 0 0 0 30px rgba(var(--rgb-charcoal-blue), 0);
     background: rgba(255, 255, 255, 0.40);
   }
 }
 
 .flash-correct {
-  animation: mossFlash 0.5s ease-out;
+  animation: correctFlash 0.5s ease-out;
 }
 
 .shake-error {

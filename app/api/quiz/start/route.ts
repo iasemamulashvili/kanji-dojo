@@ -97,21 +97,43 @@ export async function GET(req: NextRequest) {
   // 4. No open session — create a new one with the 08:00 deadline
   const deadline = getNextDeadline();
 
-  const { data: session, error } = await supabase
+  // Safety: Validate groupId to prevent NaN inserts
+  const numericGroupId = Number(groupId);
+  if (isNaN(numericGroupId)) {
+    console.error('Invalid TELEGRAM_GROUP_ID:', groupId);
+    return new NextResponse('Server configuration error: Invalid Group ID', { status: 500 });
+  }
+
+  const insertData = {
+    group_id: numericGroupId,
+    kanji_id: kanjiId,
+    expires_at: deadline.toISOString(),
+    notified: false,
+    is_active: true,
+  };
+
+  let { data: session, error } = await supabase
     .from('quiz_sessions')
-    .insert({
-      group_id: Number(groupId),
-      kanji_id: kanjiId,
-      expires_at: deadline.toISOString(),
-      notified: false,
-      is_active: true,
-    })
+    .insert(insertData)
     .select('id')
     .single();
 
+  // Fallback: If is_active column is missing (42703), retry without it
+  if (error && (error.code === '42703' || error.message.includes('is_active'))) {
+    console.warn('is_active column missing, retrying without it');
+    const { is_active, ...fallbackData } = insertData;
+    const retry = await supabase
+      .from('quiz_sessions')
+      .insert(fallbackData)
+      .select('id')
+      .single();
+    session = retry.data;
+    error = retry.error;
+  }
+
   if (error || !session) {
-    console.error('Failed to create session:', error);
-    return new NextResponse('Failed to create session', { status: 500 });
+    console.error('Failed to create session. Supabase error:', error);
+    return new NextResponse(`Failed to create session: ${error?.message || 'Unknown error'}`, { status: 500 });
   }
 
   // 5. Broadcast to the Telegram group so others can join

@@ -37,10 +37,7 @@ export async function checkAndAnnounceWinner(sessionId: string) {
 
     // ONLY announce if everyone is done OR the 24-hour window is closed
     if (!allFinished && !isExpired) {
-      // Optional: Inform the group that results are pending
-      await bot.telegram.sendMessage(process.env.TELEGRAM_GROUP_ID!, 
-        `⏱️ *Quiz Entry Logged!* \nCompetition remains open for *${hours}h* more or until all participants finish.`, 
-        { parse_mode: 'Markdown' });
+      // Competition still open — nothing to announce yet, return silently
       return;
     }
 

@@ -1,0 +1,7174 @@
+{
+  "total_records": 73,
+  "by_jlpt_level": {
+    "5": 73
+  },
+  "missing_required_fields": [
+    {
+      "character": "一",
+      "id": "d8df594f-5708-43b0-8e71-590e2ce85ceb",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "二",
+      "id": "f4feeb6b-2cf5-4500-aac8-b4c56f32db1b",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "三",
+      "id": "2c3873c0-b3fb-43cc-b38e-67f8939d37a1",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "四",
+      "id": "4ba5a578-1714-4d58-8667-8e39deb5d903",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "五",
+      "id": "e8bc91d1-d628-4bd2-b904-88fbf00f1097",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "六",
+      "id": "a91a3a08-87c5-4fce-b8fa-964ff9352bbe",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "七",
+      "id": "ba32f3d2-83ae-4d06-a2fe-2b0638125bab",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "八",
+      "id": "011fbb57-ad96-4b33-b1df-990235aa8627",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "九",
+      "id": "f2f50f97-e7c9-4f66-8711-70ca96dda389",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "十",
+      "id": "89826194-8131-42b7-8d66-0ab0a4efaa7d",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "円",
+      "id": "1a7d2ca1-7399-4163-9ae8-a0da20d96509",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "日",
+      "id": "e15d890a-d3e9-460c-8abf-598ff85c1c07",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "月",
+      "id": "14e768ab-8846-4719-93a3-6a06b1c56a27",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "火",
+      "id": "c29cab28-3874-468b-aa1a-0c97db69e734",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "水",
+      "id": "219db59a-daac-406d-820b-c21046b37519",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "木",
+      "id": "f6284c2b-94a1-4f23-a5ec-05bd196fb98c",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "金",
+      "id": "8e2331bb-25ad-4487-9489-079ce4c0f5eb",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "土",
+      "id": "3733f88b-2c40-40ad-89d3-35d876720326",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "年",
+      "id": "2a30dca8-373e-4896-a912-6cef03bba9e5",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "左",
+      "id": "2cf3f5f1-7828-40d9-85a4-88e0c4a3e134",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "右",
+      "id": "e91e8aae-8625-4fee-9dcc-cd864c72b536",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "本",
+      "id": "704f30ef-b1d3-4f72-8cac-fc7a5757308c",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "分",
+      "id": "d6e9d7eb-ee4e-4132-b236-8160cd9e38a5",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "力",
+      "id": "3b50d92c-6cc7-4c47-92af-0a9a180eb634",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "何",
+      "id": "ad290ed6-65bc-4f86-b790-b3c2f50a656b",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "今",
+      "id": "ec4d1fc4-8a04-48d2-bb3e-679dff7e1ccf",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "時",
+      "id": "eda88d3d-045d-46c8-a8d6-c36aed7ef4a5",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "行",
+      "id": "3cfbdbe5-cb81-4303-af66-cea76b51a1da",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "来",
+      "id": "3d332ffb-6e1d-485c-af4e-c8d52a9b729b",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "川",
+      "id": "6bbd8251-f763-462b-8599-008696ad9f25",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "言",
+      "id": "eced3c6c-d4c4-4efc-8a61-02415c6a915a",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "飲",
+      "id": "abc0c01c-c078-451d-ad94-6943afb1b89e",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "食",
+      "id": "3bc2dcf7-15c3-4c4e-bcf6-01fa01c42b7c",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "読",
+      "id": "39649bed-5526-47e9-a2f2-e4a57062586a",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "書",
+      "id": "307e355b-303d-438f-ac7b-8f5ef0f16970",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "話",
+      "id": "91e92547-1e44-42f0-ab0b-8fde168f23bc",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "白",
+      "id": "923998ed-25f0-416c-b729-df70b7835965",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "男",
+      "id": "0fbdbebf-84e3-4c16-ad84-7b8084c9fae1",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "女",
+      "id": "39309f44-76f7-4b36-b04d-3fb7331ae3bc",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "子",
+      "id": "1ce8d560-8d3e-472a-ba63-e67eca8aa206",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "父",
+      "id": "7d581ede-b1dd-44ee-8ac9-2f85346da6b0",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "母",
+      "id": "8e859fbb-3bfb-4167-84bd-77a29e444c8e",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "学",
+      "id": "642c8688-a339-4455-99ed-dd6e7637e8b3",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "校",
+      "id": "0fd13123-a578-4bf3-a093-edb63b46785c",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "先",
+      "id": "f7c41f13-44a6-43da-bf58-49a259d70371",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "生",
+      "id": "4d3352ec-1233-4f24-a495-77ceb59d5752",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "友",
+      "id": "86d80972-4564-46eb-ba68-907d8af11baf",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "人",
+      "id": "e5d3e768-7c83-4e10-9f2e-8249dd596b17",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "名",
+      "id": "21678922-7367-47be-b461-e6c4bf273b6e",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "気",
+      "id": "65df1af2-7c04-4552-ab14-e61507989b20",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "天",
+      "id": "348aee03-5e21-4605-9c74-0a8dc79ee60c",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "雨",
+      "id": "a62beebb-26a1-4591-a5f2-003355f744c8",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "語",
+      "id": "a104a721-0e31-4f7f-acf0-edd145d6cd9e",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "高",
+      "id": "d7f07cd2-1b59-46fd-8fe0-e056d9c253aa",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "外",
+      "id": "bf4bf963-f1e1-4f64-8ab8-3dde15181576",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "国",
+      "id": "a5b56796-a79d-41c2-b701-a870e4c33096",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "道",
+      "id": "5f2545f3-7270-4c81-ade9-3203ccd26d4a",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "駅",
+      "id": "b0323bc5-ec41-4f1c-b9d8-38ccb9a6f7ff",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "前",
+      "id": "b72c673f-2750-4f33-a6a6-e87b385d181e",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "後",
+      "id": "5d73f3c4-3246-422b-9af1-298aeef043bd",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "耳",
+      "id": "b6609f86-e1fe-4d42-9356-db4e11ad8941",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "聞",
+      "id": "29f96a3d-e524-422b-b0ca-c549b7962483",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "足",
+      "id": "69c25c41-37e4-4e17-8e67-71cde2bbb6cc",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "毎",
+      "id": "2b82da3f-7653-4a3f-b76c-b5a6dbef4dac",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "店",
+      "id": "60247096-eea9-4e79-96d2-b1500ea58073",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "手",
+      "id": "80aaf96e-5745-4d4a-aca1-b47c823b61ac",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "週",
+      "id": "882bb439-9711-4141-939c-bb03ad4520ea",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "社",
+      "id": "8b008deb-119f-4960-9112-c3b86e4bbb39",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "口",
+      "id": "9bd6ec1a-82d9-40a0-9d60-58fadadc18a2",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "午",
+      "id": "ac4b12ff-aa6f-429a-aec4-8275e7c007d9",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "田",
+      "id": "e0af3f97-068c-4568-afbc-f872e75f6ca6",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "内",
+      "id": "e8bd5d87-e6f5-46b4-a95b-7d77594cfa01",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    },
+    {
+      "character": "目",
+      "id": "f88826d4-0ea7-4001-a334-da9016c16ca9",
+      "jlpt_level": 5,
+      "missing_fields": [
+        "grammar_explanation"
+      ]
+    }
+  ],
+  "sentence_anomalies": [],
+  "token_anomalies": [
+    {
+      "character": "円",
+      "sentence_index": 0,
+      "sentence_text": "これは百円です。",
+      "token_index": 0,
+      "token_data": {
+        "text": "これ"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "円",
+      "sentence_index": 0,
+      "sentence_text": "これは百円です。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "円",
+      "sentence_index": 0,
+      "sentence_text": "これは百円です。",
+      "token_index": 2,
+      "token_data": {
+        "text": "百",
+        "furigana": "ひゃく"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "円",
+      "sentence_index": 0,
+      "sentence_text": "これは百円です。",
+      "token_index": 3,
+      "token_data": {
+        "text": "円",
+        "furigana": "えん"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "円",
+      "sentence_index": 0,
+      "sentence_text": "これは百円です。",
+      "token_index": 4,
+      "token_data": {
+        "text": "です。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "円",
+      "sentence_index": 1,
+      "sentence_text": "日本の通貨は円です。",
+      "token_index": 0,
+      "token_data": {
+        "text": "日本",
+        "furigana": "にほん"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "円",
+      "sentence_index": 1,
+      "sentence_text": "日本の通貨は円です。",
+      "token_index": 1,
+      "token_data": {
+        "text": "の"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "円",
+      "sentence_index": 1,
+      "sentence_text": "日本の通貨は円です。",
+      "token_index": 2,
+      "token_data": {
+        "text": "通貨",
+        "furigana": "つうか"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "円",
+      "sentence_index": 1,
+      "sentence_text": "日本の通貨は円です。",
+      "token_index": 3,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "円",
+      "sentence_index": 1,
+      "sentence_text": "日本の通貨は円です。",
+      "token_index": 4,
+      "token_data": {
+        "text": "円",
+        "furigana": "えん"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "円",
+      "sentence_index": 1,
+      "sentence_text": "日本の通貨は円です。",
+      "token_index": 5,
+      "token_data": {
+        "text": "です。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "円",
+      "sentence_index": 2,
+      "sentence_text": "円を描いてください。",
+      "token_index": 0,
+      "token_data": {
+        "text": "円",
+        "furigana": "えん"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "円",
+      "sentence_index": 2,
+      "sentence_text": "円を描いてください。",
+      "token_index": 1,
+      "token_data": {
+        "text": "を"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "円",
+      "sentence_index": 2,
+      "sentence_text": "円を描いてください。",
+      "token_index": 2,
+      "token_data": {
+        "text": "描",
+        "furigana": "えが"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "円",
+      "sentence_index": 2,
+      "sentence_text": "円を描いてください。",
+      "token_index": 3,
+      "token_data": {
+        "text": "いてください。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "年",
+      "sentence_index": 0,
+      "sentence_text": "彼は今年で２０歳になります。",
+      "token_index": 0,
+      "token_data": {
+        "text": "彼",
+        "furigana": "かれ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "年",
+      "sentence_index": 0,
+      "sentence_text": "彼は今年で２０歳になります。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "年",
+      "sentence_index": 0,
+      "sentence_text": "彼は今年で２０歳になります。",
+      "token_index": 2,
+      "token_data": {
+        "text": "今年",
+        "furigana": "ことし"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "年",
+      "sentence_index": 0,
+      "sentence_text": "彼は今年で２０歳になります。",
+      "token_index": 3,
+      "token_data": {
+        "text": "で"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "年",
+      "sentence_index": 0,
+      "sentence_text": "彼は今年で２０歳になります。",
+      "token_index": 4,
+      "token_data": {
+        "text": "２０",
+        "furigana": "にじゅう"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "年",
+      "sentence_index": 0,
+      "sentence_text": "彼は今年で２０歳になります。",
+      "token_index": 5,
+      "token_data": {
+        "text": "歳",
+        "furigana": "さい"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "年",
+      "sentence_index": 0,
+      "sentence_text": "彼は今年で２０歳になります。",
+      "token_index": 6,
+      "token_data": {
+        "text": "になります。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "年",
+      "sentence_index": 1,
+      "sentence_text": "良いお年をお迎えください。",
+      "token_index": 0,
+      "token_data": {
+        "text": "良",
+        "furigana": "よ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "年",
+      "sentence_index": 1,
+      "sentence_text": "良いお年をお迎えください。",
+      "token_index": 1,
+      "token_data": {
+        "text": "いお"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "年",
+      "sentence_index": 1,
+      "sentence_text": "良いお年をお迎えください。",
+      "token_index": 2,
+      "token_data": {
+        "text": "年",
+        "furigana": "とし"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "年",
+      "sentence_index": 1,
+      "sentence_text": "良いお年をお迎えください。",
+      "token_index": 3,
+      "token_data": {
+        "text": "を"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "年",
+      "sentence_index": 1,
+      "sentence_text": "良いお年をお迎えください。",
+      "token_index": 4,
+      "token_data": {
+        "text": "お"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "年",
+      "sentence_index": 1,
+      "sentence_text": "良いお年をお迎えください。",
+      "token_index": 5,
+      "token_data": {
+        "text": "迎",
+        "furigana": "むか"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "年",
+      "sentence_index": 1,
+      "sentence_text": "良いお年をお迎えください。",
+      "token_index": 6,
+      "token_data": {
+        "text": "えください。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "年",
+      "sentence_index": 2,
+      "sentence_text": "毎年夏にここに来ます。",
+      "token_index": 0,
+      "token_data": {
+        "text": "毎年",
+        "furigana": "まいとし"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "年",
+      "sentence_index": 2,
+      "sentence_text": "毎年夏にここに来ます。",
+      "token_index": 1,
+      "token_data": {
+        "text": "夏",
+        "furigana": "なつ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "年",
+      "sentence_index": 2,
+      "sentence_text": "毎年夏にここに来ます。",
+      "token_index": 2,
+      "token_data": {
+        "text": "に"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "年",
+      "sentence_index": 2,
+      "sentence_text": "毎年夏にここに来ます。",
+      "token_index": 3,
+      "token_data": {
+        "text": "ここ"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "年",
+      "sentence_index": 2,
+      "sentence_text": "毎年夏にここに来ます。",
+      "token_index": 4,
+      "token_data": {
+        "text": "に"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "年",
+      "sentence_index": 2,
+      "sentence_text": "毎年夏にここに来ます。",
+      "token_index": 5,
+      "token_data": {
+        "text": "来",
+        "furigana": "き"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "年",
+      "sentence_index": 2,
+      "sentence_text": "毎年夏にここに来ます。",
+      "token_index": 6,
+      "token_data": {
+        "text": "ます。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 0,
+      "sentence_text": "左足が痛いです。",
+      "token_index": 0,
+      "token_data": {
+        "text": "左足",
+        "furigana": "ひだりあし"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 0,
+      "sentence_text": "左足が痛いです。",
+      "token_index": 1,
+      "token_data": {
+        "text": "が"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 0,
+      "sentence_text": "左足が痛いです。",
+      "token_index": 2,
+      "token_data": {
+        "text": "痛",
+        "furigana": "いた"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 0,
+      "sentence_text": "左足が痛いです。",
+      "token_index": 3,
+      "token_data": {
+        "text": "いです"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 1,
+      "sentence_text": "左を見て、右を見て、渡りましょう。",
+      "token_index": 0,
+      "token_data": {
+        "text": "左",
+        "furigana": "ひだり"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 1,
+      "sentence_text": "左を見て、右を見て、渡りましょう。",
+      "token_index": 1,
+      "token_data": {
+        "text": "を"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 1,
+      "sentence_text": "左を見て、右を見て、渡りましょう。",
+      "token_index": 2,
+      "token_data": {
+        "text": "見",
+        "furigana": "み"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 1,
+      "sentence_text": "左を見て、右を見て、渡りましょう。",
+      "token_index": 3,
+      "token_data": {
+        "text": "て、"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 1,
+      "sentence_text": "左を見て、右を見て、渡りましょう。",
+      "token_index": 4,
+      "token_data": {
+        "text": "右",
+        "furigana": "みぎ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 1,
+      "sentence_text": "左を見て、右を見て、渡りましょう。",
+      "token_index": 5,
+      "token_data": {
+        "text": "を"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 1,
+      "sentence_text": "左を見て、右を見て、渡りましょう。",
+      "token_index": 6,
+      "token_data": {
+        "text": "見",
+        "furigana": "み"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 1,
+      "sentence_text": "左を見て、右を見て、渡りましょう。",
+      "token_index": 7,
+      "token_data": {
+        "text": "て、"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 1,
+      "sentence_text": "左を見て、右を見て、渡りましょう。",
+      "token_index": 8,
+      "token_data": {
+        "text": "渡",
+        "furigana": "わた"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 1,
+      "sentence_text": "左を見て、右を見て、渡りましょう。",
+      "token_index": 9,
+      "token_data": {
+        "text": "りましょう"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 2,
+      "sentence_text": "あの白い車の左に停めてください。",
+      "token_index": 0,
+      "token_data": {
+        "text": "あの"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 2,
+      "sentence_text": "あの白い車の左に停めてください。",
+      "token_index": 1,
+      "token_data": {
+        "text": "白",
+        "furigana": "しろ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 2,
+      "sentence_text": "あの白い車の左に停めてください。",
+      "token_index": 2,
+      "token_data": {
+        "text": "い"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 2,
+      "sentence_text": "あの白い車の左に停めてください。",
+      "token_index": 3,
+      "token_data": {
+        "text": "車",
+        "furigana": "くるま"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 2,
+      "sentence_text": "あの白い車の左に停めてください。",
+      "token_index": 4,
+      "token_data": {
+        "text": "の"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 2,
+      "sentence_text": "あの白い車の左に停めてください。",
+      "token_index": 5,
+      "token_data": {
+        "text": "左",
+        "furigana": "ひだり"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 2,
+      "sentence_text": "あの白い車の左に停めてください。",
+      "token_index": 6,
+      "token_data": {
+        "text": "に"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 2,
+      "sentence_text": "あの白い車の左に停めてください。",
+      "token_index": 7,
+      "token_data": {
+        "text": "停",
+        "furigana": "と"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "左",
+      "sentence_index": 2,
+      "sentence_text": "あの白い車の左に停めてください。",
+      "token_index": 8,
+      "token_data": {
+        "text": "めてください"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "右",
+      "sentence_index": 0,
+      "sentence_text": "右手で書きます。",
+      "token_index": 0,
+      "token_data": {
+        "text": "右手",
+        "furigana": "みぎて"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "右",
+      "sentence_index": 0,
+      "sentence_text": "右手で書きます。",
+      "token_index": 1,
+      "token_data": {
+        "text": "で"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "右",
+      "sentence_index": 0,
+      "sentence_text": "右手で書きます。",
+      "token_index": 2,
+      "token_data": {
+        "text": "書",
+        "furigana": "か"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "右",
+      "sentence_index": 0,
+      "sentence_text": "右手で書きます。",
+      "token_index": 3,
+      "token_data": {
+        "text": "きます"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "右",
+      "sentence_index": 1,
+      "sentence_text": "右に曲がってください。",
+      "token_index": 0,
+      "token_data": {
+        "text": "右",
+        "furigana": "みぎ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "右",
+      "sentence_index": 1,
+      "sentence_text": "右に曲がってください。",
+      "token_index": 1,
+      "token_data": {
+        "text": "に"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "右",
+      "sentence_index": 1,
+      "sentence_text": "右に曲がってください。",
+      "token_index": 2,
+      "token_data": {
+        "text": "曲",
+        "furigana": "ま"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "右",
+      "sentence_index": 1,
+      "sentence_text": "右に曲がってください。",
+      "token_index": 3,
+      "token_data": {
+        "text": "がってください"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "右",
+      "sentence_index": 2,
+      "sentence_text": "銀行は郵便局の右側にあります。",
+      "token_index": 0,
+      "token_data": {
+        "text": "銀行",
+        "furigana": "ぎんこう"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "右",
+      "sentence_index": 2,
+      "sentence_text": "銀行は郵便局の右側にあります。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "右",
+      "sentence_index": 2,
+      "sentence_text": "銀行は郵便局の右側にあります。",
+      "token_index": 2,
+      "token_data": {
+        "text": "郵便局",
+        "furigana": "ゆうびんきょく"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "右",
+      "sentence_index": 2,
+      "sentence_text": "銀行は郵便局の右側にあります。",
+      "token_index": 3,
+      "token_data": {
+        "text": "の"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "右",
+      "sentence_index": 2,
+      "sentence_text": "銀行は郵便局の右側にあります。",
+      "token_index": 4,
+      "token_data": {
+        "text": "右側",
+        "furigana": "みぎがわ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "右",
+      "sentence_index": 2,
+      "sentence_text": "銀行は郵便局の右側にあります。",
+      "token_index": 5,
+      "token_data": {
+        "text": "にあります"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "分",
+      "sentence_index": 0,
+      "sentence_text": "今、何時何分ですか。",
+      "token_index": 0,
+      "token_data": {
+        "text": "今",
+        "furigana": "いま"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "分",
+      "sentence_index": 0,
+      "sentence_text": "今、何時何分ですか。",
+      "token_index": 1,
+      "token_data": {
+        "text": "、"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "分",
+      "sentence_index": 0,
+      "sentence_text": "今、何時何分ですか。",
+      "token_index": 2,
+      "token_data": {
+        "text": "何時",
+        "furigana": "なんじ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "分",
+      "sentence_index": 0,
+      "sentence_text": "今、何時何分ですか。",
+      "token_index": 3,
+      "token_data": {
+        "text": "何分",
+        "furigana": "なんぷん"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "分",
+      "sentence_index": 0,
+      "sentence_text": "今、何時何分ですか。",
+      "token_index": 4,
+      "token_data": {
+        "text": "ですか。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "分",
+      "sentence_index": 1,
+      "sentence_text": "10分で終わります。",
+      "token_index": 0,
+      "token_data": {
+        "text": "10",
+        "furigana": "じゅっ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "分",
+      "sentence_index": 1,
+      "sentence_text": "10分で終わります。",
+      "token_index": 1,
+      "token_data": {
+        "text": "分",
+        "furigana": "ぷん"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "分",
+      "sentence_index": 1,
+      "sentence_text": "10分で終わります。",
+      "token_index": 2,
+      "token_data": {
+        "text": "で"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "分",
+      "sentence_index": 1,
+      "sentence_text": "10分で終わります。",
+      "token_index": 3,
+      "token_data": {
+        "text": "終",
+        "furigana": "お"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "分",
+      "sentence_index": 1,
+      "sentence_text": "10分で終わります。",
+      "token_index": 4,
+      "token_data": {
+        "text": "わります。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "分",
+      "sentence_index": 2,
+      "sentence_text": "このパンを半分に分けてください。",
+      "token_index": 0,
+      "token_data": {
+        "text": "このパンを"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "分",
+      "sentence_index": 2,
+      "sentence_text": "このパンを半分に分けてください。",
+      "token_index": 1,
+      "token_data": {
+        "text": "半分",
+        "furigana": "はんぶん"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "分",
+      "sentence_index": 2,
+      "sentence_text": "このパンを半分に分けてください。",
+      "token_index": 2,
+      "token_data": {
+        "text": "に"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "分",
+      "sentence_index": 2,
+      "sentence_text": "このパンを半分に分けてください。",
+      "token_index": 3,
+      "token_data": {
+        "text": "分",
+        "furigana": "わ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "分",
+      "sentence_index": 2,
+      "sentence_text": "このパンを半分に分けてください。",
+      "token_index": 4,
+      "token_data": {
+        "text": "けてください。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "何",
+      "sentence_index": 0,
+      "sentence_text": "あれは何ですか。",
+      "token_index": 0,
+      "token_data": {
+        "text": "あれ",
+        "english": "that (over there)"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "何",
+      "sentence_index": 0,
+      "sentence_text": "あれは何ですか。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "何",
+      "sentence_index": 0,
+      "sentence_text": "あれは何ですか。",
+      "token_index": 3,
+      "token_data": {
+        "text": "です",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "何",
+      "sentence_index": 0,
+      "sentence_text": "あれは何ですか。",
+      "token_index": 4,
+      "token_data": {
+        "text": "か",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "何",
+      "sentence_index": 1,
+      "sentence_text": "お名前は何と言いますか。",
+      "token_index": 0,
+      "token_data": {
+        "text": "お",
+        "english": "honorific prefix"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "何",
+      "sentence_index": 1,
+      "sentence_text": "お名前は何と言いますか。",
+      "token_index": 2,
+      "token_data": {
+        "text": "は",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "何",
+      "sentence_index": 1,
+      "sentence_text": "お名前は何と言いますか。",
+      "token_index": 4,
+      "token_data": {
+        "text": "と",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "何",
+      "sentence_index": 1,
+      "sentence_text": "お名前は何と言いますか。",
+      "token_index": 6,
+      "token_data": {
+        "text": "か",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "何",
+      "sentence_index": 2,
+      "sentence_text": "今何時ですか。",
+      "token_index": 3,
+      "token_data": {
+        "text": "です",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "何",
+      "sentence_index": 2,
+      "sentence_text": "今何時ですか。",
+      "token_index": 4,
+      "token_data": {
+        "text": "か",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "時",
+      "sentence_index": 0,
+      "sentence_text": "今、何時ですか。",
+      "token_index": 0,
+      "token_data": {
+        "text": "今",
+        "furigana": "いま"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "時",
+      "sentence_index": 0,
+      "sentence_text": "今、何時ですか。",
+      "token_index": 1,
+      "token_data": {
+        "text": "、"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "時",
+      "sentence_index": 0,
+      "sentence_text": "今、何時ですか。",
+      "token_index": 2,
+      "token_data": {
+        "text": "何時",
+        "furigana": "なんじ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "時",
+      "sentence_index": 0,
+      "sentence_text": "今、何時ですか。",
+      "token_index": 3,
+      "token_data": {
+        "text": "ですか。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "時",
+      "sentence_index": 1,
+      "sentence_text": "時間の流れは速い。",
+      "token_index": 0,
+      "token_data": {
+        "text": "時間",
+        "furigana": "じかん"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "時",
+      "sentence_index": 1,
+      "sentence_text": "時間の流れは速い。",
+      "token_index": 1,
+      "token_data": {
+        "text": "の"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "時",
+      "sentence_index": 1,
+      "sentence_text": "時間の流れは速い。",
+      "token_index": 2,
+      "token_data": {
+        "text": "流",
+        "furigana": "なが"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "時",
+      "sentence_index": 1,
+      "sentence_text": "時間の流れは速い。",
+      "token_index": 3,
+      "token_data": {
+        "text": "れは"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "時",
+      "sentence_index": 1,
+      "sentence_text": "時間の流れは速い。",
+      "token_index": 4,
+      "token_data": {
+        "text": "速",
+        "furigana": "はや"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "時",
+      "sentence_index": 1,
+      "sentence_text": "時間の流れは速い。",
+      "token_index": 5,
+      "token_data": {
+        "text": "い。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "時",
+      "sentence_index": 2,
+      "sentence_text": "いつもこの時間に朝ごはんを食べます。",
+      "token_index": 0,
+      "token_data": {
+        "text": "いつも"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "時",
+      "sentence_index": 2,
+      "sentence_text": "いつもこの時間に朝ごはんを食べます。",
+      "token_index": 1,
+      "token_data": {
+        "text": "この"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "時",
+      "sentence_index": 2,
+      "sentence_text": "いつもこの時間に朝ごはんを食べます。",
+      "token_index": 2,
+      "token_data": {
+        "text": "時間",
+        "furigana": "じかん"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "時",
+      "sentence_index": 2,
+      "sentence_text": "いつもこの時間に朝ごはんを食べます。",
+      "token_index": 3,
+      "token_data": {
+        "text": "に"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "時",
+      "sentence_index": 2,
+      "sentence_text": "いつもこの時間に朝ごはんを食べます。",
+      "token_index": 4,
+      "token_data": {
+        "text": "朝",
+        "furigana": "あさ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "時",
+      "sentence_index": 2,
+      "sentence_text": "いつもこの時間に朝ごはんを食べます。",
+      "token_index": 5,
+      "token_data": {
+        "text": "ごはんを"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "時",
+      "sentence_index": 2,
+      "sentence_text": "いつもこの時間に朝ごはんを食べます。",
+      "token_index": 6,
+      "token_data": {
+        "text": "食",
+        "furigana": "た"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "時",
+      "sentence_index": 2,
+      "sentence_text": "いつもこの時間に朝ごはんを食べます。",
+      "token_index": 7,
+      "token_data": {
+        "text": "べます。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "来",
+      "sentence_index": 0,
+      "sentence_text": "明日友達が来ます。",
+      "token_index": 2,
+      "token_data": {
+        "text": "が",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "来",
+      "sentence_index": 1,
+      "sentence_text": "来年日本へ行きます。",
+      "token_index": 2,
+      "token_data": {
+        "text": "へ",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "来",
+      "sentence_index": 2,
+      "sentence_text": "彼はまだ来ません。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "来",
+      "sentence_index": 2,
+      "sentence_text": "彼はまだ来ません。",
+      "token_index": 2,
+      "token_data": {
+        "text": "まだ",
+        "english": "yet / still"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "川",
+      "sentence_index": 0,
+      "sentence_text": "あの川はとてもきれいです。",
+      "token_index": 0,
+      "token_data": {
+        "text": "あの",
+        "english": "that"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "川",
+      "sentence_index": 0,
+      "sentence_text": "あの川はとてもきれいです。",
+      "token_index": 2,
+      "token_data": {
+        "text": "は",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "川",
+      "sentence_index": 0,
+      "sentence_text": "あの川はとてもきれいです。",
+      "token_index": 3,
+      "token_data": {
+        "text": "とても",
+        "english": "very"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "川",
+      "sentence_index": 0,
+      "sentence_text": "あの川はとてもきれいです。",
+      "token_index": 4,
+      "token_data": {
+        "text": "きれい",
+        "english": "clean"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "川",
+      "sentence_index": 0,
+      "sentence_text": "あの川はとてもきれいです。",
+      "token_index": 5,
+      "token_data": {
+        "text": "です",
+        "english": "is"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "川",
+      "sentence_index": 1,
+      "sentence_text": "川の近くに家があります。",
+      "token_index": 1,
+      "token_data": {
+        "text": "の",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "川",
+      "sentence_index": 1,
+      "sentence_text": "川の近くに家があります。",
+      "token_index": 3,
+      "token_data": {
+        "text": "に",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "川",
+      "sentence_index": 1,
+      "sentence_text": "川の近くに家があります。",
+      "token_index": 5,
+      "token_data": {
+        "text": "が",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "川",
+      "sentence_index": 1,
+      "sentence_text": "川の近くに家があります。",
+      "token_index": 6,
+      "token_data": {
+        "text": "あります",
+        "english": "there is"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "川",
+      "sentence_index": 2,
+      "sentence_text": "私は川で泳ぐのが好きです。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "川",
+      "sentence_index": 2,
+      "sentence_text": "私は川で泳ぐのが好きです。",
+      "token_index": 3,
+      "token_data": {
+        "text": "で",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "川",
+      "sentence_index": 2,
+      "sentence_text": "私は川で泳ぐのが好きです。",
+      "token_index": 5,
+      "token_data": {
+        "text": "の",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "川",
+      "sentence_index": 2,
+      "sentence_text": "私は川で泳ぐのが好きです。",
+      "token_index": 6,
+      "token_data": {
+        "text": "が",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "川",
+      "sentence_index": 2,
+      "sentence_text": "私は川で泳ぐのが好きです。",
+      "token_index": 8,
+      "token_data": {
+        "text": "です",
+        "english": "is"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "読",
+      "sentence_index": 0,
+      "sentence_text": "本を読みます。",
+      "token_index": 1,
+      "token_data": {
+        "text": "を",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "読",
+      "sentence_index": 1,
+      "sentence_text": "新聞を読んでいます。",
+      "token_index": 1,
+      "token_data": {
+        "text": "を",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "読",
+      "sentence_index": 2,
+      "sentence_text": "これは日本語で何と読みますか。",
+      "token_index": 0,
+      "token_data": {
+        "text": "これ",
+        "english": "this"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "読",
+      "sentence_index": 2,
+      "sentence_text": "これは日本語で何と読みますか。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "読",
+      "sentence_index": 2,
+      "sentence_text": "これは日本語で何と読みますか。",
+      "token_index": 3,
+      "token_data": {
+        "text": "で",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "読",
+      "sentence_index": 2,
+      "sentence_text": "これは日本語で何と読みますか。",
+      "token_index": 5,
+      "token_data": {
+        "text": "と",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "読",
+      "sentence_index": 2,
+      "sentence_text": "これは日本語で何と読みますか。",
+      "token_index": 7,
+      "token_data": {
+        "text": "か",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "話",
+      "sentence_index": 0,
+      "sentence_text": "彼女と話したいです。",
+      "token_index": 0,
+      "token_data": {
+        "text": "彼女",
+        "furigana": "かのじょ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "話",
+      "sentence_index": 0,
+      "sentence_text": "彼女と話したいです。",
+      "token_index": 1,
+      "token_data": {
+        "text": "と"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "話",
+      "sentence_index": 0,
+      "sentence_text": "彼女と話したいです。",
+      "token_index": 2,
+      "token_data": {
+        "text": "話",
+        "furigana": "はな"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "話",
+      "sentence_index": 0,
+      "sentence_text": "彼女と話したいです。",
+      "token_index": 3,
+      "token_data": {
+        "text": "したいです。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "話",
+      "sentence_index": 1,
+      "sentence_text": "面白い話をありがとう。",
+      "token_index": 0,
+      "token_data": {
+        "text": "面白",
+        "furigana": "おもしろ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "話",
+      "sentence_index": 1,
+      "sentence_text": "面白い話をありがとう。",
+      "token_index": 1,
+      "token_data": {
+        "text": "い"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "話",
+      "sentence_index": 1,
+      "sentence_text": "面白い話をありがとう。",
+      "token_index": 2,
+      "token_data": {
+        "text": "話",
+        "furigana": "はなし"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "話",
+      "sentence_index": 1,
+      "sentence_text": "面白い話をありがとう。",
+      "token_index": 3,
+      "token_data": {
+        "text": "をありがとう。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "話",
+      "sentence_index": 2,
+      "sentence_text": "電話で友達と話しました。",
+      "token_index": 0,
+      "token_data": {
+        "text": "電話",
+        "furigana": "でんわ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "話",
+      "sentence_index": 2,
+      "sentence_text": "電話で友達と話しました。",
+      "token_index": 1,
+      "token_data": {
+        "text": "で"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "話",
+      "sentence_index": 2,
+      "sentence_text": "電話で友達と話しました。",
+      "token_index": 2,
+      "token_data": {
+        "text": "友達",
+        "furigana": "ともだち"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "話",
+      "sentence_index": 2,
+      "sentence_text": "電話で友達と話しました。",
+      "token_index": 3,
+      "token_data": {
+        "text": "と"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "話",
+      "sentence_index": 2,
+      "sentence_text": "電話で友達と話しました。",
+      "token_index": 4,
+      "token_data": {
+        "text": "話",
+        "furigana": "はな"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "話",
+      "sentence_index": 2,
+      "sentence_text": "電話で友達と話しました。",
+      "token_index": 5,
+      "token_data": {
+        "text": "しました。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "白",
+      "sentence_index": 0,
+      "sentence_text": "彼女は白いドレスを着ています。",
+      "token_index": 0,
+      "token_data": {
+        "text": "彼女",
+        "furigana": "かのじょ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "白",
+      "sentence_index": 0,
+      "sentence_text": "彼女は白いドレスを着ています。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "白",
+      "sentence_index": 0,
+      "sentence_text": "彼女は白いドレスを着ています。",
+      "token_index": 2,
+      "token_data": {
+        "text": "白",
+        "furigana": "しろ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "白",
+      "sentence_index": 0,
+      "sentence_text": "彼女は白いドレスを着ています。",
+      "token_index": 3,
+      "token_data": {
+        "text": "い"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "白",
+      "sentence_index": 0,
+      "sentence_text": "彼女は白いドレスを着ています。",
+      "token_index": 4,
+      "token_data": {
+        "text": "ドレスを"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "白",
+      "sentence_index": 0,
+      "sentence_text": "彼女は白いドレスを着ています。",
+      "token_index": 5,
+      "token_data": {
+        "text": "着",
+        "furigana": "き"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "白",
+      "sentence_index": 0,
+      "sentence_text": "彼女は白いドレスを着ています。",
+      "token_index": 6,
+      "token_data": {
+        "text": "ています。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "白",
+      "sentence_index": 1,
+      "sentence_text": "白いうさぎを見ました。",
+      "token_index": 0,
+      "token_data": {
+        "text": "白",
+        "furigana": "しろ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "白",
+      "sentence_index": 1,
+      "sentence_text": "白いうさぎを見ました。",
+      "token_index": 1,
+      "token_data": {
+        "text": "い"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "白",
+      "sentence_index": 1,
+      "sentence_text": "白いうさぎを見ました。",
+      "token_index": 2,
+      "token_data": {
+        "text": "うさぎを"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "白",
+      "sentence_index": 1,
+      "sentence_text": "白いうさぎを見ました。",
+      "token_index": 3,
+      "token_data": {
+        "text": "見",
+        "furigana": "み"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "白",
+      "sentence_index": 1,
+      "sentence_text": "白いうさぎを見ました。",
+      "token_index": 4,
+      "token_data": {
+        "text": "ました。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "白",
+      "sentence_index": 2,
+      "sentence_text": "雪は白くて美しいです。",
+      "token_index": 0,
+      "token_data": {
+        "text": "雪",
+        "furigana": "ゆき"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "白",
+      "sentence_index": 2,
+      "sentence_text": "雪は白くて美しいです。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "白",
+      "sentence_index": 2,
+      "sentence_text": "雪は白くて美しいです。",
+      "token_index": 2,
+      "token_data": {
+        "text": "白",
+        "furigana": "しろ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "白",
+      "sentence_index": 2,
+      "sentence_text": "雪は白くて美しいです。",
+      "token_index": 3,
+      "token_data": {
+        "text": "くて",
+        "furigana": "くて"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "白",
+      "sentence_index": 2,
+      "sentence_text": "雪は白くて美しいです。",
+      "token_index": 4,
+      "token_data": {
+        "text": "美",
+        "furigana": "うつく"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "白",
+      "sentence_index": 2,
+      "sentence_text": "雪は白くて美しいです。",
+      "token_index": 5,
+      "token_data": {
+        "text": "しいです。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 0,
+      "sentence_text": "私の母は料理が上手です。",
+      "token_index": 0,
+      "token_data": {
+        "text": "私",
+        "furigana": "わたし"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 0,
+      "sentence_text": "私の母は料理が上手です。",
+      "token_index": 1,
+      "token_data": {
+        "text": "の"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 0,
+      "sentence_text": "私の母は料理が上手です。",
+      "token_index": 2,
+      "token_data": {
+        "text": "母",
+        "furigana": "はは"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 0,
+      "sentence_text": "私の母は料理が上手です。",
+      "token_index": 3,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 0,
+      "sentence_text": "私の母は料理が上手です。",
+      "token_index": 4,
+      "token_data": {
+        "text": "料理",
+        "furigana": "りょうり"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 0,
+      "sentence_text": "私の母は料理が上手です。",
+      "token_index": 5,
+      "token_data": {
+        "text": "が"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 0,
+      "sentence_text": "私の母は料理が上手です。",
+      "token_index": 6,
+      "token_data": {
+        "text": "上手",
+        "furigana": "じょうず"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 0,
+      "sentence_text": "私の母は料理が上手です。",
+      "token_index": 7,
+      "token_data": {
+        "text": "です。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 1,
+      "sentence_text": "母は私に本を読んでくれました。",
+      "token_index": 0,
+      "token_data": {
+        "text": "母",
+        "furigana": "はは"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 1,
+      "sentence_text": "母は私に本を読んでくれました。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 1,
+      "sentence_text": "母は私に本を読んでくれました。",
+      "token_index": 2,
+      "token_data": {
+        "text": "私",
+        "furigana": "わたし"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 1,
+      "sentence_text": "母は私に本を読んでくれました。",
+      "token_index": 3,
+      "token_data": {
+        "text": "に"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 1,
+      "sentence_text": "母は私に本を読んでくれました。",
+      "token_index": 4,
+      "token_data": {
+        "text": "本",
+        "furigana": "ほん"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 1,
+      "sentence_text": "母は私に本を読んでくれました。",
+      "token_index": 5,
+      "token_data": {
+        "text": "を"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 1,
+      "sentence_text": "母は私に本を読んでくれました。",
+      "token_index": 6,
+      "token_data": {
+        "text": "読",
+        "furigana": "よ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 1,
+      "sentence_text": "母は私に本を読んでくれました。",
+      "token_index": 7,
+      "token_data": {
+        "text": "んで",
+        "furigana": "んで"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 1,
+      "sentence_text": "母は私に本を読んでくれました。",
+      "token_index": 8,
+      "token_data": {
+        "text": "くれました。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 2,
+      "sentence_text": "彼女の母は美しいです。",
+      "token_index": 0,
+      "token_data": {
+        "text": "彼女",
+        "furigana": "かのじょ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 2,
+      "sentence_text": "彼女の母は美しいです。",
+      "token_index": 1,
+      "token_data": {
+        "text": "の"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 2,
+      "sentence_text": "彼女の母は美しいです。",
+      "token_index": 2,
+      "token_data": {
+        "text": "母",
+        "furigana": "はは"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 2,
+      "sentence_text": "彼女の母は美しいです。",
+      "token_index": 3,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 2,
+      "sentence_text": "彼女の母は美しいです。",
+      "token_index": 4,
+      "token_data": {
+        "text": "美",
+        "furigana": "うつく"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "母",
+      "sentence_index": 2,
+      "sentence_text": "彼女の母は美しいです。",
+      "token_index": 5,
+      "token_data": {
+        "text": "しいです。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "校",
+      "sentence_index": 0,
+      "sentence_text": "私(わたし)は高校生(こうこうせい)です。",
+      "token_index": 0,
+      "token_data": {
+        "text": "私",
+        "furigana": "わたし"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "校",
+      "sentence_index": 0,
+      "sentence_text": "私(わたし)は高校生(こうこうせい)です。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "校",
+      "sentence_index": 0,
+      "sentence_text": "私(わたし)は高校生(こうこうせい)です。",
+      "token_index": 2,
+      "token_data": {
+        "text": "高",
+        "furigana": "こう"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "校",
+      "sentence_index": 0,
+      "sentence_text": "私(わたし)は高校生(こうこうせい)です。",
+      "token_index": 3,
+      "token_data": {
+        "text": "校",
+        "furigana": "こう"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "校",
+      "sentence_index": 0,
+      "sentence_text": "私(わたし)は高校生(こうこうせい)です。",
+      "token_index": 4,
+      "token_data": {
+        "text": "生",
+        "furigana": "せい"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "校",
+      "sentence_index": 0,
+      "sentence_text": "私(わたし)は高校生(こうこうせい)です。",
+      "token_index": 5,
+      "token_data": {
+        "text": "です"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "校",
+      "sentence_index": 1,
+      "sentence_text": "学校(がっこう)へ行(い)きます。",
+      "token_index": 0,
+      "token_data": {
+        "text": "学",
+        "furigana": "がっ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "校",
+      "sentence_index": 1,
+      "sentence_text": "学校(がっこう)へ行(い)きます。",
+      "token_index": 1,
+      "token_data": {
+        "text": "校",
+        "furigana": "こう"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "校",
+      "sentence_index": 1,
+      "sentence_text": "学校(がっこう)へ行(い)きます。",
+      "token_index": 2,
+      "token_data": {
+        "text": "へ"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "校",
+      "sentence_index": 1,
+      "sentence_text": "学校(がっこう)へ行(い)きます。",
+      "token_index": 3,
+      "token_data": {
+        "text": "行",
+        "furigana": "い"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "校",
+      "sentence_index": 1,
+      "sentence_text": "学校(がっこう)へ行(い)きます。",
+      "token_index": 4,
+      "token_data": {
+        "text": "きます"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "校",
+      "sentence_index": 2,
+      "sentence_text": "この学校(がっこう)は新(あたら)しいです。",
+      "token_index": 0,
+      "token_data": {
+        "text": "この"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "校",
+      "sentence_index": 2,
+      "sentence_text": "この学校(がっこう)は新(あたら)しいです。",
+      "token_index": 1,
+      "token_data": {
+        "text": "学",
+        "furigana": "がっ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "校",
+      "sentence_index": 2,
+      "sentence_text": "この学校(がっこう)は新(あたら)しいです。",
+      "token_index": 2,
+      "token_data": {
+        "text": "校",
+        "furigana": "こう"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "校",
+      "sentence_index": 2,
+      "sentence_text": "この学校(がっこう)は新(あたら)しいです。",
+      "token_index": 3,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "校",
+      "sentence_index": 2,
+      "sentence_text": "この学校(がっこう)は新(あたら)しいです。",
+      "token_index": 4,
+      "token_data": {
+        "text": "新",
+        "furigana": "あたら"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "校",
+      "sentence_index": 2,
+      "sentence_text": "この学校(がっこう)は新(あたら)しいです。",
+      "token_index": 5,
+      "token_data": {
+        "text": "しいです"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "先",
+      "sentence_index": 0,
+      "sentence_text": "先生は教室にいます。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "先",
+      "sentence_index": 0,
+      "sentence_text": "先生は教室にいます。",
+      "token_index": 3,
+      "token_data": {
+        "text": "に",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "先",
+      "sentence_index": 0,
+      "sentence_text": "先生は教室にいます。",
+      "token_index": 4,
+      "token_data": {
+        "text": "います",
+        "english": "is"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "先",
+      "sentence_index": 1,
+      "sentence_text": "先週、映画を見に行きました。",
+      "token_index": 1,
+      "token_data": {
+        "text": "、",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "先",
+      "sentence_index": 1,
+      "sentence_text": "先週、映画を見に行きました。",
+      "token_index": 3,
+      "token_data": {
+        "text": "を",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "先",
+      "sentence_index": 2,
+      "sentence_text": "彼の家は道の先にあります。",
+      "token_index": 1,
+      "token_data": {
+        "text": "の",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "先",
+      "sentence_index": 2,
+      "sentence_text": "彼の家は道の先にあります。",
+      "token_index": 3,
+      "token_data": {
+        "text": "は",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "先",
+      "sentence_index": 2,
+      "sentence_text": "彼の家は道の先にあります。",
+      "token_index": 5,
+      "token_data": {
+        "text": "の",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "先",
+      "sentence_index": 2,
+      "sentence_text": "彼の家は道の先にあります。",
+      "token_index": 7,
+      "token_data": {
+        "text": "に",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "先",
+      "sentence_index": 2,
+      "sentence_text": "彼の家は道の先にあります。",
+      "token_index": 8,
+      "token_data": {
+        "text": "あります",
+        "english": "is"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "生",
+      "sentence_index": 0,
+      "sentence_text": "私は学生です。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "生",
+      "sentence_index": 0,
+      "sentence_text": "私は学生です。",
+      "token_index": 3,
+      "token_data": {
+        "text": "です",
+        "english": "is"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "生",
+      "sentence_index": 1,
+      "sentence_text": "誕生日おめでとうございます。",
+      "token_index": 1,
+      "token_data": {
+        "text": "おめでとう",
+        "english": "congratulations"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "生",
+      "sentence_index": 1,
+      "sentence_text": "誕生日おめでとうございます。",
+      "token_index": 2,
+      "token_data": {
+        "text": "ございます",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "生",
+      "sentence_index": 2,
+      "sentence_text": "この魚は生で食べられますか。",
+      "token_index": 0,
+      "token_data": {
+        "text": "この",
+        "english": "this"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "生",
+      "sentence_index": 2,
+      "sentence_text": "この魚は生で食べられますか。",
+      "token_index": 2,
+      "token_data": {
+        "text": "は",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "生",
+      "sentence_index": 2,
+      "sentence_text": "この魚は生で食べられますか。",
+      "token_index": 4,
+      "token_data": {
+        "text": "で",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "生",
+      "sentence_index": 2,
+      "sentence_text": "この魚は生で食べられますか。",
+      "token_index": 6,
+      "token_data": {
+        "text": "か",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "友",
+      "sentence_index": 0,
+      "sentence_text": "私には友達がたくさんいます。",
+      "token_index": 1,
+      "token_data": {
+        "text": "には",
+        "english": "to me / for me"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "友",
+      "sentence_index": 0,
+      "sentence_text": "私には友達がたくさんいます。",
+      "token_index": 3,
+      "token_data": {
+        "text": "が",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "友",
+      "sentence_index": 0,
+      "sentence_text": "私には友達がたくさんいます。",
+      "token_index": 4,
+      "token_data": {
+        "text": "たくさん",
+        "english": "many"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "友",
+      "sentence_index": 0,
+      "sentence_text": "私には友達がたくさんいます。",
+      "token_index": 5,
+      "token_data": {
+        "text": "います",
+        "english": "exist (for living things)"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "友",
+      "sentence_index": 1,
+      "sentence_text": "彼は私の親友です。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "友",
+      "sentence_index": 1,
+      "sentence_text": "彼は私の親友です。",
+      "token_index": 3,
+      "token_data": {
+        "text": "の",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "友",
+      "sentence_index": 1,
+      "sentence_text": "彼は私の親友です。",
+      "token_index": 5,
+      "token_data": {
+        "text": "です",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "友",
+      "sentence_index": 2,
+      "sentence_text": "友達と映画を見に行きました。",
+      "token_index": 1,
+      "token_data": {
+        "text": "と",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "友",
+      "sentence_index": 2,
+      "sentence_text": "友達と映画を見に行きました。",
+      "token_index": 3,
+      "token_data": {
+        "text": "を",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "名",
+      "sentence_index": 0,
+      "sentence_text": "お名前は何ですか。",
+      "token_index": 0,
+      "token_data": {
+        "text": "お",
+        "english": "honorific prefix"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "名",
+      "sentence_index": 0,
+      "sentence_text": "お名前は何ですか。",
+      "token_index": 2,
+      "token_data": {
+        "text": "は",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "名",
+      "sentence_index": 0,
+      "sentence_text": "お名前は何ですか。",
+      "token_index": 4,
+      "token_data": {
+        "text": "です",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "名",
+      "sentence_index": 0,
+      "sentence_text": "お名前は何ですか。",
+      "token_index": 5,
+      "token_data": {
+        "text": "か",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "名",
+      "sentence_index": 1,
+      "sentence_text": "有名な歌手です。",
+      "token_index": 2,
+      "token_data": {
+        "text": "な",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "名",
+      "sentence_index": 1,
+      "sentence_text": "有名な歌手です。",
+      "token_index": 4,
+      "token_data": {
+        "text": "です",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "名",
+      "sentence_index": 2,
+      "sentence_text": "あの人は何という名前ですか。",
+      "token_index": 0,
+      "token_data": {
+        "text": "あの",
+        "english": "that"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "名",
+      "sentence_index": 2,
+      "sentence_text": "あの人は何という名前ですか。",
+      "token_index": 2,
+      "token_data": {
+        "text": "は",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "名",
+      "sentence_index": 2,
+      "sentence_text": "あの人は何という名前ですか。",
+      "token_index": 6,
+      "token_data": {
+        "text": "です",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "名",
+      "sentence_index": 2,
+      "sentence_text": "あの人は何という名前ですか。",
+      "token_index": 7,
+      "token_data": {
+        "text": "か",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "気",
+      "sentence_index": 0,
+      "sentence_text": "元気ですか。",
+      "token_index": 2,
+      "token_data": {
+        "text": "です",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "気",
+      "sentence_index": 0,
+      "sentence_text": "元気ですか。",
+      "token_index": 3,
+      "token_data": {
+        "text": "か",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "気",
+      "sentence_index": 1,
+      "sentence_text": "空気 (くうき) がきれいです。",
+      "token_index": 2,
+      "token_data": {
+        "text": "が",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "気",
+      "sentence_index": 1,
+      "sentence_text": "空気 (くうき) がきれいです。",
+      "token_index": 3,
+      "token_data": {
+        "text": "きれい",
+        "english": "clean / beautiful"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "気",
+      "sentence_index": 1,
+      "sentence_text": "空気 (くうき) がきれいです。",
+      "token_index": 4,
+      "token_data": {
+        "text": "です",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "気",
+      "sentence_index": 2,
+      "sentence_text": "病気になりました。",
+      "token_index": 2,
+      "token_data": {
+        "text": "に",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "天",
+      "sentence_index": 0,
+      "sentence_text": "空は青いですが、天気が良いです。",
+      "token_index": 0,
+      "token_data": {
+        "text": "空",
+        "furigana": "そら"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "天",
+      "sentence_index": 0,
+      "sentence_text": "空は青いですが、天気が良いです。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "天",
+      "sentence_index": 0,
+      "sentence_text": "空は青いですが、天気が良いです。",
+      "token_index": 2,
+      "token_data": {
+        "text": "青",
+        "furigana": "あお"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "天",
+      "sentence_index": 0,
+      "sentence_text": "空は青いですが、天気が良いです。",
+      "token_index": 3,
+      "token_data": {
+        "text": "いですが、"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "天",
+      "sentence_index": 0,
+      "sentence_text": "空は青いですが、天気が良いです。",
+      "token_index": 4,
+      "token_data": {
+        "text": "天気",
+        "furigana": "てんき"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "天",
+      "sentence_index": 0,
+      "sentence_text": "空は青いですが、天気が良いです。",
+      "token_index": 5,
+      "token_data": {
+        "text": "が"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "天",
+      "sentence_index": 0,
+      "sentence_text": "空は青いですが、天気が良いです。",
+      "token_index": 6,
+      "token_data": {
+        "text": "良",
+        "furigana": "よ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "天",
+      "sentence_index": 0,
+      "sentence_text": "空は青いですが、天気が良いです。",
+      "token_index": 7,
+      "token_data": {
+        "text": "いです。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "天",
+      "sentence_index": 1,
+      "sentence_text": "天ぷらは日本の伝統的な料理です。",
+      "token_index": 0,
+      "token_data": {
+        "text": "天",
+        "furigana": "てん"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "天",
+      "sentence_index": 1,
+      "sentence_text": "天ぷらは日本の伝統的な料理です。",
+      "token_index": 1,
+      "token_data": {
+        "text": "ぷらは"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "天",
+      "sentence_index": 1,
+      "sentence_text": "天ぷらは日本の伝統的な料理です。",
+      "token_index": 2,
+      "token_data": {
+        "text": "日本",
+        "furigana": "にほん"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "天",
+      "sentence_index": 1,
+      "sentence_text": "天ぷらは日本の伝統的な料理です。",
+      "token_index": 3,
+      "token_data": {
+        "text": "の"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "天",
+      "sentence_index": 1,
+      "sentence_text": "天ぷらは日本の伝統的な料理です。",
+      "token_index": 4,
+      "token_data": {
+        "text": "伝統的",
+        "furigana": "でんとうてき"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "天",
+      "sentence_index": 1,
+      "sentence_text": "天ぷらは日本の伝統的な料理です。",
+      "token_index": 5,
+      "token_data": {
+        "text": "な"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "天",
+      "sentence_index": 1,
+      "sentence_text": "天ぷらは日本の伝統的な料理です。",
+      "token_index": 6,
+      "token_data": {
+        "text": "料理",
+        "furigana": "りょうり"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "天",
+      "sentence_index": 1,
+      "sentence_text": "天ぷらは日本の伝統的な料理です。",
+      "token_index": 7,
+      "token_data": {
+        "text": "です。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "天",
+      "sentence_index": 2,
+      "sentence_text": "天国はどんな場所でしょう。",
+      "token_index": 0,
+      "token_data": {
+        "text": "天国",
+        "furigana": "てんごく"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "天",
+      "sentence_index": 2,
+      "sentence_text": "天国はどんな場所でしょう。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "天",
+      "sentence_index": 2,
+      "sentence_text": "天国はどんな場所でしょう。",
+      "token_index": 2,
+      "token_data": {
+        "text": "どんな"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "天",
+      "sentence_index": 2,
+      "sentence_text": "天国はどんな場所でしょう。",
+      "token_index": 3,
+      "token_data": {
+        "text": "場所",
+        "furigana": "ばしょ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "天",
+      "sentence_index": 2,
+      "sentence_text": "天国はどんな場所でしょう。",
+      "token_index": 4,
+      "token_data": {
+        "text": "でしょう。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "雨",
+      "sentence_index": 0,
+      "sentence_text": "今日は雨が降っています。",
+      "token_index": 0,
+      "token_data": {
+        "text": "今日",
+        "furigana": "きょう"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "雨",
+      "sentence_index": 0,
+      "sentence_text": "今日は雨が降っています。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "雨",
+      "sentence_index": 0,
+      "sentence_text": "今日は雨が降っています。",
+      "token_index": 2,
+      "token_data": {
+        "text": "雨",
+        "furigana": "あめ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "雨",
+      "sentence_index": 0,
+      "sentence_text": "今日は雨が降っています。",
+      "token_index": 3,
+      "token_data": {
+        "text": "が"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "雨",
+      "sentence_index": 0,
+      "sentence_text": "今日は雨が降っています。",
+      "token_index": 4,
+      "token_data": {
+        "text": "降",
+        "furigana": "ふ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "雨",
+      "sentence_index": 0,
+      "sentence_text": "今日は雨が降っています。",
+      "token_index": 5,
+      "token_data": {
+        "text": "っています。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "雨",
+      "sentence_index": 1,
+      "sentence_text": "雨の日は家にいます。",
+      "token_index": 0,
+      "token_data": {
+        "text": "雨",
+        "furigana": "あめ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "雨",
+      "sentence_index": 1,
+      "sentence_text": "雨の日は家にいます。",
+      "token_index": 1,
+      "token_data": {
+        "text": "の"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "雨",
+      "sentence_index": 1,
+      "sentence_text": "雨の日は家にいます。",
+      "token_index": 2,
+      "token_data": {
+        "text": "日",
+        "furigana": "ひ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "雨",
+      "sentence_index": 1,
+      "sentence_text": "雨の日は家にいます。",
+      "token_index": 3,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "雨",
+      "sentence_index": 1,
+      "sentence_text": "雨の日は家にいます。",
+      "token_index": 4,
+      "token_data": {
+        "text": "家",
+        "furigana": "いえ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "雨",
+      "sentence_index": 1,
+      "sentence_text": "雨の日は家にいます。",
+      "token_index": 5,
+      "token_data": {
+        "text": "に"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "雨",
+      "sentence_index": 1,
+      "sentence_text": "雨の日は家にいます。",
+      "token_index": 6,
+      "token_data": {
+        "text": "います。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "雨",
+      "sentence_index": 2,
+      "sentence_text": "傘を持って、雨に備えましょう。",
+      "token_index": 0,
+      "token_data": {
+        "text": "傘",
+        "furigana": "かさ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "雨",
+      "sentence_index": 2,
+      "sentence_text": "傘を持って、雨に備えましょう。",
+      "token_index": 1,
+      "token_data": {
+        "text": "を"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "雨",
+      "sentence_index": 2,
+      "sentence_text": "傘を持って、雨に備えましょう。",
+      "token_index": 2,
+      "token_data": {
+        "text": "持",
+        "furigana": "も"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "雨",
+      "sentence_index": 2,
+      "sentence_text": "傘を持って、雨に備えましょう。",
+      "token_index": 3,
+      "token_data": {
+        "text": "って",
+        "furigana": "って"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "雨",
+      "sentence_index": 2,
+      "sentence_text": "傘を持って、雨に備えましょう。",
+      "token_index": 4,
+      "token_data": {
+        "text": "、"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "雨",
+      "sentence_index": 2,
+      "sentence_text": "傘を持って、雨に備えましょう。",
+      "token_index": 5,
+      "token_data": {
+        "text": "雨",
+        "furigana": "あめ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "雨",
+      "sentence_index": 2,
+      "sentence_text": "傘を持って、雨に備えましょう。",
+      "token_index": 6,
+      "token_data": {
+        "text": "に"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "雨",
+      "sentence_index": 2,
+      "sentence_text": "傘を持って、雨に備えましょう。",
+      "token_index": 7,
+      "token_data": {
+        "text": "備",
+        "furigana": "そな"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "雨",
+      "sentence_index": 2,
+      "sentence_text": "傘を持って、雨に備えましょう。",
+      "token_index": 8,
+      "token_data": {
+        "text": "えましょう。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "語",
+      "sentence_index": 0,
+      "sentence_text": "私は日本語が話せます。",
+      "token_index": 0,
+      "token_data": {
+        "text": "私",
+        "furigana": "わたし"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "語",
+      "sentence_index": 0,
+      "sentence_text": "私は日本語が話せます。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "語",
+      "sentence_index": 0,
+      "sentence_text": "私は日本語が話せます。",
+      "token_index": 2,
+      "token_data": {
+        "text": "日本",
+        "furigana": "にほん"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "語",
+      "sentence_index": 0,
+      "sentence_text": "私は日本語が話せます。",
+      "token_index": 3,
+      "token_data": {
+        "text": "語",
+        "furigana": "ご"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "語",
+      "sentence_index": 0,
+      "sentence_text": "私は日本語が話せます。",
+      "token_index": 4,
+      "token_data": {
+        "text": "が"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "語",
+      "sentence_index": 0,
+      "sentence_text": "私は日本語が話せます。",
+      "token_index": 5,
+      "token_data": {
+        "text": "話",
+        "furigana": "はな"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "語",
+      "sentence_index": 0,
+      "sentence_text": "私は日本語が話せます。",
+      "token_index": 6,
+      "token_data": {
+        "text": "せます。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "語",
+      "sentence_index": 1,
+      "sentence_text": "英語の授業は面白いです。",
+      "token_index": 0,
+      "token_data": {
+        "text": "英語",
+        "furigana": "えいご"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "語",
+      "sentence_index": 1,
+      "sentence_text": "英語の授業は面白いです。",
+      "token_index": 1,
+      "token_data": {
+        "text": "の"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "語",
+      "sentence_index": 1,
+      "sentence_text": "英語の授業は面白いです。",
+      "token_index": 2,
+      "token_data": {
+        "text": "授業",
+        "furigana": "じゅぎょう"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "語",
+      "sentence_index": 1,
+      "sentence_text": "英語の授業は面白いです。",
+      "token_index": 3,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "語",
+      "sentence_index": 1,
+      "sentence_text": "英語の授業は面白いです。",
+      "token_index": 4,
+      "token_data": {
+        "text": "面白",
+        "furigana": "おもしろ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "語",
+      "sentence_index": 1,
+      "sentence_text": "英語の授業は面白いです。",
+      "token_index": 5,
+      "token_data": {
+        "text": "いです。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "語",
+      "sentence_index": 2,
+      "sentence_text": "彼は多くの外国語を話します。",
+      "token_index": 0,
+      "token_data": {
+        "text": "彼",
+        "furigana": "かれ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "語",
+      "sentence_index": 2,
+      "sentence_text": "彼は多くの外国語を話します。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "語",
+      "sentence_index": 2,
+      "sentence_text": "彼は多くの外国語を話します。",
+      "token_index": 2,
+      "token_data": {
+        "text": "多",
+        "furigana": "おお"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "語",
+      "sentence_index": 2,
+      "sentence_text": "彼は多くの外国語を話します。",
+      "token_index": 3,
+      "token_data": {
+        "text": "くの"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "語",
+      "sentence_index": 2,
+      "sentence_text": "彼は多くの外国語を話します。",
+      "token_index": 4,
+      "token_data": {
+        "text": "外国",
+        "furigana": "がいこく"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "語",
+      "sentence_index": 2,
+      "sentence_text": "彼は多くの外国語を話します。",
+      "token_index": 5,
+      "token_data": {
+        "text": "語",
+        "furigana": "ご"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "語",
+      "sentence_index": 2,
+      "sentence_text": "彼は多くの外国語を話します。",
+      "token_index": 6,
+      "token_data": {
+        "text": "を"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "語",
+      "sentence_index": 2,
+      "sentence_text": "彼は多くの外国語を話します。",
+      "token_index": 7,
+      "token_data": {
+        "text": "話",
+        "furigana": "はな"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "語",
+      "sentence_index": 2,
+      "sentence_text": "彼は多くの外国語を話します。",
+      "token_index": 8,
+      "token_data": {
+        "text": "します。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "高",
+      "sentence_index": 0,
+      "sentence_text": "あのビルはとても高いです。",
+      "token_index": 0,
+      "token_data": {
+        "text": "あの",
+        "english": "that"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "高",
+      "sentence_index": 0,
+      "sentence_text": "あのビルはとても高いです。",
+      "token_index": 1,
+      "token_data": {
+        "text": "ビル",
+        "english": "building"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "高",
+      "sentence_index": 0,
+      "sentence_text": "あのビルはとても高いです。",
+      "token_index": 2,
+      "token_data": {
+        "text": "は",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "高",
+      "sentence_index": 0,
+      "sentence_text": "あのビルはとても高いです。",
+      "token_index": 3,
+      "token_data": {
+        "text": "とても",
+        "english": "very"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "高",
+      "sentence_index": 0,
+      "sentence_text": "あのビルはとても高いです。",
+      "token_index": 5,
+      "token_data": {
+        "text": "です",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "高",
+      "sentence_index": 1,
+      "sentence_text": "この服は値段が高いです。",
+      "token_index": 0,
+      "token_data": {
+        "text": "この",
+        "english": "this"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "高",
+      "sentence_index": 1,
+      "sentence_text": "この服は値段が高いです。",
+      "token_index": 2,
+      "token_data": {
+        "text": "は",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "高",
+      "sentence_index": 1,
+      "sentence_text": "この服は値段が高いです。",
+      "token_index": 4,
+      "token_data": {
+        "text": "が",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "高",
+      "sentence_index": 1,
+      "sentence_text": "この服は値段が高いです。",
+      "token_index": 6,
+      "token_data": {
+        "text": "です",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "高",
+      "sentence_index": 2,
+      "sentence_text": "高校生です。",
+      "token_index": 3,
+      "token_data": {
+        "text": "です",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "外",
+      "sentence_index": 0,
+      "sentence_text": "外は雨が降っています。",
+      "token_index": 0,
+      "token_data": {
+        "text": "外",
+        "furigana": "そと"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "外",
+      "sentence_index": 0,
+      "sentence_text": "外は雨が降っています。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "外",
+      "sentence_index": 0,
+      "sentence_text": "外は雨が降っています。",
+      "token_index": 2,
+      "token_data": {
+        "text": "雨",
+        "furigana": "あめ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "外",
+      "sentence_index": 0,
+      "sentence_text": "外は雨が降っています。",
+      "token_index": 3,
+      "token_data": {
+        "text": "が"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "外",
+      "sentence_index": 0,
+      "sentence_text": "外は雨が降っています。",
+      "token_index": 4,
+      "token_data": {
+        "text": "降",
+        "furigana": "ふ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "外",
+      "sentence_index": 0,
+      "sentence_text": "外は雨が降っています。",
+      "token_index": 5,
+      "token_data": {
+        "text": "っています"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "外",
+      "sentence_index": 1,
+      "sentence_text": "外国語を勉強しています。",
+      "token_index": 0,
+      "token_data": {
+        "text": "外国語",
+        "furigana": "がいこくご"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "外",
+      "sentence_index": 1,
+      "sentence_text": "外国語を勉強しています。",
+      "token_index": 1,
+      "token_data": {
+        "text": "を"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "外",
+      "sentence_index": 1,
+      "sentence_text": "外国語を勉強しています。",
+      "token_index": 2,
+      "token_data": {
+        "text": "勉強",
+        "furigana": "べんきょう"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "外",
+      "sentence_index": 1,
+      "sentence_text": "外国語を勉強しています。",
+      "token_index": 3,
+      "token_data": {
+        "text": "しています"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "外",
+      "sentence_index": 2,
+      "sentence_text": "ドアの外に誰かいます。",
+      "token_index": 0,
+      "token_data": {
+        "text": "ドア"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "外",
+      "sentence_index": 2,
+      "sentence_text": "ドアの外に誰かいます。",
+      "token_index": 1,
+      "token_data": {
+        "text": "の"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "外",
+      "sentence_index": 2,
+      "sentence_text": "ドアの外に誰かいます。",
+      "token_index": 2,
+      "token_data": {
+        "text": "外",
+        "furigana": "そと"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "外",
+      "sentence_index": 2,
+      "sentence_text": "ドアの外に誰かいます。",
+      "token_index": 3,
+      "token_data": {
+        "text": "に"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "外",
+      "sentence_index": 2,
+      "sentence_text": "ドアの外に誰かいます。",
+      "token_index": 4,
+      "token_data": {
+        "text": "誰",
+        "furigana": "だれ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "外",
+      "sentence_index": 2,
+      "sentence_text": "ドアの外に誰かいます。",
+      "token_index": 5,
+      "token_data": {
+        "text": "かいます"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "国",
+      "sentence_index": 0,
+      "sentence_text": "あなたの国はどこですか。",
+      "token_index": 0,
+      "token_data": {
+        "text": "あなた"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "国",
+      "sentence_index": 0,
+      "sentence_text": "あなたの国はどこですか。",
+      "token_index": 1,
+      "token_data": {
+        "text": "の"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "国",
+      "sentence_index": 0,
+      "sentence_text": "あなたの国はどこですか。",
+      "token_index": 2,
+      "token_data": {
+        "text": "国",
+        "furigana": "くに"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "国",
+      "sentence_index": 0,
+      "sentence_text": "あなたの国はどこですか。",
+      "token_index": 3,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "国",
+      "sentence_index": 0,
+      "sentence_text": "あなたの国はどこですか。",
+      "token_index": 4,
+      "token_data": {
+        "text": "どこ"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "国",
+      "sentence_index": 0,
+      "sentence_text": "あなたの国はどこですか。",
+      "token_index": 5,
+      "token_data": {
+        "text": "ですか。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "国",
+      "sentence_index": 1,
+      "sentence_text": "日本は美しい国です。",
+      "token_index": 0,
+      "token_data": {
+        "text": "日本",
+        "furigana": "にほん"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "国",
+      "sentence_index": 1,
+      "sentence_text": "日本は美しい国です。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "国",
+      "sentence_index": 1,
+      "sentence_text": "日本は美しい国です。",
+      "token_index": 2,
+      "token_data": {
+        "text": "美",
+        "furigana": "うつく"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "国",
+      "sentence_index": 1,
+      "sentence_text": "日本は美しい国です。",
+      "token_index": 3,
+      "token_data": {
+        "text": "しい"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "国",
+      "sentence_index": 1,
+      "sentence_text": "日本は美しい国です。",
+      "token_index": 4,
+      "token_data": {
+        "text": "国",
+        "furigana": "くに"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "国",
+      "sentence_index": 1,
+      "sentence_text": "日本は美しい国です。",
+      "token_index": 5,
+      "token_data": {
+        "text": "です。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "国",
+      "sentence_index": 2,
+      "sentence_text": "私は外国から来ました。",
+      "token_index": 0,
+      "token_data": {
+        "text": "私",
+        "furigana": "わたし"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "国",
+      "sentence_index": 2,
+      "sentence_text": "私は外国から来ました。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "国",
+      "sentence_index": 2,
+      "sentence_text": "私は外国から来ました。",
+      "token_index": 2,
+      "token_data": {
+        "text": "外国",
+        "furigana": "がいこく"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "国",
+      "sentence_index": 2,
+      "sentence_text": "私は外国から来ました。",
+      "token_index": 3,
+      "token_data": {
+        "text": "から"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "国",
+      "sentence_index": 2,
+      "sentence_text": "私は外国から来ました。",
+      "token_index": 4,
+      "token_data": {
+        "text": "来",
+        "furigana": "き"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "国",
+      "sentence_index": 2,
+      "sentence_text": "私は外国から来ました。",
+      "token_index": 5,
+      "token_data": {
+        "text": "ました。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "道",
+      "sentence_index": 0,
+      "sentence_text": "この道はどこへ行きますか。",
+      "token_index": 0,
+      "token_data": {
+        "text": "この"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "道",
+      "sentence_index": 0,
+      "sentence_text": "この道はどこへ行きますか。",
+      "token_index": 1,
+      "token_data": {
+        "text": "道",
+        "furigana": "みち"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "道",
+      "sentence_index": 0,
+      "sentence_text": "この道はどこへ行きますか。",
+      "token_index": 2,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "道",
+      "sentence_index": 0,
+      "sentence_text": "この道はどこへ行きますか。",
+      "token_index": 3,
+      "token_data": {
+        "text": "どこへ"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "道",
+      "sentence_index": 0,
+      "sentence_text": "この道はどこへ行きますか。",
+      "token_index": 4,
+      "token_data": {
+        "text": "行",
+        "furigana": "い"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "道",
+      "sentence_index": 0,
+      "sentence_text": "この道はどこへ行きますか。",
+      "token_index": 5,
+      "token_data": {
+        "text": "きますか。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "道",
+      "sentence_index": 1,
+      "sentence_text": "道に迷ってしまいました。",
+      "token_index": 0,
+      "token_data": {
+        "text": "道",
+        "furigana": "みち"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "道",
+      "sentence_index": 1,
+      "sentence_text": "道に迷ってしまいました。",
+      "token_index": 1,
+      "token_data": {
+        "text": "に"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "道",
+      "sentence_index": 1,
+      "sentence_text": "道に迷ってしまいました。",
+      "token_index": 2,
+      "token_data": {
+        "text": "迷",
+        "furigana": "まよ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "道",
+      "sentence_index": 1,
+      "sentence_text": "道に迷ってしまいました。",
+      "token_index": 3,
+      "token_data": {
+        "text": "って",
+        "furigana": "って"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "道",
+      "sentence_index": 1,
+      "sentence_text": "道に迷ってしまいました。",
+      "token_index": 4,
+      "token_data": {
+        "text": "しまいました。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "道",
+      "sentence_index": 2,
+      "sentence_text": "家まで遠い道です。",
+      "token_index": 0,
+      "token_data": {
+        "text": "家",
+        "furigana": "いえ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "道",
+      "sentence_index": 2,
+      "sentence_text": "家まで遠い道です。",
+      "token_index": 1,
+      "token_data": {
+        "text": "まで"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "道",
+      "sentence_index": 2,
+      "sentence_text": "家まで遠い道です。",
+      "token_index": 2,
+      "token_data": {
+        "text": "遠",
+        "furigana": "とお"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "道",
+      "sentence_index": 2,
+      "sentence_text": "家まで遠い道です。",
+      "token_index": 3,
+      "token_data": {
+        "text": "い"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "道",
+      "sentence_index": 2,
+      "sentence_text": "家まで遠い道です。",
+      "token_index": 4,
+      "token_data": {
+        "text": "道",
+        "furigana": "みち"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "道",
+      "sentence_index": 2,
+      "sentence_text": "家まで遠い道です。",
+      "token_index": 5,
+      "token_data": {
+        "text": "です。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "前",
+      "sentence_index": 0,
+      "sentence_text": "彼の前に座っています。",
+      "token_index": 0,
+      "token_data": {
+        "text": "彼",
+        "furigana": "かれ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "前",
+      "sentence_index": 0,
+      "sentence_text": "彼の前に座っています。",
+      "token_index": 1,
+      "token_data": {
+        "text": "の"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "前",
+      "sentence_index": 0,
+      "sentence_text": "彼の前に座っています。",
+      "token_index": 2,
+      "token_data": {
+        "text": "前",
+        "furigana": "まえ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "前",
+      "sentence_index": 0,
+      "sentence_text": "彼の前に座っています。",
+      "token_index": 3,
+      "token_data": {
+        "text": "に"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "前",
+      "sentence_index": 0,
+      "sentence_text": "彼の前に座っています。",
+      "token_index": 4,
+      "token_data": {
+        "text": "座",
+        "furigana": "すわ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "前",
+      "sentence_index": 0,
+      "sentence_text": "彼の前に座っています。",
+      "token_index": 5,
+      "token_data": {
+        "text": "っています"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "前",
+      "sentence_index": 1,
+      "sentence_text": "食事の前に手を洗います。",
+      "token_index": 0,
+      "token_data": {
+        "text": "食事",
+        "furigana": "しょくじ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "前",
+      "sentence_index": 1,
+      "sentence_text": "食事の前に手を洗います。",
+      "token_index": 1,
+      "token_data": {
+        "text": "の"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "前",
+      "sentence_index": 1,
+      "sentence_text": "食事の前に手を洗います。",
+      "token_index": 2,
+      "token_data": {
+        "text": "前",
+        "furigana": "まえ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "前",
+      "sentence_index": 1,
+      "sentence_text": "食事の前に手を洗います。",
+      "token_index": 3,
+      "token_data": {
+        "text": "に"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "前",
+      "sentence_index": 1,
+      "sentence_text": "食事の前に手を洗います。",
+      "token_index": 4,
+      "token_data": {
+        "text": "手",
+        "furigana": "て"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "前",
+      "sentence_index": 1,
+      "sentence_text": "食事の前に手を洗います。",
+      "token_index": 5,
+      "token_data": {
+        "text": "を"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "前",
+      "sentence_index": 1,
+      "sentence_text": "食事の前に手を洗います。",
+      "token_index": 6,
+      "token_data": {
+        "text": "洗",
+        "furigana": "あら"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "前",
+      "sentence_index": 1,
+      "sentence_text": "食事の前に手を洗います。",
+      "token_index": 7,
+      "token_data": {
+        "text": "います"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "前",
+      "sentence_index": 2,
+      "sentence_text": "１０年前、ここに住んでいました。",
+      "token_index": 0,
+      "token_data": {
+        "text": "１０"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "前",
+      "sentence_index": 2,
+      "sentence_text": "１０年前、ここに住んでいました。",
+      "token_index": 1,
+      "token_data": {
+        "text": "年",
+        "furigana": "ねん"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "前",
+      "sentence_index": 2,
+      "sentence_text": "１０年前、ここに住んでいました。",
+      "token_index": 2,
+      "token_data": {
+        "text": "前",
+        "furigana": "まえ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "前",
+      "sentence_index": 2,
+      "sentence_text": "１０年前、ここに住んでいました。",
+      "token_index": 3,
+      "token_data": {
+        "text": "、ここに"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "前",
+      "sentence_index": 2,
+      "sentence_text": "１０年前、ここに住んでいました。",
+      "token_index": 4,
+      "token_data": {
+        "text": "住",
+        "furigana": "す"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "前",
+      "sentence_index": 2,
+      "sentence_text": "１０年前、ここに住んでいました。",
+      "token_index": 5,
+      "token_data": {
+        "text": "んでいました"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "後",
+      "sentence_index": 0,
+      "sentence_text": "彼の後ろに立っています。",
+      "token_index": 0,
+      "token_data": {
+        "text": "彼",
+        "furigana": "かれ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "後",
+      "sentence_index": 0,
+      "sentence_text": "彼の後ろに立っています。",
+      "token_index": 1,
+      "token_data": {
+        "text": "の"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "後",
+      "sentence_index": 0,
+      "sentence_text": "彼の後ろに立っています。",
+      "token_index": 2,
+      "token_data": {
+        "text": "後ろ",
+        "furigana": "うしろ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "後",
+      "sentence_index": 0,
+      "sentence_text": "彼の後ろに立っています。",
+      "token_index": 3,
+      "token_data": {
+        "text": "に"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "後",
+      "sentence_index": 0,
+      "sentence_text": "彼の後ろに立っています。",
+      "token_index": 4,
+      "token_data": {
+        "text": "立",
+        "furigana": "た"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "後",
+      "sentence_index": 0,
+      "sentence_text": "彼の後ろに立っています。",
+      "token_index": 5,
+      "token_data": {
+        "text": "っています"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "後",
+      "sentence_index": 1,
+      "sentence_text": "食事の後で散歩に行きましょう。",
+      "token_index": 0,
+      "token_data": {
+        "text": "食事",
+        "furigana": "しょくじ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "後",
+      "sentence_index": 1,
+      "sentence_text": "食事の後で散歩に行きましょう。",
+      "token_index": 1,
+      "token_data": {
+        "text": "の"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "後",
+      "sentence_index": 1,
+      "sentence_text": "食事の後で散歩に行きましょう。",
+      "token_index": 2,
+      "token_data": {
+        "text": "後",
+        "furigana": "あと"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "後",
+      "sentence_index": 1,
+      "sentence_text": "食事の後で散歩に行きましょう。",
+      "token_index": 3,
+      "token_data": {
+        "text": "で"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "後",
+      "sentence_index": 1,
+      "sentence_text": "食事の後で散歩に行きましょう。",
+      "token_index": 4,
+      "token_data": {
+        "text": "散歩",
+        "furigana": "さんぽ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "後",
+      "sentence_index": 1,
+      "sentence_text": "食事の後で散歩に行きましょう。",
+      "token_index": 5,
+      "token_data": {
+        "text": "に"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "後",
+      "sentence_index": 1,
+      "sentence_text": "食事の後で散歩に行きましょう。",
+      "token_index": 6,
+      "token_data": {
+        "text": "行",
+        "furigana": "い"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "後",
+      "sentence_index": 1,
+      "sentence_text": "食事の後で散歩に行きましょう。",
+      "token_index": 7,
+      "token_data": {
+        "text": "きましょう"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "後",
+      "sentence_index": 2,
+      "sentence_text": "後で連絡します。",
+      "token_index": 0,
+      "token_data": {
+        "text": "後",
+        "furigana": "あと"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "後",
+      "sentence_index": 2,
+      "sentence_text": "後で連絡します。",
+      "token_index": 1,
+      "token_data": {
+        "text": "で"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "後",
+      "sentence_index": 2,
+      "sentence_text": "後で連絡します。",
+      "token_index": 2,
+      "token_data": {
+        "text": "連絡",
+        "furigana": "れんらく"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "後",
+      "sentence_index": 2,
+      "sentence_text": "後で連絡します。",
+      "token_index": 3,
+      "token_data": {
+        "text": "します"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "毎",
+      "sentence_index": 0,
+      "sentence_text": "私は毎日日本語を勉強します。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "毎",
+      "sentence_index": 0,
+      "sentence_text": "私は毎日日本語を勉強します。",
+      "token_index": 4,
+      "token_data": {
+        "text": "を",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "毎",
+      "sentence_index": 1,
+      "sentence_text": "毎朝ジョギングをします。",
+      "token_index": 1,
+      "token_data": {
+        "text": "ジョギング",
+        "english": "jogging"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "毎",
+      "sentence_index": 1,
+      "sentence_text": "毎朝ジョギングをします。",
+      "token_index": 2,
+      "token_data": {
+        "text": "を",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "毎",
+      "sentence_index": 1,
+      "sentence_text": "毎朝ジョギングをします。",
+      "token_index": 3,
+      "token_data": {
+        "text": "します",
+        "english": "do"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "毎",
+      "sentence_index": 2,
+      "sentence_text": "毎月新しい本を読んでいます。",
+      "token_index": 3,
+      "token_data": {
+        "text": "を",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "週",
+      "sentence_index": 0,
+      "sentence_text": "来週(らいしゅう)、京都(きょうと)に行(い)きます。",
+      "token_index": 0,
+      "token_data": {
+        "text": "来",
+        "furigana": "らい"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "週",
+      "sentence_index": 0,
+      "sentence_text": "来週(らいしゅう)、京都(きょうと)に行(い)きます。",
+      "token_index": 1,
+      "token_data": {
+        "text": "週",
+        "furigana": "しゅう"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "週",
+      "sentence_index": 0,
+      "sentence_text": "来週(らいしゅう)、京都(きょうと)に行(い)きます。",
+      "token_index": 2,
+      "token_data": {
+        "text": "、"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "週",
+      "sentence_index": 0,
+      "sentence_text": "来週(らいしゅう)、京都(きょうと)に行(い)きます。",
+      "token_index": 3,
+      "token_data": {
+        "text": "京都",
+        "furigana": "きょうと"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "週",
+      "sentence_index": 0,
+      "sentence_text": "来週(らいしゅう)、京都(きょうと)に行(い)きます。",
+      "token_index": 4,
+      "token_data": {
+        "text": "に"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "週",
+      "sentence_index": 0,
+      "sentence_text": "来週(らいしゅう)、京都(きょうと)に行(い)きます。",
+      "token_index": 5,
+      "token_data": {
+        "text": "行",
+        "furigana": "い"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "週",
+      "sentence_index": 0,
+      "sentence_text": "来週(らいしゅう)、京都(きょうと)に行(い)きます。",
+      "token_index": 6,
+      "token_data": {
+        "text": "きます"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "週",
+      "sentence_index": 1,
+      "sentence_text": "週(しゅう)に三回(さんかい)、運動(うんどう)します。",
+      "token_index": 0,
+      "token_data": {
+        "text": "週",
+        "furigana": "しゅう"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "週",
+      "sentence_index": 1,
+      "sentence_text": "週(しゅう)に三回(さんかい)、運動(うんどう)します。",
+      "token_index": 1,
+      "token_data": {
+        "text": "に"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "週",
+      "sentence_index": 1,
+      "sentence_text": "週(しゅう)に三回(さんかい)、運動(うんどう)します。",
+      "token_index": 2,
+      "token_data": {
+        "text": "三",
+        "furigana": "さん"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "週",
+      "sentence_index": 1,
+      "sentence_text": "週(しゅう)に三回(さんかい)、運動(うんどう)します。",
+      "token_index": 3,
+      "token_data": {
+        "text": "回",
+        "furigana": "かい"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "週",
+      "sentence_index": 1,
+      "sentence_text": "週(しゅう)に三回(さんかい)、運動(うんどう)します。",
+      "token_index": 4,
+      "token_data": {
+        "text": "、"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "週",
+      "sentence_index": 1,
+      "sentence_text": "週(しゅう)に三回(さんかい)、運動(うんどう)します。",
+      "token_index": 5,
+      "token_data": {
+        "text": "運動",
+        "furigana": "うんどう"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "週",
+      "sentence_index": 1,
+      "sentence_text": "週(しゅう)に三回(さんかい)、運動(うんどう)します。",
+      "token_index": 6,
+      "token_data": {
+        "text": "します"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "週",
+      "sentence_index": 2,
+      "sentence_text": "週末(しゅうまつ)に何(なに)をしますか。",
+      "token_index": 0,
+      "token_data": {
+        "text": "週",
+        "furigana": "しゅう"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "週",
+      "sentence_index": 2,
+      "sentence_text": "週末(しゅうまつ)に何(なに)をしますか。",
+      "token_index": 1,
+      "token_data": {
+        "text": "末",
+        "furigana": "まつ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "週",
+      "sentence_index": 2,
+      "sentence_text": "週末(しゅうまつ)に何(なに)をしますか。",
+      "token_index": 2,
+      "token_data": {
+        "text": "に"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "週",
+      "sentence_index": 2,
+      "sentence_text": "週末(しゅうまつ)に何(なに)をしますか。",
+      "token_index": 3,
+      "token_data": {
+        "text": "何",
+        "furigana": "なに"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "週",
+      "sentence_index": 2,
+      "sentence_text": "週末(しゅうまつ)に何(なに)をしますか。",
+      "token_index": 4,
+      "token_data": {
+        "text": "を"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "週",
+      "sentence_index": 2,
+      "sentence_text": "週末(しゅうまつ)に何(なに)をしますか。",
+      "token_index": 5,
+      "token_data": {
+        "text": "しますか"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "社",
+      "sentence_index": 0,
+      "sentence_text": "これは私の会社です。",
+      "token_index": 0,
+      "token_data": {
+        "text": "これ",
+        "english": "this"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "社",
+      "sentence_index": 0,
+      "sentence_text": "これは私の会社です。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "社",
+      "sentence_index": 0,
+      "sentence_text": "これは私の会社です。",
+      "token_index": 3,
+      "token_data": {
+        "text": "の",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "社",
+      "sentence_index": 0,
+      "sentence_text": "これは私の会社です。",
+      "token_index": 5,
+      "token_data": {
+        "text": "です",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "社",
+      "sentence_index": 1,
+      "sentence_text": "神社に行きました。",
+      "token_index": 2,
+      "token_data": {
+        "text": "に",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "社",
+      "sentence_index": 2,
+      "sentence_text": "彼は銀行員で、あの会社で働いています。",
+      "token_index": 1,
+      "token_data": {
+        "text": "は",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "社",
+      "sentence_index": 2,
+      "sentence_text": "彼は銀行員で、あの会社で働いています。",
+      "token_index": 3,
+      "token_data": {
+        "text": "で",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "社",
+      "sentence_index": 2,
+      "sentence_text": "彼は銀行員で、あの会社で働いています。",
+      "token_index": 4,
+      "token_data": {
+        "text": "あの",
+        "english": "that"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "社",
+      "sentence_index": 2,
+      "sentence_text": "彼は銀行員で、あの会社で働いています。",
+      "token_index": 6,
+      "token_data": {
+        "text": "で",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "午",
+      "sentence_index": 0,
+      "sentence_text": "午前の授業は9時に始まります。",
+      "token_index": 0,
+      "token_data": {
+        "text": "午前",
+        "furigana": "ごぜん"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "午",
+      "sentence_index": 0,
+      "sentence_text": "午前の授業は9時に始まります。",
+      "token_index": 1,
+      "token_data": {
+        "text": "の"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "午",
+      "sentence_index": 0,
+      "sentence_text": "午前の授業は9時に始まります。",
+      "token_index": 2,
+      "token_data": {
+        "text": "授業",
+        "furigana": "じゅぎょう"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "午",
+      "sentence_index": 0,
+      "sentence_text": "午前の授業は9時に始まります。",
+      "token_index": 3,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "午",
+      "sentence_index": 0,
+      "sentence_text": "午前の授業は9時に始まります。",
+      "token_index": 4,
+      "token_data": {
+        "text": "9",
+        "furigana": "く"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "午",
+      "sentence_index": 0,
+      "sentence_text": "午前の授業は9時に始まります。",
+      "token_index": 5,
+      "token_data": {
+        "text": "時",
+        "furigana": "じ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "午",
+      "sentence_index": 0,
+      "sentence_text": "午前の授業は9時に始まります。",
+      "token_index": 6,
+      "token_data": {
+        "text": "に"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "午",
+      "sentence_index": 0,
+      "sentence_text": "午前の授業は9時に始まります。",
+      "token_index": 7,
+      "token_data": {
+        "text": "始",
+        "furigana": "はじ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "午",
+      "sentence_index": 0,
+      "sentence_text": "午前の授業は9時に始まります。",
+      "token_index": 8,
+      "token_data": {
+        "text": "まります。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "午",
+      "sentence_index": 1,
+      "sentence_text": "午後の予定は何ですか。",
+      "token_index": 0,
+      "token_data": {
+        "text": "午後",
+        "furigana": "ごご"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "午",
+      "sentence_index": 1,
+      "sentence_text": "午後の予定は何ですか。",
+      "token_index": 1,
+      "token_data": {
+        "text": "の"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "午",
+      "sentence_index": 1,
+      "sentence_text": "午後の予定は何ですか。",
+      "token_index": 2,
+      "token_data": {
+        "text": "予定",
+        "furigana": "よてい"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "午",
+      "sentence_index": 1,
+      "sentence_text": "午後の予定は何ですか。",
+      "token_index": 3,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "午",
+      "sentence_index": 1,
+      "sentence_text": "午後の予定は何ですか。",
+      "token_index": 4,
+      "token_data": {
+        "text": "何",
+        "furigana": "なん"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "午",
+      "sentence_index": 1,
+      "sentence_text": "午後の予定は何ですか。",
+      "token_index": 5,
+      "token_data": {
+        "text": "ですか。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "午",
+      "sentence_index": 2,
+      "sentence_text": "正午に会いましょう。",
+      "token_index": 0,
+      "token_data": {
+        "text": "正午",
+        "furigana": "しょうご"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "午",
+      "sentence_index": 2,
+      "sentence_text": "正午に会いましょう。",
+      "token_index": 1,
+      "token_data": {
+        "text": "に"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "午",
+      "sentence_index": 2,
+      "sentence_text": "正午に会いましょう。",
+      "token_index": 2,
+      "token_data": {
+        "text": "会",
+        "furigana": "あ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "午",
+      "sentence_index": 2,
+      "sentence_text": "正午に会いましょう。",
+      "token_index": 3,
+      "token_data": {
+        "text": "いましょう。"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "田",
+      "sentence_index": 0,
+      "sentence_text": "あの広い田んぼを見てください。",
+      "token_index": 0,
+      "token_data": {
+        "text": "あの",
+        "english": "that"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "田",
+      "sentence_index": 0,
+      "sentence_text": "あの広い田んぼを見てください。",
+      "token_index": 3,
+      "token_data": {
+        "text": "を",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "田",
+      "sentence_index": 0,
+      "sentence_text": "あの広い田んぼを見てください。",
+      "token_index": 5,
+      "token_data": {
+        "text": "ください",
+        "english": "please"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "田",
+      "sentence_index": 1,
+      "sentence_text": "田中さんの家は田舎にあります。",
+      "token_index": 1,
+      "token_data": {
+        "text": "さん",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "田",
+      "sentence_index": 1,
+      "sentence_text": "田中さんの家は田舎にあります。",
+      "token_index": 2,
+      "token_data": {
+        "text": "の",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "田",
+      "sentence_index": 1,
+      "sentence_text": "田中さんの家は田舎にあります。",
+      "token_index": 4,
+      "token_data": {
+        "text": "は",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "田",
+      "sentence_index": 1,
+      "sentence_text": "田中さんの家は田舎にあります。",
+      "token_index": 6,
+      "token_data": {
+        "text": "に",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "田",
+      "sentence_index": 1,
+      "sentence_text": "田中さんの家は田舎にあります。",
+      "token_index": 7,
+      "token_data": {
+        "text": "あります",
+        "english": "is"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "田",
+      "sentence_index": 2,
+      "sentence_text": "この田で米が作られています。",
+      "token_index": 0,
+      "token_data": {
+        "text": "この",
+        "english": "this"
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "田",
+      "sentence_index": 2,
+      "sentence_text": "この田で米が作られています。",
+      "token_index": 2,
+      "token_data": {
+        "text": "で",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "田",
+      "sentence_index": 2,
+      "sentence_text": "この田で米が作られています。",
+      "token_index": 4,
+      "token_data": {
+        "text": "が",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "田",
+      "sentence_index": 2,
+      "sentence_text": "この田で米が作られています。",
+      "token_index": 6,
+      "token_data": {
+        "text": "います",
+        "english": null
+      },
+      "missing_keys": [
+        "furigana"
+      ]
+    },
+    {
+      "character": "内",
+      "sentence_index": 0,
+      "sentence_text": "家の中は暖かいです。",
+      "token_index": 0,
+      "token_data": {
+        "text": "家",
+        "furigana": "いえ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "内",
+      "sentence_index": 0,
+      "sentence_text": "家の中は暖かいです。",
+      "token_index": 1,
+      "token_data": {
+        "text": "の"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "内",
+      "sentence_index": 0,
+      "sentence_text": "家の中は暖かいです。",
+      "token_index": 2,
+      "token_data": {
+        "text": "中",
+        "furigana": "なか"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "内",
+      "sentence_index": 0,
+      "sentence_text": "家の中は暖かいです。",
+      "token_index": 3,
+      "token_data": {
+        "text": "は"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "内",
+      "sentence_index": 0,
+      "sentence_text": "家の中は暖かいです。",
+      "token_index": 4,
+      "token_data": {
+        "text": "暖",
+        "furigana": "あたた"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "内",
+      "sentence_index": 0,
+      "sentence_text": "家の中は暖かいです。",
+      "token_index": 5,
+      "token_data": {
+        "text": "かいです"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "内",
+      "sentence_index": 1,
+      "sentence_text": "バッグの中に何が入っていますか。",
+      "token_index": 0,
+      "token_data": {
+        "text": "バッグ"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "内",
+      "sentence_index": 1,
+      "sentence_text": "バッグの中に何が入っていますか。",
+      "token_index": 1,
+      "token_data": {
+        "text": "の"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "内",
+      "sentence_index": 1,
+      "sentence_text": "バッグの中に何が入っていますか。",
+      "token_index": 2,
+      "token_data": {
+        "text": "中",
+        "furigana": "なか"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "内",
+      "sentence_index": 1,
+      "sentence_text": "バッグの中に何が入っていますか。",
+      "token_index": 3,
+      "token_data": {
+        "text": "に"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "内",
+      "sentence_index": 1,
+      "sentence_text": "バッグの中に何が入っていますか。",
+      "token_index": 4,
+      "token_data": {
+        "text": "何",
+        "furigana": "なに"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "内",
+      "sentence_index": 1,
+      "sentence_text": "バッグの中に何が入っていますか。",
+      "token_index": 5,
+      "token_data": {
+        "text": "が"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "内",
+      "sentence_index": 1,
+      "sentence_text": "バッグの中に何が入っていますか。",
+      "token_index": 6,
+      "token_data": {
+        "text": "入",
+        "furigana": "はい"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "内",
+      "sentence_index": 1,
+      "sentence_text": "バッグの中に何が入っていますか。",
+      "token_index": 7,
+      "token_data": {
+        "text": "っていますか"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "内",
+      "sentence_index": 2,
+      "sentence_text": "３日以内に返事をします。",
+      "token_index": 0,
+      "token_data": {
+        "text": "３"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "内",
+      "sentence_index": 2,
+      "sentence_text": "３日以内に返事をします。",
+      "token_index": 1,
+      "token_data": {
+        "text": "日",
+        "furigana": "にち"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "内",
+      "sentence_index": 2,
+      "sentence_text": "３日以内に返事をします。",
+      "token_index": 2,
+      "token_data": {
+        "text": "以内",
+        "furigana": "いない"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "内",
+      "sentence_index": 2,
+      "sentence_text": "３日以内に返事をします。",
+      "token_index": 3,
+      "token_data": {
+        "text": "に"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    },
+    {
+      "character": "内",
+      "sentence_index": 2,
+      "sentence_text": "３日以内に返事をします。",
+      "token_index": 4,
+      "token_data": {
+        "text": "返事",
+        "furigana": "へんじ"
+      },
+      "missing_keys": [
+        "english"
+      ]
+    },
+    {
+      "character": "内",
+      "sentence_index": 2,
+      "sentence_text": "３日以内に返事をします。",
+      "token_index": 5,
+      "token_data": {
+        "text": "をします"
+      },
+      "missing_keys": [
+        "furigana",
+        "english"
+      ]
+    }
+  ],
+  "records": []
+}

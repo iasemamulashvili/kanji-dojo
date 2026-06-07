@@ -8,7 +8,9 @@
     "db:seed": "ts-node scripts/seed-kanji.ts",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check-status": "node scripts/check-status.js",
+    "populate-all": "node scripts/populate-all.js"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
